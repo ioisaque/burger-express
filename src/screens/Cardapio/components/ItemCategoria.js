@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from '../styles';
-import LineSeparator from '~/components/LineSeparator'
 import commonStyles from '~/assets/styles/commonStyles';
+
+import { LineSeparator } from '~/components/styledComponents'
 
 export default props => {
     return (
@@ -18,7 +20,7 @@ export default props => {
                     name={props.icon}
                 />
             </View>
-            <LineSeparator/>
+            <LineSeparator />
         </TouchableOpacity>
     )
 }

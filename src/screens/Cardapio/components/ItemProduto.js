@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
 import styles from '../styles';
-import LineSeparator from '~/components/LineSeparator'
+import { LineSeparator } from '~/components/styledComponents'
 
 export default props => {
     return (
@@ -13,7 +13,7 @@ export default props => {
             </View>
             {props.descricao ? <Text style={styles.itemDescrip}>{capOnlyFirstLetter(props.descricao)}</Text> : null}
 
-            <LineSeparator/>
+            <LineSeparator />
         </TouchableOpacity>
     )
 }

@@ -1,4 +1,3 @@
-import { Dimensions } from 'react-native';
 import commonStyles from '~/assets/styles/commonStyles';
 
 export default {

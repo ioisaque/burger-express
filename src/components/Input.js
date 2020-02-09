@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import PropTypes from 'prop-types';
-import commonStyles from '~/assets/styles/commonStyles'
 
-import { InputContainer, InputText } from './styles';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
+import commonStyles from '~/assets/styles/commonStyles'
+import { InputContainer, InputText } from './styledComponents';
 
 function Input({ style, icon, ...rest }, ref) {
     return (

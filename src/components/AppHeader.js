@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
 
-import { styles } from './styles';
+import { styles } from './styledComponents';
 import commonStyles from '~/assets/styles/commonStyles';
 
 export default props => {
@@ -40,7 +40,8 @@ export default props => {
                     source={commonStyles.logos.x}
                     resizeMode="contain"
                 />
-                <Text style={styles.headerTitle}>{props.title}</Text>
+                {props.component}
+                {props.title && <Text style={styles.headerTitle}>{props.title}</Text>}
             </View>
         )
 }

@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react'
+import { View, TouchableOpacity, Text } from 'react-native'
+
 import { parseISO, formatRelative } from 'date-fns'
 import pt from 'date-fns/locale/pt'
-import { View, TouchableOpacity, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from '../styles';
-import LineSeparator from '~/components/LineSeparator'
 import commonStyles from '~/assets/styles/commonStyles';
+
+import { LineSeparator } from '~/components/styledComponents'
 
 export default props => {
 
@@ -18,18 +20,18 @@ export default props => {
     }, [props.data_hora])
 
     return (
-        <TouchableOpacity onPress={props.onPress} style={styles.queueWrapper}>
-            <View style={styles.queueContent}>
-                <View style={styles.queueHeader}>
+        <TouchableOpacity onPress={props.onPress} style={styles.FilaWrapper}>
+            <View style={styles.FilaContent}>
+                <View style={styles.FilaHeader}>
                     <Icon
                         size={40}
                         style={{ marginBottom: -18 }}
                         color={(props.status == 1) ? commonStyles.colors.info : (props.status == 3) ? commonStyles.colors.success : commonStyles.colors.warning}
                         name={props.status == 2 ? `clock-outline` : `check-all`}
                     />
-                    <Text style={styles.queueTitle}>Pedido Nº {leftPad(props.id, 3)}</Text>
+                    <Text style={styles.FilaTitle}>Pedido Nº {leftPad(props.id, 3)}</Text>
                 </View>
-                <Text style={styles.queueData}>{dateParsed}</Text>
+                <Text style={styles.FilaData}>{dateParsed}</Text>
             </View>
             <LineSeparator />
         </TouchableOpacity>

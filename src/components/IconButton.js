@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import commonStyles from '~/assets/styles/commonStyles'
 
-import { ButtonContainer } from './styles';
+import { ButtonContainer } from './styledComponents';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Button({ icon, ...rest }) {

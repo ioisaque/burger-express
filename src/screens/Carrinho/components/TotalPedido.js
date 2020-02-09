@@ -1,12 +1,26 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import styles from '../styles'
-import { TotalOverLine } from '~/components/styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
+import styles from '../styles'
 import commonStyles from '~/assets/styles/commonStyles'
 
-export default props => {
+import { TotalOverLine } from '~/components/styledComponents'
+
+export default function TotalPedido({ pedido }) {
+
+    let valor_total = 0;
+
+    pedido.items.map(item => {
+        valor_total += parseFloat(item.qtd * item.valor_venda)
+
+        if (item.adicionais.length > 0)
+            item.adicionais.map(item => {
+                valor_total += parseFloat(item.qtd * item.valor_venda)
+            })
+    })
+
     return (
         <View style={styles.totalWrapper}>
             <TotalOverLine />
@@ -16,7 +30,7 @@ export default props => {
                     <Text style={styles.totalTitle}>Total do Pedido</Text>
                     <Icon name="arrow-right-bold" size={20} color={commonStyles.colors.black} />
                 </View>
-                <Text style={styles.totalPrice}>{floatToReais(props.valor_pago)}</Text>
+                <Text style={styles.totalPrice}>{floatToReais(valor_total)}</Text>
             </View>
         </View>
     )

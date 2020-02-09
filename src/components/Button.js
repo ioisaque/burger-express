@@ -1,17 +1,20 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import PropTypes from 'prop-types';
-import commonStyles from '~/assets/styles/commonStyles'
 
-import { ButtonContainer, ButtonText } from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import PropTypes from 'prop-types';
+
+import commonStyles from '~/assets/styles/commonStyles'
+import {
+    ButtonContainer, 
+    ButtonText,
+} from './styledComponents';
 
 export default function Button({ children, loading, ...rest }) {
     return (
         <ButtonContainer {...rest}>
-            { loading ?
+            {loading ?
                 <ActivityIndicator size="small" color={commonStyles.colors.white} />
-                : <ButtonText>{children}</ButtonText> }
+                : <ButtonText>{children}</ButtonText>}
         </ButtonContainer>
     );
 }

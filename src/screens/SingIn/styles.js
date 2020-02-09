@@ -1,7 +1,7 @@
 import {
-    StyleSheet, Dimensions,
+    Dimensions,
 } from 'react-native';
-import commonStyles from '../../assets/styles/commonStyles';
+import commonStyles from '~/assets/styles/commonStyles';
 
 export default {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -3,27 +3,27 @@ import commonStyles from '~/assets/styles/commonStyles';
 export default {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    queueWrapper: {
+    FilaWrapper: {
         flex: 1,
         marginVertical: 8,
     },
-    queueContent: {
+    FilaContent: {
         width: '100%',
         marginBottom: 5,
         paddingHorizontal: 15,
     },
-    queueHeader: {
+    FilaHeader: {
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'space-between',
     },
-    queueTitle: {
+    FilaTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         color: commonStyles.colors.black,
     },
-    queueData: {
+    FilaData: {
         fontSize: 16,
         alignSelf: 'flex-end',
         color: commonStyles.colors.black,

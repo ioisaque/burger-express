@@ -1,7 +1,22 @@
 import { Dimensions, Platform } from 'react-native';
-import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler'
+
+import styled from 'styled-components/native';
+
 import commonStyles from '~/assets/styles/commonStyles';
+
+export const AppWrap = styled.ImageBackground.attrs({
+    source: commonStyles.logos.background,
+    resizeMode: 'contain',
+    opacity: 0.05,
+    backgroundColor: commonStyles.colors.lightGrey
+})`
+    flex: 1;
+`
+
+export const AppBody = styled.View`
+    padding: 10px 15px;
+`;
 
 export const AppWrapCentered = styled.View.attrs({
     backgroundColor: commonStyles.colors.lightGrey
@@ -14,40 +29,57 @@ export const InputContainer = styled.KeyboardAvoidingView.attrs({
     enabled: Platform.OS === 'ios',
     behavior: 'padding',
 })`
-  padding: 0 15px;
-  height: 45px;
-  margin-bottom: 10px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+    padding: 0 15px;
+    height: 45px;
+    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 
-  flex-direction: row;
-  align-items: center;
+    flex-direction: row;
+    align-items: center;
 `;
 
 export const InputText = styled.TextInput.attrs({
     placeholderTextColor: "#646464",
 })`
-  flex: 1;
-  color: #232323;
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 10px;
+    flex: 1;
+    color: #232323;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
 `;
 
 export const ButtonContainer = styled(RectButton)`
-  height: 45px;
-  padding: 0 5px;
-  margin-bottom: 10px;
-  background: #FF6600;
-  border-radius: 4px;
+    height: 45px;
+    padding: 0 5px;
+    margin-bottom: 10px;
+    background: #FF6600;
+    border-radius: 4px;
 
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 `;
-
 export const ButtonText = styled.Text`
     color: #fff;
     font-size: 14px;
+    font-weight: bold;
+`;
+
+export const ArrowButtonContainer = styled(RectButton)`
+    height: 45px;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    background-color: rgba(0,0,0, 0.05);
+    border-radius: 4px;
+
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+`;
+export const ArrowButtonText = styled.Text`
+    color: #000;
+    font-size: 17px;
     font-weight: bold;
 `;
 
@@ -86,9 +118,9 @@ export const styles = {
     },
     headerFOTO: {
         margin: 10,
-        borderRadius: 40,
-        width: Dimensions.get("window").width * 0.33,
-        minHeight: Dimensions.get("window").width * 0.33,
+        borderRadius: 999,
+        width: Dimensions.get("window").width * 0.30,
+        minHeight: Dimensions.get("window").width * 0.30,
     },
     headerTitle: {
         margin: 5,
@@ -124,6 +156,23 @@ export const styles = {
 
     inputTextWrapper: {
         marginBottom: 10,
+    },
+
+    xIcon: {
+        width: 25,
+        height: 25,
+    },
+
+    boldText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: commonStyles.colors.black,
+    },
+    inlineItems: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'space-around',
     },
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

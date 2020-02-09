@@ -1,13 +1,18 @@
 import React, { useRef, useState } from 'react';
 
 import api from '~/services/api';
-import AppWrap from '~/components/AppWrap';
+
+import commonStyles from '~/assets/styles/commonStyles';
+
+import {
+    AppWrap,
+    AppBody,
+} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
-import AppBody from '~/components/AppBody';
 
 import Input from '~/components/Input'
 import Button from '~/components/Button'
-import commonStyles from '~/assets/styles/commonStyles';
+
 
 export default function EditarEndereco({ navigation }) {
 

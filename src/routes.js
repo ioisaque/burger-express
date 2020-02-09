@@ -8,8 +8,9 @@ import SingIn from '~/screens/SingIn/SingIn';
 import Perfil from '~/screens/Perfil/Perfil';
 import EditarEndereco from '~/screens/Perfil/EditarEndereco';
 
-import Queue from '~/screens/Queue/Queue';
-import DetalhesPedido from '~/screens/Queue/DetalhesPedido';
+import Fila from '~/screens/Home/Fila';
+import Carrinho from '~/screens/Carrinho/Carrinho';
+import DetalhesPedido from '~/screens/Home/DetalhesPedido';
 
 import Categorias from '~/screens/Cardapio/Categorias';
 import Items from '~/screens/Cardapio/Items';
@@ -34,12 +35,13 @@ PerfilStack.navigationOptions = {
     ),
 };
 
-const QueueStack = createStackNavigator({
-    Queue: Queue,
+const HomeStack = createStackNavigator({
+    Fila: Fila,
+    Carrinho: Carrinho,
     DetalhesPedido: DetalhesPedido,
 });
 
-QueueStack.navigationOptions = {
+HomeStack.navigationOptions = {
     // tabBarLabel: 'Pedidos na Fila',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
@@ -72,7 +74,7 @@ export default createAppContainer(
         }),
         App: createBottomTabNavigator({
             Perfil: PerfilStack,
-            Queue: QueueStack,
+            Home: HomeStack,
             Cardapio: CardapioStack,
         }, {
             tabBarOptions: {
@@ -86,7 +88,7 @@ export default createAppContainer(
             resetOnBlur: true,
             swipeEnabled: true,
             animationEnabled: true,
-            initialRouteName: 'Queue',
+            initialRouteName: 'Home',
         })
     },{
         initialRouteName: 'App',

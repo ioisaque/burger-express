@@ -1,19 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import api from '~/services/api';
-import AppWrap from '~/components/AppWrap';
-import AppHeader from '~/components/AppHeader';
-import AppBody from '~/components/AppBody';
+
+import commonStyles from '~/assets/styles/commonStyles';
+import {
+    AppWrap,
+    AppBody,
+    LineSeparator,
+} from '~/components/styledComponents';
 import AppLoding from '~/components/AppLoding';
+import AppHeader from '~/components/AppHeader';
 
 import Input from '~/components/Input'
 import Button from '~/components/Button'
-
 import ItemEndereco from './components/ItemEndereco'
-import LineSeparator from '~/components/LineSeparator'
 
-import commonStyles from '~/assets/styles/commonStyles';
 
 export default function Perfil({ navigation }) {
 
@@ -109,17 +111,19 @@ export default function Perfil({ navigation }) {
                 <LineSeparator />
 
                 <FlatList
+                    style={{marginBottom: 30}}
                     data={cliente.enderecos}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => <ItemEndereco onPress={() => {
-                        this.props.navigation.navigate('EditarEndereco', { endereco: item })
+                        navigation.navigate('EditarEndereco', { endereco: item })
                     }} {...item} />}
+                    showsVerticalScrollIndicator={false}
                 />
 
             </AppBody>
         </AppWrap>
     ) : (
-            <AppLoding color={commonStyles.colors.black}/>
+            <AppLoding color={commonStyles.colors.black} />
         );
 }
 

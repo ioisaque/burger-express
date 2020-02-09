@@ -2,7 +2,7 @@ import React from 'react';
 import '~/config/StatusBarConfig';
 import '~/config/ReactotronConfig';
 
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 
 // import store from '~/store'
 import Routes from '~/routes';

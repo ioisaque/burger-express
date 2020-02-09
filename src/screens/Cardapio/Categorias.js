@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 
 import api from '~/services/api';
-import AppWrap from '~/components/AppWrap';
+
+import {
+    AppWrap,
+    AppBody,
+} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
-import AppBody from '~/components/AppBody';
 
 import ItemCategoria from './components/ItemCategoria';
 

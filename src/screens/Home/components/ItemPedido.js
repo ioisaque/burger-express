@@ -2,7 +2,8 @@ import React from 'react'
 import { View, Text, FlatList } from 'react-native'
 
 import styles from '../styles'
-import LineSeparator from '~/components/LineSeparator'
+import { LineSeparator } from '~/components/styledComponents'
+
 import ItemAdicional from '~/screens/Carrinho/components/ItemAdicionalInfo'
 
 export default props => {

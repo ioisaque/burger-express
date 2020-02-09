@@ -1,11 +1,8 @@
 import React from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import LineSeparator from '~/components/LineSeparator'
+import { View, Text } from 'react-native'
 
 import styles from '../styles';
-import commonStyles from '~/assets/styles/commonStyles';
+import { LineSeparator } from '~/components/styledComponents'
 
 export default props => {
     return (

@@ -23,17 +23,19 @@ export default {
       success: '#2f8417',
       warning: '#f1b701',
       neutral: '#646464',
+      transparent: 'transparent',
   
       facebook: '#29487d',
     },
     logos:{
-        x: require('../../assets/imgs/logo_x.png'),
-        full: require('../../assets/imgs/logo_full.png'),
-        burger: require('../../assets/imgs/logo_burger.png'),
+        x: require('~/assets/imgs/logo_x.png'),
+        full: require('~/assets/imgs/logo_full.png'),
+        burger: require('~/assets/imgs/logo_burger.png'),
+        background: require('~/assets/imgs/background.png'),
     },
     placeholders:{
-        user: require('../../assets/imgs/user_placeholder.png'),
-        categoria: require('../../assets/imgs/user_placeholder.png'),
+        user: require('~/assets/imgs/user_placeholder.png'),
+        categoria: require('~/assets/imgs/user_placeholder.png'),
     },
     ///////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// CALENDAR ///////////////////////////////////  

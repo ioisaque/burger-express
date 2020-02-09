@@ -1,11 +1,13 @@
 import React from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, FlatList, TouchableOpacity, Text } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from '../styles';
 import commonStyles from '~/assets/styles/commonStyles';
 import { LineSeparator } from '~/components/styledComponents'
+
+import ItemAdicional from '../components/ItemAdicionalInfo'
 
 export default props => {
     return (
@@ -37,6 +39,14 @@ export default props => {
             </View>
 
             <LineSeparator />
+
+            {props.adicionais &&
+                <FlatList
+                    data={props.adicionais}
+                    keyExtractor={item => item.id_adc}
+                    renderItem={({ item }) => <ItemAdicional {...item} />}
+                />
+            }
 
         </View>
     )

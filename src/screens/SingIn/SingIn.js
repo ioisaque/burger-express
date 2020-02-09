@@ -4,7 +4,7 @@ import FBSDK, { LoginManager, AccessToken } from 'react-native-fbsdk'
 
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import commonStyles from '../../assets/styles/commonStyles';
+import commonStyles from '~/assets/styles/commonStyles';
 
 export default function SignIn() {
 

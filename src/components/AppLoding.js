@@ -1,8 +1,9 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
+import { ActivityIndicator } from 'react-native';
+
 import PropTypes from 'prop-types';
 
-import { AppWrapCentered } from './styles';
+import { AppWrapCentered } from './styledComponents';
 
 export default function AppLoding({ color, ...rest }) {
     return (

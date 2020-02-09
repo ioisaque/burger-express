@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import commonStyles from '../assets/styles/commonStyles';
 
 export default props => {
