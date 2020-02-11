@@ -7,7 +7,7 @@ import styles from '../styles';
 import commonStyles from '~/assets/styles/commonStyles';
 import { LineSeparator } from '~/components/styledComponents'
 
-import ItemAdicional from '../components/ItemAdicionalInfo'
+import ItemAdicional from '../components/ItemAdicional'
 
 export default props => {
     return (

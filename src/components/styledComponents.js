@@ -5,16 +5,22 @@ import styled from 'styled-components/native';
 
 import commonStyles from '~/assets/styles/commonStyles';
 
-export const AppWrap = styled.ImageBackground.attrs({
-    source: commonStyles.logos.background,
+export const ImageBgWrap = styled.ImageBackground.attrs({
+    source: commonStyles.imgs.background,
     resizeMode: 'contain',
-    opacity: 0.05,
+    opacity: 0.1,
     backgroundColor: commonStyles.colors.lightGrey
 })`
     flex: 1;
-`
+`;
 
-export const AppBody = styled.View`
+export const AppWrap = styled.SafeAreaView.attrs({
+    backgroundColor: commonStyles.colors.lightGrey
+})`
+    flex: 1;
+`;
+
+export const AppBody = styled.ScrollView`
     padding: 10px 15px;
 `;
 

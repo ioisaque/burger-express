@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, Picker } from 'react-native';
+import { FlatList } from 'react-native';
 
 import api from '~/services/api';
 
@@ -29,12 +29,16 @@ export default function Carrinho({ navigation }) {
         let nPedido = pedido;
         let index = nPedido.items.indexOf(item);
 
-        nPedido.items[index].qtd = value >= 0 ? value : 0;
+        if (value >= 1)
+            nPedido.items[index].qtd = value;
+        else
+            nPedido.items.splice( index, 1 );
 
         setPedido(nPedido);
         setRefresh(!refresh);
 
-        console.log("Pedido ==> ", pedido)
+        if (pedido.items.length == 0)
+            navigation.navigate('Fila');
     }
 
     return (
@@ -67,17 +71,28 @@ export default function Carrinho({ navigation }) {
                     style={{ marginTop: 5 }}
                     icon='cash'
                     iconColor={commonStyles.colors.success}
-                    onSubmitEditing={() => handleRemove}>Pagar em Dinheiro</ArrowButton>
+                    enabled={true}
+                    onPress={() => navigation.navigate('SelecionarPagamento')}>Pagar em Dinheiro</ArrowButton>
+
+                {pagamento == 'dinheiro' && <LineSeparator />}
+                {pagamento == 'dinheiro' && <Input
+                    icon="cash-refund"
+                    iconSize={30}
+                    iconColor={commonStyles.colors.success}
+                    value={pedido.troco}
+                    style={{ marginVertical: 10 }}
+                    placeholder="Precisará de troco?" />}
 
                 <LineSeparator />
 
                 <ArrowButton
                     style={{ marginTop: 5 }}
                     icon='logoX'
-                    onSubmitEditing={() => handleRemove}>Entrega em Palmeiras, 39</ArrowButton>
+                    enabled={true}
+                    onPress={() => navigation.navigate('SelecionarEndereco')}>Entrega em Palmeiras, 39</ArrowButton>
 
                 <Button
-                    style={{ marginTop: 30 }}
+                    style={{ marginTop: 10 }}
                     onSubmitEditing={() => handleRemove}
                     backgroundColor={commonStyles.colors.success}>FINALIZAR PEDIDO</Button>
             </AppBody>

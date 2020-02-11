@@ -43,7 +43,7 @@ export default function SignIn() {
     <View style={styles.loginContainer}>
       <StatusBar barStyle="dark-content" backgroundColor={commonStyles.colors.gold} />
       <Image
-        source={commonStyles.logos.full}
+        source={commonStyles.imgs.full}
         style={styles.loginLogo}
         resizeMode="contain"
       />

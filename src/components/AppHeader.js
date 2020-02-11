@@ -21,7 +21,7 @@ export default props => {
             <View style={styles.headerContainerStraight}>
                 <Image
                     style={styles.headerLOGO}
-                    source={commonStyles.logos.x}
+                    source={commonStyles.imgs.x}
                     resizeMode="contain"
                 />
 
@@ -37,7 +37,7 @@ export default props => {
             <View style={styles.headerContainer}>
                 <Image
                     style={styles.headerLOGO}
-                    source={commonStyles.logos.x}
+                    source={commonStyles.imgs.x}
                     resizeMode="contain"
                 />
                 {props.component}

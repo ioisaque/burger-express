@@ -4,7 +4,7 @@ import { View, Text, FlatList } from 'react-native'
 import styles from '../styles'
 import { LineSeparator } from '~/components/styledComponents'
 
-import ItemAdicional from '~/screens/Carrinho/components/ItemAdicionalInfo'
+import ItemAdicionalInfo from '~/screens/Home/Carrinho/components/ItemAdicionalInfo'
 
 export default props => {
     return (
@@ -21,7 +21,7 @@ export default props => {
                 <FlatList
                     data={props.adicionais}
                     keyExtractor={item => item.id_adc}
-                    renderItem={({ item }) => <ItemAdicional {...item} />}
+                    renderItem={({ item }) => <ItemAdicionalInfo {...item} />}
                 />
             }
         </View>

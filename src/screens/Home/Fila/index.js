@@ -25,6 +25,22 @@ function Fila({ navigation, isFocused }) {
             const response = await api.get(`/getPedidosQueueByCliente.php?id_cliente=${1}&id_loja=${1}`)
             const { lista } = response.data;
 
+            // Calculando valor total de todos os pedidos
+            lista.map( pedido => {
+                let valor_total = 0;
+
+                pedido.items.map(item => {
+                    valor_total += parseFloat(item.qtd * item.valor_venda)
+            
+                    if (item.adicionais.length > 0)
+                        item.adicionais.map(item => {
+                            valor_total += parseFloat(item.qtd * item.valor_venda)
+                        })
+                })
+
+                pedido.valor_total = valor_total
+            })
+
             setPedidos(lista);
         }
 
@@ -37,7 +53,7 @@ function Fila({ navigation, isFocused }) {
             <AppHeader
                 component={
                     <CartButton
-                        count={pedidos.length}
+                        count={pedidos[0].items.length}
                         onPress={() => {
                             navigation.navigate('Carrinho', { pedido: pedidos[0] })
                         }}

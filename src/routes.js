@@ -3,18 +3,22 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import SingIn from '~/screens/SingIn/SingIn';
+import SingIn from '~/screens/Login/SingIn';
 
-import Perfil from '~/screens/Perfil/Perfil';
+import Perfil from '~/screens/Perfil/';
 import EditarEndereco from '~/screens/Perfil/EditarEndereco';
 
 import Fila from '~/screens/Home/Fila';
-import Carrinho from '~/screens/Carrinho/Carrinho';
-import DetalhesPedido from '~/screens/Home/DetalhesPedido';
+import DetalhesPedido from '~/screens/Home/Fila/DetalhesPedido';
+
+import Carrinho from '~/screens/Home/Carrinho';
+import SelecionarEndereco from '~/screens/Home/Carrinho/SelecionarEndereco';
+import SelecionarPagamento from '~/screens/Home/Carrinho/SelecionarPagamento';
+
 
 import Categorias from '~/screens/Cardapio/Categorias';
 import Items from '~/screens/Cardapio/Items';
-import Adicionais from '~/screens/Carrinho/EditarItem';
+import Adicionais from '~/screens/Home/Carrinho/EditarItem';
 
 
 import TabBarIcon from '~/components/TabBarIcon';
@@ -26,7 +30,7 @@ const PerfilStack = createStackNavigator({
 });
 
 PerfilStack.navigationOptions = {
-    // tabBarLabel: 'Meu Perfil',
+    tabBarLabel: 'Meu Perfil',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             icon={'account'}
@@ -37,12 +41,14 @@ PerfilStack.navigationOptions = {
 
 const HomeStack = createStackNavigator({
     Fila: Fila,
-    Carrinho: Carrinho,
     DetalhesPedido: DetalhesPedido,
+    Carrinho: Carrinho,
+    SelecionarEndereco: SelecionarEndereco,
+    SelecionarPagamento: SelecionarPagamento,
 });
 
 HomeStack.navigationOptions = {
-    // tabBarLabel: 'Pedidos na Fila',
+    tabBarLabel: 'Pedidos',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             icon={'food'}
@@ -58,7 +64,7 @@ const CardapioStack = createStackNavigator({
 });
 
 CardapioStack.navigationOptions = {
-    // tabBarLabel: 'Cardápio',
+    tabBarLabel: 'Cardápio',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             icon={'book-open-page-variant'}
@@ -79,8 +85,11 @@ export default createAppContainer(
         }, {
             tabBarOptions: {
                 showIcon: true,
-                showLabel: false,
-                activeTintColor: commonStyles.colors.black,
+                showLabel: true,
+                labelStyle: {
+                    fontWeight: 'bold',
+                },
+                activeTintColor: commonStyles.colors.white,
                 inactiveTintColor: commonStyles.colors.black,
                 activeBackgroundColor: commonStyles.colors.red,
                 inactiveBackgroundColor: commonStyles.colors.gold

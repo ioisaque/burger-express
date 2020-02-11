@@ -56,7 +56,7 @@ export default function Perfil({ navigation }) {
         <AppWrap>
             <AppHeader
                 nome={cliente.nome}
-                foto={cliente.facebookID ? { uri: `https://graph.facebook.com/${cliente.facebookID}/picture?type=large` } : commonStyles.placeholders.user} />
+                foto={cliente.facebookID ? { uri: `https://graph.facebook.com/${cliente.facebookID}/picture?type=large` } : commonStyles.imgs.user} />
             <AppBody>
 
                 <Input
