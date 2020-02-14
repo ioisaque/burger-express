@@ -1,4 +1,4 @@
-import { StatusBar } from 'react-native';
+import {StatusBar} from 'react-native';
 import commonStyles from '~/assets/styles/commonStyles';
 
 StatusBar.setBackgroundColor(commonStyles.colors.gold);
