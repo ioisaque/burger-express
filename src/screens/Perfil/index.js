@@ -1,133 +1,185 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { FlatList, View } from 'react-native';
+import React, {useRef, useState, useEffect} from 'react';
+import {Alert, Platform, View} from 'react-native';
 
 import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
-import {
-    AppWrap,
-    AppBody,
-    LineSeparator,
-} from '~/components/styledComponents';
-import AppLoding from '~/components/AppLoding';
+import {AppWrap, AppBody, LineSeparator} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
+import ItemList from '~/components/ItemList';
 
-import Input from '~/components/Input'
-import Button from '~/components/Button'
-import ItemEndereco from './components/ItemEndereco'
+import Input from '~/components/Input';
+import Button from '~/components/Button';
+import ItemEndereco from './components/ItemEndereco';
 
+export default function Perfil({navigation}) {
+  const [cliente, setCliente] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-export default function Perfil({ navigation }) {
+  useEffect(() => {
+    loadItems();
+  }, []);
 
-    const [cliente, setCliente] = useState(false)
+  async function loadItems() {
+    setLoading(true);
 
-    useEffect(() => {
-        api.post('/doAppLogin.php', {
-            facebookID: '2189311047787747',
-        })
-            .then(({ data }) => {
+    try {
+      const response = await api.post('/doAppLogin.php', {
+        facebookID: '2189311047787747',
+      });
+      const {cliente} = response.data;
 
-                setEmail(data.cliente.email);
-                setCpf(data.cliente.cpf_cnpj);
-                setCelular(data.cliente.celular);
+      setEmail(cliente.email);
+      setCpf(cliente.cpf_cnpj);
+      setCelular(cliente.celular);
 
-                setCliente(data.cliente);
-            });
-    }, []);
-
-    const cpfRef = useRef();
-    const celularRef = useRef();
-
-    const Senha1Ref = useRef();
-    const Senha2Ref = useRef();
-
-    const [email, setEmail] = useState()
-    const [cpf, setCpf] = useState()
-    const [celular, setCelular] = useState()
-
-    const [senha1, setSenha1] = useState()
-    const [senha2, setSenha2] = useState()
-
-    function handleSave() {
-
+      setCliente(cliente);
+    } catch (error) {
+      console.log('Error on Perfil/index.js ==> ', error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    return cliente ? (
-        <AppWrap>
-            <AppHeader
-                nome={cliente.nome}
-                foto={cliente.facebookID ? { uri: `https://graph.facebook.com/${cliente.facebookID}/picture?type=large` } : commonStyles.imgs.user} />
-            <AppBody>
+  const cpfRef = useRef();
+  const celularRef = useRef();
 
-                <Input
-                    icon="email"
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder="Email"
-                    returnKeyType="next"
-                    keyboardType="email-address"
-                    onSubmitEditing={() => cpfRef.current.focus()} />
-                <Input
-                    icon="account-card-details"
-                    value={cpf}
-                    onChangeText={setCpf}
-                    placeholder="CPF (Opcional)"
-                    returnKeyType="next"
-                    keyboardType="numeric"
-                    ref={cpfRef}
-                    onSubmitEditing={() => celularRef.current.focus()} />
-                <Input
-                    icon="phone"
-                    value={celular}
-                    onChangeText={setCelular}
-                    placeholder="Celular"
-                    returnKeyType="next"
-                    keyboardType="phone-pad"
-                    ref={celularRef}
-                    onSubmitEditing={() => Senha1Ref.current.focus()} />
-                <Input
-                    icon="key"
-                    value={senha1}
-                    onChangeText={setSenha1}
-                    placeholder="Nova senha"
-                    returnKeyType="next"
-                    secureTextEntry
-                    ref={Senha1Ref}
-                    onSubmitEditing={() => Senha2Ref.current.focus()} />
-                <Input
-                    icon="textbox-password"
-                    value={senha2}
-                    onChangeText={setSenha2}
-                    placeholder="Confirme a senha"
-                    returnKeyType="send"
-                    secureTextEntry
-                    ref={Senha2Ref}
-                    onSubmitEditing={() => handleSave} />
+  const SenhaRef = useRef();
 
-                <Button
-                    onSubmitEditing={() => handleSave}
-                    backgroundColor={commonStyles.colors.black}>SALVAR</Button>
+  const [email, setEmail] = useState();
+  const [cpf, setCpf] = useState();
+  const [celular, setCelular] = useState();
 
-                <LineSeparator />
+  const [senha, setSenha] = useState();
 
-                <FlatList
-                    style={{marginBottom: 30}}
-                    data={cliente.enderecos}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => <ItemEndereco onPress={() => {
-                        navigation.navigate('EditarEndereco', { endereco: item })
-                    }} {...item} />}
-                    showsVerticalScrollIndicator={false}
-                />
+  async function handleSave() {
+    setLoading(true);
+    try {
+      const response = await api.post('/setClienteInfo.php', {
+        facebookID: '2189311047787747',
+        email: email,
+        senha: senha,
 
-            </AppBody>
-        </AppWrap>
-    ) : (
-            <AppLoding color={commonStyles.colors.black} />
-        );
+        cpf_cnpj: cpf,
+        celular: celular,
+      });
+      const data = response.data;
+
+      Alert.alert(data.mensagem);
+
+      console.log('handleSave on Perfil/index.js ==> ', response.data);
+    } catch (error) {
+      console.log('Error on Perfil/index.js ==> ', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <AppWrap>
+      <AppHeader
+        nome={cliente.nome}
+        loading={!cliente && true}
+        foto={
+          cliente.facebookID
+            ? {
+                uri: `https://graph.facebook.com/${
+                  cliente.facebookID
+                }/picture?type=large`,
+              }
+            : commonStyles.imgs.user
+        }
+      />
+      <AppBody>
+        <ItemList
+          ListHeaderComponent={
+            <View>
+              <Input
+                icon="email"
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Email"
+                // User Experience
+                autoCapitalize="none"
+                autoCompleteType="email"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+                returnKeyType="next"
+                onSubmitEditing={() => cpfRef.current.focus()}
+                // User Experience
+              />
+              <Input
+                icon="account-card-details"
+                value={cpf}
+                onChangeText={setCpf}
+                placeholder="CPF (Opcional)"
+                // User Experience
+                returnKeyType="next"
+                keyboardType={
+                  Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
+                }
+                ref={cpfRef}
+                onSubmitEditing={() => celularRef.current.focus()}
+                // User Experience
+              />
+              <Input
+                icon="phone"
+                value={celular}
+                onChangeText={setCelular}
+                placeholder="Celular"
+                // User Experience
+                returnKeyType="next"
+                keyboardType={
+                  Platform.OS === 'ios'
+                    ? 'numbers-and-punctuation'
+                    : 'phone-pad'
+                }
+                textContentType="telephoneNumber"
+                ref={celularRef}
+                onSubmitEditing={() => SenhaRef.current.focus()}
+                // User Experience
+              />
+              <Input
+                icon="key"
+                value={senha}
+                onChangeText={setSenha}
+                placeholder="Digite sua senha"
+                // User Experience
+                returnKeyType="send"
+                secureTextEntry
+                ref={SenhaRef}
+                onSubmitEditing={handleSave}
+                // User Experience
+              />
+
+              <Button
+                onPress={handleSave}
+                backgroundColor={commonStyles.colors.black}>
+                SALVAR
+              </Button>
+
+              <LineSeparator />
+            </View>
+          }
+          data={cliente.enderecos}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <ItemEndereco
+              onPress={() => {
+                navigation.navigate('EditarEndereco', {endereco: item});
+              }}
+              {...item}
+            />
+          )}
+          onRefresh={loadItems}
+          refreshing={loading}
+        />
+      </AppBody>
+    </AppWrap>
+  );
 }
 
 Perfil.navigationOptions = {
-    title: 'Perfil',
-    headerShown: false
-}
+  title: 'Perfil',
+  headerShown: false,
+};

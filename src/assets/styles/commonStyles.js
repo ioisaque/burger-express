@@ -1,6 +1,11 @@
 export default {
   baseDIR: 'https://bx.isaquecosta.com.br/',
-  fontfamily: 'Tahoma',
+
+  text: {
+    fontSize: 16,
+    color: '#000',
+  },
+
   colors: {
     //Theme Colors
     red: '#FF0000',
@@ -28,7 +33,6 @@ export default {
     facebook: '#29487d',
   },
   imgs: {
-
     paidStamp: require('~/assets/imgs/paidStamp.png'),
     changeStamp: require('~/assets/imgs/changeStamp.png'),
 
@@ -42,7 +46,7 @@ export default {
     categoria: require('~/assets/imgs/user_placeholder.png'),
   },
   ///////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////// CALENDAR ///////////////////////////////////  
+  ////////////////////////////////// CALENDAR ///////////////////////////////////
   calendar: {
     backgroundColor: '#ff0000', // NOT WORKING
     calendarBackground: '#fff', // FUNDO DO CALENDARIO
@@ -59,10 +63,30 @@ export default {
     textMonthFontWeight: 'bold',
     textDayFontSize: 15,
     textMonthFontSize: 16,
-    textDayHeaderFontSize: 16
+    textDayHeaderFontSize: 16,
   },
-  calendarDayYellow: { color: '#f1b701', startingDay: true, endingDay: true, textColor: '#fff' },
-  calendarDayGreen: { color: '#2f8417', startingDay: true, endingDay: true, textColor: '#fff' },
-  calendarDayBlue: { color: '#19308A', startingDay: true, endingDay: true, textColor: '#fff' },
-  calendarDayRed: { color: '#e3000f', startingDay: true, endingDay: true, textColor: '#fff' }
-}
+  calendarDayYellow: {
+    color: '#f1b701',
+    startingDay: true,
+    endingDay: true,
+    textColor: '#fff',
+  },
+  calendarDayGreen: {
+    color: '#2f8417',
+    startingDay: true,
+    endingDay: true,
+    textColor: '#fff',
+  },
+  calendarDayBlue: {
+    color: '#19308A',
+    startingDay: true,
+    endingDay: true,
+    textColor: '#fff',
+  },
+  calendarDayRed: {
+    color: '#e3000f',
+    startingDay: true,
+    endingDay: true,
+    textColor: '#fff',
+  },
+};

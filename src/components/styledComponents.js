@@ -8,28 +8,22 @@ import commonStyles from '~/assets/styles/commonStyles';
 export const ImageBgWrap = styled.ImageBackground.attrs({
   source: commonStyles.imgs.background,
   resizeMode: 'contain',
-  opacity: 0.1,
+  opacity: 0.18,
   backgroundColor: commonStyles.colors.lightGrey,
 })`
   flex: 1;
 `;
 
 export const AppWrap = styled.View.attrs({
+  marginTop: Platform.OS === 'ios' ? 20 : 0,
   backgroundColor: commonStyles.colors.lightGrey,
 })`
   flex: 1;
 `;
 
-export const AppBody = styled.ScrollView`
+export const AppBody = styled.View`
   flex: 1;
   padding: 10px 15px;
-`;
-
-export const AppWrapCentered = styled.View.attrs({
-  backgroundColor: commonStyles.colors.lightGrey,
-})`
-  flex: 1;
-  justify-content: center;
 `;
 
 export const InputContainer = styled.KeyboardAvoidingView.attrs({
@@ -106,7 +100,6 @@ export const TotalOverLine = styled.View`
 export const styles = {
   headerContainer: {
     padding: 10,
-    paddingTop: 25,
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomLeftRadius: 100,
@@ -114,14 +107,14 @@ export const styles = {
     backgroundColor: commonStyles.colors.gold,
   },
   headerContainerStraight: {
-    paddingTop: 25,
+    paddingTop: 10,
     width: Dimensions.get('screen').width,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: commonStyles.colors.gold,
   },
   headerLOGO: {
-    margin: 5,
+    marginHorizontal: 5,
     width: 45,
     height: 45,
   },
@@ -133,10 +126,11 @@ export const styles = {
   },
   headerTitle: {
     margin: 5,
+
+    ...commonStyles.text,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: commonStyles.colors.black,
   },
   headerBanner: {
     margin: 0,
@@ -173,9 +167,15 @@ export const styles = {
   },
 
   boldText: {
+    ...commonStyles.text,
     fontSize: 18,
     fontWeight: 'bold',
-    color: commonStyles.colors.black,
+  },
+
+  silentText: {
+    ...commonStyles.text,
+    fontWeight: 'bold',
+    color: commonStyles.colors.neutral,
   },
   inlineItems: {
     flexDirection: 'row',

@@ -1,51 +1,67 @@
-import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import React, {useEffect, useState} from 'react';
 
 import api from '~/services/api';
 
-import {
-    AppWrap,
-    AppBody,
-} from '~/components/styledComponents';
+import {AppWrap, AppBody} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
+import ItemList from '~/components/ItemList';
 
 import ItemCategoria from './components/ItemCategoria';
 
-export default class Categorias extends Component {
-    static navigationOptions = {
-        headerShown: false,
-        title: 'Cardápio'
+function Categorias({navigation}) {
+  const [categorias, setCategorias] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
+  async function loadItems() {
+    setLoading(true);
+
+    try {
+      const response = await api.get('/getMenuCategories.php');
+      const {lista} = response.data;
+      console.log('getMenuCategories ==> ', response.data);
+
+      setCategorias(lista);
+    } catch (error) {
+      console.log('Error on Cardapio/Categorias.js ==> ', error);
+      console.log(
+        'URL Request ==> ',
+        `${api.defaults.baseURL}/getMenuCategories.php`,
+      );
+    } finally {
+      setLoading(false);
     }
+  }
 
-    state = {
-        categorias: [],
-    };
-
-    componentDidMount() {
-        this.loadItems();
-    }
-
-    loadItems = async () => {
-        const response = await api.get('/getMenuCategories.php')
-        const { lista } = response.data;
-
-        this.setState({ categorias: lista })
-    }
-
-    render() {
-        return (
-            <AppWrap>
-                <AppHeader title={'Cardápio'} />
-                <AppBody>
-                    <FlatList
-                        data={this.state.categorias}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) => <ItemCategoria onPress={() => {
-                            this.props.navigation.navigate('Items', { categoria: item })
-                        }} {...item} />}
-                    />
-                </AppBody>
-            </AppWrap>
-        );
-    }
+  return (
+    <AppWrap>
+      <AppHeader loading={loading && true} title={'Cardápio'} />
+      <AppBody>
+        <ItemList
+          data={categorias}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <ItemCategoria
+              onPress={() => {
+                navigation.navigate('Produtos', {categoria: item});
+              }}
+              {...item}
+            />
+          )}
+          onRefresh={loadItems}
+          refreshing={loading}
+        />
+      </AppBody>
+    </AppWrap>
+  );
 }
+
+Categorias.navigationOptions = ({navigation}) => ({
+  title: 'Cardápio',
+  headerShown: false,
+});
+
+export default Categorias;

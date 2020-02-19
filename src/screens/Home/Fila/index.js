@@ -1,27 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
-import {withNavigationFocus} from 'react-navigation';
 
 import api from '~/services/api';
 
-import commonStyles from '~/assets/styles/commonStyles';
-import {AppWrap, AppBody} from '~/components/styledComponents';
+import {AppWrap, ImageBgWrap} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
-import AppLoding from '~/components/AppLoding';
-import EmptyList from '~/components/EmptyList';
+import ItemList from '~/components/ItemList';
 import CartButton from '~/components/CartButton';
 
 import ItemFila from './components/ItemFila';
 
-function Fila({navigation, isFocused}) {
-  const [pedidos, setPedidos] = useState();
-  const [loading, setLoading] = useState(false);
+function Fila({navigation}) {
+  const [carrinho, setCarrinho] = useState([]);
+
+  const [pedidos, setPedidos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    isFocused && loadPedidos();
-  }, [isFocused]);
+    loading && loadItems();
+  }, [loading]);
 
-  async function loadPedidos() {
+  async function loadItems() {
     setLoading(true);
 
     try {
@@ -31,44 +29,53 @@ function Fila({navigation, isFocused}) {
       const {lista} = response.data;
 
       // Calculando valor total de todos os pedidos
-      lista.map(pedido => {
-        let valor_total = 0;
+      if (lista.count) {
+        lista.map(pedido => {
+          let valor_total = 0;
 
-        pedido.items.map(item => {
-          valor_total += parseFloat(item.qtd * item.valor_venda);
+          pedido.items.map(item => {
+            valor_total += parseFloat(item.qtd * item.valor_venda);
 
-          if (item.adicionais.length > 0)
-            item.adicionais.map(item => {
-              valor_total += parseFloat(item.qtd * item.valor_venda);
-            });
+            if (item.adicionais.length > 0) {
+              item.adicionais.map(item => {
+                valor_total += parseFloat(item.qtd * item.valor_venda);
+              });
+            }
+          });
+
+          pedido.valor_total = valor_total;
         });
-
-        pedido.valor_total = valor_total;
-      });
+      }
 
       setPedidos(lista);
     } catch (error) {
+      console.log('Error on Fila/index.js ==> ', error);
     } finally {
       setLoading(false);
     }
   }
 
-  return pedidos ? (
+  return (
     <AppWrap>
-      <AppHeader
-        component={
-          <CartButton
-            count={pedidos[0].items.length}
-            onPress={() => {
-              navigation.navigate('Carrinho', {pedido: pedidos[0]});
-            }}
-          />
-        }
-      />
-      <AppBody>
-        <FlatList
+      {carrinho.length ? (
+        <AppHeader
+          loading={loading && true}
+          component={
+            <CartButton
+              count={carrinho.items.length}
+              onPress={() => {
+                navigation.navigate('Carrinho', {pedido: carrinho});
+              }}
+            />
+          }
+          title="Pedidos na fila"
+        />
+      ) : (
+        <AppHeader loading={loading && true} title="Pedidos na fila" />
+      )}
+      <ImageBgWrap>
+        <ItemList
           data={pedidos}
-          style={{flex: 1}}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ItemFila
@@ -78,19 +85,12 @@ function Fila({navigation, isFocused}) {
               {...item}
             />
           )}
-          ListEmptyComponent={<EmptyList />}
-          refreshControl={
-            <RefreshControl
-              colors={[commonStyles.colors.black]}
-              onRefresh={loadPedidos}
-              refreshing={loading}
-            />
-          }
+          onRefresh={loadItems}
+          refreshing={loading}
+          emptyMessage="none"
         />
-      </AppBody>
+      </ImageBgWrap>
     </AppWrap>
-  ) : (
-    <AppLoding color={commonStyles.colors.black} />
   );
 }
 
@@ -99,4 +99,4 @@ Fila.navigationOptions = ({navigation}) => ({
   headerShown: false,
 });
 
-export default withNavigationFocus(Fila);
+export default Fila;

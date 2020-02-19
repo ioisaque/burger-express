@@ -1,18 +1,28 @@
 import React from 'react';
-import '~/config/StatusBarConfig';
+// import '~/config/StatusBarConfig';
 import '~/config/ReactotronConfig';
 
+import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
-import {YellowBox} from 'react-native';
+import {StatusBar, YellowBox} from 'react-native';
 
-// import store from '~/store'
+// import {store, persistor} from '~/store';
 import Routes from '~/routes';
+import commonStyles from './assets/styles/commonStyles';
 
 YellowBox.ignoreWarnings(['VirtualizedLists']);
 
 const App = () => (
   // <Provider store={store}>
-  <Routes />
+  // <PersistGate persistor={persistor}>
+  <>
+    <StatusBar
+      barStyle="dark-content"
+      backgroundColor={commonStyles.colors.gold}
+    />
+    <Routes />
+  </>
+  // </PersistGate>
   // </Provider>
 );
 
