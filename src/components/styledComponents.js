@@ -5,6 +5,12 @@ import styled from 'styled-components/native';
 
 import commonStyles from '~/assets/styles/commonStyles';
 
+export const AppContainer = styled.SafeAreaView.attrs({
+  backgroundColor: commonStyles.colors.gold,
+})`
+  flex: 1;
+`;
+
 export const ImageBgWrap = styled.ImageBackground.attrs({
   source: commonStyles.imgs.background,
   resizeMode: 'contain',
@@ -12,10 +18,10 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
   backgroundColor: commonStyles.colors.lightGrey,
 })`
   flex: 1;
+  padding: 10px 15px;
 `;
 
 export const AppWrap = styled.View.attrs({
-  marginTop: Platform.OS === 'ios' ? 20 : 0,
   backgroundColor: commonStyles.colors.lightGrey,
 })`
   flex: 1;
