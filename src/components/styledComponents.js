@@ -15,7 +15,7 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
 `;
 
 export const AppWrap = styled.View.attrs({
-  marginTop: Platform.OS === 'ios' ? 20 : 0,
+  // marginTop: Platform.OS === 'ios' ? 20 : 0,
   backgroundColor: commonStyles.colors.lightGrey,
 })`
   flex: 1;
