@@ -80,6 +80,11 @@ export default createAppContainer(
             tabStyle: {
               padding: 5,
             },
+            style: {
+              margin: 0,
+              padding: 0,
+              backgroundColor: commonStyles.colors.gold,
+            },
             activeTintColor: commonStyles.colors.white,
             inactiveTintColor: commonStyles.colors.black,
             activeBackgroundColor: commonStyles.colors.red,
