@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import React from 'react';
+import {FlatList} from 'react-native';
 
 import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
 import AppHeader from '~/components/AppHeader';
-import {
-    AppWrap,
-    AppBody,
-    LineSeparator,
-} from '~/components/styledComponents';
+import {AppWrap, AppBody, LineSeparator} from '~/components/styledComponents';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
@@ -18,50 +14,52 @@ import ArrowButton from '~/components/ArrowButton';
 import ItemPedido from './components/ItemPedido';
 import TotalPedido from './components/TotalPedido';
 
-export default function DetalhesPedido({ navigation }) {
+export default function DetalhesPedido({navigation}) {
+  return (
+    <AppWrap>
+      <AppHeader title={'Pedido Nº ' + navigation.state.params.pedido.id} />
+      <AppBody>
+        <FlatList
+          data={navigation.state.params.pedido.items}
+          keyExtractor={item => item.id_item}
+          renderItem={({item}) => <ItemPedido {...item} />}
+        />
 
-    const [pedido, setPedido] = useState(navigation.state.params.pedido)
+        <Input
+          icon="chat-alert"
+          value={navigation.state.params.pedido.observacoes}
+          editable={false}
+          style={{marginVertical: 10}}
+          placeholder="Ex: Tirar salada, maionese a parte, etc."
+        />
 
-    return (
-        <AppWrap>
-            <AppHeader title={'Pedido Nº ' + pedido.id} />
-            <AppBody>
-                <FlatList
-                    data={pedido.items}
-                    keyExtractor={item => item.id_item}
-                    renderItem={({ item }) => <ItemPedido {...item} />}
-                />
+        <LineSeparator style={{marginTop: 30}} />
 
-                <Input
-                    icon="chat-alert"
-                    value={pedido.observacoes}
-                    editable={false}
-                    style={{ marginVertical: 10 }}
-                    placeholder="Ex: Tirar salada, maionese a parte, etc." />
+        <ArrowButton icon="cash" iconColor={commonStyles.colors.success}>
+          Pagar em Dinheiro
+        </ArrowButton>
 
-                <LineSeparator style={{ marginTop: 30 }} />
+        <LineSeparator />
 
-                <ArrowButton
-                    icon='cash'
-                    iconColor={commonStyles.colors.success}>Pagar em Dinheiro</ArrowButton>
+        <ArrowButton style={{marginTop: 5}} icon="logoX">
+          Entrega em Palmeiras, 39
+        </ArrowButton>
 
-                <LineSeparator />
+        <TotalPedido pedido={navigation.state.params.pedido} />
 
-                <ArrowButton
-                    style={{ marginTop: 5 }}
-                    icon='logoX'>Entrega em Palmeiras, 39</ArrowButton>
-
-                <TotalPedido pedido={pedido} />
-
-                {pedido.status == 2 && <Button
-                    onSubmitEditing={() => handleRemove}
-                    backgroundColor={commonStyles.colors.red}>CANCELAR PEDIDO</Button>}
-            </AppBody>
-        </AppWrap>
-    );
+        {navigation.state.params.pedido.status === 2 && (
+          <Button
+            onSubmitEditing={() => console.log('Attemp to cancel order...')}
+            backgroundColor={commonStyles.colors.red}>
+            CANCELAR PEDIDO
+          </Button>
+        )}
+      </AppBody>
+    </AppWrap>
+  );
 }
 
-DetalhesPedido.navigationOptions = ({ navigation }) => ({
-    title: 'Pedido Nº ' + navigation.state.params.pedido.id,
-    headerShown: false
+DetalhesPedido.navigationOptions = ({navigation}) => ({
+  title: 'Pedido Nº ' + navigation.state.params.pedido.id,
+  headerShown: false,
 });

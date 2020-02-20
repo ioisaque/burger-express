@@ -26,10 +26,10 @@ function Fila({navigation}) {
       const response = await api.get(
         `/getPedidosQueueByCliente.php?id_cliente=${1}&id_loja=${1}`,
       );
-      const {lista} = response.data;
+      const {lista, count} = response.data;
 
       // Calculando valor total de todos os pedidos
-      if (lista.count) {
+      if (count) {
         lista.map(pedido => {
           let valor_total = 0;
 

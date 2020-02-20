@@ -21,6 +21,7 @@ export default function EditarProduto({navigation}) {
 
   useEffect(() => {
     loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function loadItems() {
@@ -28,7 +29,9 @@ export default function EditarProduto({navigation}) {
 
     try {
       const response = await api.get(
-        `/getAdicionaisByCategoria.php?id_categoria=${navigation.state.params.categoria.id}`,
+        `/getAdicionaisByCategoria.php?id_categoria=${
+          navigation.state.params.categoria.id
+        }`,
       );
       const {lista} = response.data;
       console.log('getAdicionaisByCategoria ==> ', lista);
@@ -44,7 +47,9 @@ export default function EditarProduto({navigation}) {
       console.log('Error on Home/Carrinho/EditarItem.js ==> ', error);
       console.log(
         'URL Request ==> ',
-        `${api.defaults.baseURL}/getAdicionaisByCategoria.php?id_categoria=${navigation.state.params.categoria.id}`,
+        `${api.defaults.baseURL}/getAdicionaisByCategoria.php?id_categoria=${
+          navigation.state.params.categoria.id
+        }`,
       );
     } finally {
       setLoading(false);

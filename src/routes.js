@@ -80,11 +80,8 @@ export default createAppContainer(
             tabStyle: {
               padding: 5,
             },
-            style: {
-              margin: 0,
-              padding: 0,
-              backgroundColor: commonStyles.colors.gold,
-            },
+            // Fix for bottom white space on iPhone XR+
+            safeAreaInset: {bottom: 'never', top: 'never'},
             activeTintColor: commonStyles.colors.white,
             inactiveTintColor: commonStyles.colors.black,
             activeBackgroundColor: commonStyles.colors.red,
