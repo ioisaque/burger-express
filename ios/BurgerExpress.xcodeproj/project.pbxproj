@@ -491,7 +491,7 @@
 				DEVELOPMENT_TEAM = V9QSMB67X9;
 				INFOPLIST_FILE = BurgerExpress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -512,7 +512,7 @@
 				DEVELOPMENT_TEAM = V9QSMB67X9;
 				INFOPLIST_FILE = BurgerExpress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
