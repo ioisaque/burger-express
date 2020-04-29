@@ -42,12 +42,12 @@ target 'BurgerExpress' do
   use_native_modules!
 end
 
-target 'BurgerExpress-tvOS' do
-  # Pods for BurgerExpress-tvOS
-
-  target 'BurgerExpress-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
+#target 'BurgerExpress-tvOS' do
+#  # Pods for BurgerExpress-tvOS
+#
+#  target 'BurgerExpress-tvOSTests' do
+#    inherit! :search_paths
+#    # Pods for testing
+#  end
+#
+#end
