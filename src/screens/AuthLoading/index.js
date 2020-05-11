@@ -17,5 +17,6 @@ export default function AuthLoading(props) {
     });
   }, []);
 
+  // Make your logo loading animation rsrs
   return <View />;
 }
