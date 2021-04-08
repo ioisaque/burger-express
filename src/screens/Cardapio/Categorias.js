@@ -20,17 +20,14 @@ function Categorias({navigation}) {
     setLoading(true);
 
     try {
-      const response = await api.get('/getMenuCategories.php');
-      const {lista} = response.data;
-      console.log('getMenuCategories ==> ', response.data);
+      const response = await api.get('/produtos/?categorias=1');
+      const {data} = response.data;
 
-      setCategorias(lista);
+      console.debug('categorias ==> ', data);
+      setCategorias(data);
     } catch (error) {
-      console.log('Error on Cardapio/Categorias.js ==> ', error);
-      console.log(
-        'URL Request ==> ',
-        `${api.defaults.baseURL}/getMenuCategories.php`,
-      );
+      console.debug('Error on Cardapio/Categorias.js ==> ', error);
+      console.debug('URL Request ==> ', `${api.defaults.baseURL}/categorias`);
     } finally {
       setLoading(false);
     }

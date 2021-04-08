@@ -21,17 +21,20 @@ function Produtos({navigation}) {
 
     try {
       const response = await api.get(
-        `/getProdutosByCategoria.php?id=${navigation.state.params.categoria.id}`,
+        `/produtos/?id_categoria=${navigation.state.params.categoria.id}`,
       );
-      const {lista} = response.data;
-      console.log('getProdutosByCategoria ==> ', response.data);
+      const {data} = response.data;
+      console.debug('produtos ==> ', data);
+      console.debug('categoria ==> ', navigation.state.params.categoria);
 
-      setProdutos(lista);
+      setProdutos(data);
     } catch (error) {
-      console.log('Error on Cardapio/Produtos.js ==> ', error);
-      console.log(
+      console.debug('Error on Cardapio/Produtos.js ==> ', error);
+      console.debug(
         'URL Request ==> ',
-        `${api.defaults.baseURL}/getProdutosByCategoria.php?id=${navigation.state.params.categoria.id}`,
+        `${api.defaults.baseURL}/produtos/?id_categoria=${
+          navigation.state.params.categoria.id
+        }`,
       );
     } finally {
       setLoading(false);
@@ -42,7 +45,7 @@ function Produtos({navigation}) {
     <AppWrap>
       <AppHeader
         loading={loading && true}
-        banner={navigation.state.params.categoria.foto}
+        banner={navigation.state.params.categoria.banner}
       />
       <AppBody>
         <ItemList
@@ -50,6 +53,7 @@ function Produtos({navigation}) {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ItemProduto
+              listing
               onPress={() => {
                 navigation.navigate('Adicionais', {
                   categoria: navigation.state.params.categoria,

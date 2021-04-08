@@ -42,7 +42,10 @@ export default {
     flex: 1,
     marginHorizontal: 20,
   },
-
+  itemFoto: {
+    margin: 0,
+    width: 200,
+  },
   itemHeader: {
     width: '100%',
     flexDirection: 'row',

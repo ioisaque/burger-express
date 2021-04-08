@@ -3,6 +3,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
+import Login from '~/screens/Login/';
 import SingIn from '~/screens/Login/SingIn';
 
 import Perfil from '~/screens/Perfil/';
@@ -62,7 +63,8 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Sign: createSwitchNavigator({
-        SingIn: SingIn,
+        SingIn,
+        Login,
       }),
       App: createBottomTabNavigator(
         {
@@ -80,7 +82,7 @@ export default createAppContainer(
             tabStyle: {
               padding: 5,
             },
-            // Fix for bottom white space on iPhone XR+
+            // Fix for bottom white space on iPhone X or superior
             safeAreaInset: {bottom: 'never', top: 'never'},
             activeTintColor: commonStyles.colors.white,
             inactiveTintColor: commonStyles.colors.black,

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
-
+import {View, Image} from 'react-native';
 import api from '~/services/api';
 
+import styles from './styles';
 import commonStyles from '~/assets/styles/commonStyles';
+
 import {AppWrap, AppBody} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 import ItemList from '~/components/ItemList';
@@ -13,7 +15,6 @@ import Button from '~/components/Button';
 import TotalItem from './components/TotalItem';
 import ItemAdicional from './components/ItemAdicional';
 import ItemProduto from '~/screens/Cardapio/components/ItemProduto';
-import {View} from 'react-native';
 
 export default function EditarProduto({navigation}) {
   const [adicionais, setAdicionais] = useState([]);
@@ -28,31 +29,23 @@ export default function EditarProduto({navigation}) {
     setLoading(true);
 
     try {
-      const response = await api.get(
-        `/getAdicionaisByCategoria.php?id_categoria=${
-          navigation.state.params.categoria.id
-        }`,
-      );
-      const {lista} = response.data;
-      console.log('getAdicionaisByCategoria ==> ', lista);
+      // const response = await api.get(
+      //   `/getAdicionaisByCategoria.php?id_categoria=${
+      //     navigation.state.params.categoria.id
+      //   }`,
+      // );
 
-      const adicionais = lista.map(item => {
-        item.qtd = 0;
-
-        return item;
-      });
-
-      setAdicionais(adicionais);
+      setAdicionais([]);
     } catch (error) {
-      console.log('Error on Home/Carrinho/EditarItem.js ==> ', error);
-      console.log(
+      console.debug('Error on Home/Carrinho/EditarItem.js ==> ', error);
+      console.debug(
         'URL Request ==> ',
         `${api.defaults.baseURL}/getAdicionaisByCategoria.php?id_categoria=${
           navigation.state.params.categoria.id
         }`,
       );
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   }
 
@@ -69,17 +62,19 @@ export default function EditarProduto({navigation}) {
 
   return (
     <AppWrap>
-      <AppHeader
-        banner={
-          navigation.state.params.produto.foto
-            ? navigation.state.params.produto.foto
-            : navigation.state.params.categoria.foto
-        }
-      />
+      <AppHeader />
       <AppBody>
+        <Image
+          resizeMode="cover"
+          style={styles.itemFoto}
+          source={{
+            uri: commonStyles.baseDIR + navigation.state.params.produto.foto,
+          }}
+        />
+
         <ItemList
           ListHeaderComponent={
-            <ItemProduto {...navigation.state.params.produto} />
+            <ItemProduto showPhoto {...navigation.state.params.produto} />
           }
           data={adicionais}
           extraData={loading}
@@ -110,7 +105,7 @@ export default function EditarProduto({navigation}) {
 
               <Button
                 onSubmitEditing={() => handleCart}
-                backgroundColor={commonStyles.colors.success}>
+                backgroundColor={commonStyles.colors.red}>
                 ADICIONAR AO CARRINHO
               </Button>
             </View>

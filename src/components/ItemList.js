@@ -2,6 +2,7 @@ import React from 'react';
 import {View, FlatList, Dimensions, RefreshControl, Text} from 'react-native';
 
 import PropTypes from 'prop-types';
+import {LineSeparator} from '~/components/styledComponents';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {styles} from './styledComponents';
@@ -40,6 +41,7 @@ export default function ItemList({
           )}
         </View>
       }
+      ItemSeparatorComponent={LineSeparator}
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}

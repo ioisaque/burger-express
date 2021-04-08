@@ -23,33 +23,13 @@ function Fila({navigation}) {
     setLoading(true);
 
     try {
-      const response = await api.get(
-        `/getPedidosQueueByCliente.php?id_cliente=${1}&id_loja=${1}`,
-      );
-      const {lista, count} = response.data;
+      const response = await api.get(`/pedidos/?id_cliente=${1}`);
+      const {data} = response.data;
 
-      // Calculando valor total de todos os pedidos
-      if (count) {
-        lista.map(pedido => {
-          let valor_total = 0;
-
-          pedido.items.map(item => {
-            valor_total += parseFloat(item.qtd * item.valor_venda);
-
-            if (item.adicionais.length > 0) {
-              item.adicionais.map(item => {
-                valor_total += parseFloat(item.qtd * item.valor_venda);
-              });
-            }
-          });
-
-          pedido.valor_total = valor_total;
-        });
-      }
-
-      setPedidos(lista);
+      console.debug('FILA ==> ', data);
+      // setPedidos(data);
     } catch (error) {
-      console.log('Error on Fila/index.js ==> ', error);
+      console.debug('Error on Fila/index.js ==> ', error);
     } finally {
       setLoading(false);
     }

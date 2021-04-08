@@ -49,7 +49,7 @@ export default function DetalhesPedido({navigation}) {
 
         {navigation.state.params.pedido.status === 2 && (
           <Button
-            onSubmitEditing={() => console.log('Attemp to cancel order...')}
+            onSubmitEditing={() => console.debug('Attemp to cancel order...')}
             backgroundColor={commonStyles.colors.red}>
             CANCELAR PEDIDO
           </Button>

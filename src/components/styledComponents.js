@@ -23,7 +23,7 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
 
 export const AppWrap = styled.View.attrs({
   // marginTop: Platform.OS === 'ios' ? 20 : 0,
-  backgroundColor: commonStyles.colors.lightGrey,
+  backgroundColor: commonStyles.colors.white,
 })`
   flex: 1;
 `;
@@ -94,11 +94,12 @@ export const ArrowButtonText = styled.Text`
 export const LineSeparator = styled.View`
   height: 3px;
   width: 100%;
+  margin-bottom: 5;
   background-color: #ff0000;
 `;
 
 export const TotalOverLine = styled.View`
-  height: 5px;
+  height: 3px;
   width: 40%;
   align-self: flex-end;
   background-color: #ff0000;
@@ -114,7 +115,6 @@ export const styles = {
     backgroundColor: commonStyles.colors.gold,
   },
   headerContainerStraight: {
-    paddingTop: 10,
     width: Dimensions.get('screen').width,
     alignItems: 'center',
     justifyContent: 'center',
@@ -133,11 +133,10 @@ export const styles = {
   },
   headerTitle: {
     margin: 5,
-
-    ...commonStyles.text,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: commonStyles.colors.black,
   },
   headerBanner: {
     margin: 0,

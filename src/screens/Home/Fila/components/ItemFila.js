@@ -26,9 +26,9 @@ export default props => {
             size={40}
             style={{marginBottom: -18}}
             color={
-              props.status == 1
+              props.status == 4
                 ? commonStyles.colors.info
-                : props.status == 3
+                : props.status == 5
                 ? commonStyles.colors.success
                 : commonStyles.colors.warning
             }

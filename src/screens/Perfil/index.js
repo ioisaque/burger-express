@@ -35,7 +35,7 @@ export default function Perfil({navigation}) {
 
       setCliente(cliente);
     } catch (error) {
-      console.log('Error on Perfil/index.js ==> ', error);
+      console.debug('Error on Perfil/index.js ==> ', error);
     } finally {
       setLoading(false);
     }
@@ -67,9 +67,9 @@ export default function Perfil({navigation}) {
 
       Alert.alert(data.mensagem);
 
-      console.log('handleSave on Perfil/index.js ==> ', response.data);
+      console.debug('handleSave on Perfil/index.js ==> ', response.data);
     } catch (error) {
-      console.log('Error on Perfil/index.js ==> ', error);
+      console.debug('Error on Perfil/index.js ==> ', error);
     } finally {
       setLoading(false);
     }

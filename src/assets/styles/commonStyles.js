@@ -1,9 +1,9 @@
 export default {
-  baseDIR: 'https://bx.isaquecosta.com.br/',
+  baseDIR: 'http://192.168.0.200/delivery.ideyou.com.br/',
 
   text: {
-    fontSize: 16,
-    color: '#000',
+    fontSize: 14,
+    color: '#646464',
   },
 
   colors: {
@@ -25,7 +25,7 @@ export default {
     //Bootstrap
     info: '#007bff',
     danger: '#e3000f',
-    success: '#2f8417',
+    success: '#28a745',
     warning: '#f1b701',
     neutral: '#646464',
     transparent: 'transparent',
