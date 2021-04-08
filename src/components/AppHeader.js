@@ -9,21 +9,20 @@ export default props => {
     return (
       <View style={styles.headerContainer}>
         <Image
-          style={styles.headerLOGO}
-          source={commonStyles.imgs.x}
-          resizeMode="contain"
+          resizeMode="cover"
+          style={props.foto ? styles.headerFOTO : styles.headerLOGO}
+          source={props.foto ? props.foto : commonStyles.imgs.x}
         />
-        {props.component}
-        {props.title && <Text style={styles.headerTitle}>{props.title}</Text>}
+        <Text style={styles.headerTitle}>{props.title}</Text>
       </View>
     );
   } else if (props.banner) {
     return (
       <View style={styles.headerContainerStraight}>
         <Image
+          resizeMode="cover"
           style={styles.headerBanner}
           source={{uri: commonStyles.baseDIR + props.banner}}
-          resizeMode="cover"
         />
       </View>
     );

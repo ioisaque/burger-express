@@ -12,6 +12,8 @@ import Button from '~/components/Button';
 import {Platform} from 'react-native';
 
 export default function EditarEndereco({navigation}) {
+  const [loading, setLoading] = useState(true);
+
   const logradouroRef = useRef();
   const numeroRef = useRef();
   const bairroRef = useRef();
@@ -30,19 +32,20 @@ export default function EditarEndereco({navigation}) {
   async function handleSave() {
     setLoading(true);
     try {
-      const response = await api.post('/setClienteInfo.php', {
-        facebookID: '2189311047787747',
-        email: email,
-        senha: senha,
-
-        cpf_cnpj: cpf,
-        celular: celular,
+      const {data} = await api.post('/clientes/', {
+        id_cliente: 1,
+        endereco: {
+          id: null,
+          cep: cep,
+          estado: estado,
+          cidade: cidade,
+          bairro: bairro,
+          numero: numero,
+          logradouro: logradouro,
+        },
       });
-      const data = response.data;
 
-      Alert.alert(data.mensagem);
-
-      console.debug('handleSave on Perfil/index.js ==> ', response.data);
+      console.debug('handleSave on Perfil/index.js ==> ', data);
     } catch (error) {
       console.debug('Error on Perfil/index.js ==> ', error);
     } finally {
@@ -54,7 +57,7 @@ export default function EditarEndereco({navigation}) {
 
   return (
     <AppWrap>
-      <AppHeader title={'Editar Endereço'} />
+      <AppHeader loading={loading} title={'Editar Endereço'} />
       <AppBody>
         <Input
           value={cep}
@@ -124,16 +127,15 @@ export default function EditarEndereco({navigation}) {
           onSubmitEditing={() => handleSave}
           // User Experience
         />
-
-        <Button
-          onSubmitEditing={() => handleSave}
-          backgroundColor={commonStyles.colors.black}>
-          SALVAR
-        </Button>
         <Button
           onSubmitEditing={() => handleRemove}
-          backgroundColor={commonStyles.colors.red}>
+          backgroundColor={commonStyles.colors.black}>
           REMOVER
+        </Button>
+        <Button
+          onSubmitEditing={() => handleSave}
+          backgroundColor={commonStyles.colors.red}>
+          SALVAR
         </Button>
       </AppBody>
     </AppWrap>

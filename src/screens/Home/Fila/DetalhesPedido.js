@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, Text} from 'react-native';
 
 import api from '~/services/api';
 
@@ -21,33 +21,31 @@ export default function DetalhesPedido({navigation}) {
       <AppBody>
         <FlatList
           data={navigation.state.params.pedido.items}
-          keyExtractor={item => item.id_item}
+          keyExtractor={item => item.id}
           renderItem={({item}) => <ItemPedido {...item} />}
         />
 
-        <Input
-          icon="chat-alert"
-          value={navigation.state.params.pedido.observacoes}
-          editable={false}
-          style={{marginVertical: 10}}
-          placeholder="Ex: Tirar salada, maionese a parte, etc."
-        />
+        <Text style={{marginVertical: 10}}>
+          {navigation.state.params.pedido.observacoes}
+        </Text>
 
         <LineSeparator style={{marginTop: 30}} />
 
-        <ArrowButton icon="cash" iconColor={commonStyles.colors.success}>
-          Pagar em Dinheiro
+        <ArrowButton
+          icon={navigation.state.params.pedido.metodo.icon}
+          iconColor={navigation.state.params.pedido.metodo.color}>
+          {navigation.state.params.pedido.metodo.nome}
         </ArrowButton>
 
         <LineSeparator />
 
-        <ArrowButton style={{marginTop: 5}} icon="logoX">
+        <ArrowButton style={commonStyles.text} icon="logoX">
           Entrega em Palmeiras, 39
         </ArrowButton>
 
         <TotalPedido pedido={navigation.state.params.pedido} />
 
-        {navigation.state.params.pedido.status === 2 && (
+        {navigation.state.params.pedido.status === 1 && (
           <Button
             onSubmitEditing={() => console.debug('Attemp to cancel order...')}
             backgroundColor={commonStyles.colors.red}>

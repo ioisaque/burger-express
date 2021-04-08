@@ -9,40 +9,26 @@ import commonStyles from '~/assets/styles/commonStyles';
 import {TotalOverLine} from '~/components/styledComponents';
 
 export default function TotalPedido({pedido}) {
-  const valor_pago = parseFloat(pedido.valor_pago);
-  const valor_total = parseFloat(pedido.valor_total);
-
-  let pago = 0;
-  let displayValor = valor_total;
-
-  if (valor_pago === valor_total) {
-    pago = 1;
-    displayValor = valor_pago;
-  } else if (valor_pago > valor_total) {
-    pago = 2;
-    displayValor = valor_pago - valor_total;
-  }
-
   return (
     <View style={styles.totalWrapper}>
       <TotalOverLine />
 
       <View style={styles.totalHeader}>
         <View style={styles.totalHeader}>
-          {pago == 2 ? (
+          {pedido.valor_troco ? (
             <Image
               style={styles.payStamp}
               source={commonStyles.imgs.changeStamp}
               resizeMode="contain"
             />
-          ) : pago == 1 ? (
+          ) : !pedido.valor_a_pagar ? (
             <Image
               style={styles.payStamp}
               source={commonStyles.imgs.paidStamp}
               resizeMode="contain"
             />
           ) : (
-            <Text style={styles.totalTitle}>Total a pagar</Text>
+            <Text style={styles.totalTitle}>Total do Pedido</Text>
           )}
 
           <Icon
@@ -51,7 +37,9 @@ export default function TotalPedido({pedido}) {
             color={commonStyles.colors.black}
           />
         </View>
-        <Text style={styles.totalPrice}>{floatToReais(displayValor)}</Text>
+        <Text style={styles.totalPrice}>
+          {floatToReais(pedido.valor_total)}
+        </Text>
       </View>
     </View>
   );

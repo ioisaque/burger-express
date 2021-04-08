@@ -23,10 +23,16 @@ export default {
     darkBlue: '#133d63',
 
     //Bootstrap
-    info: '#007bff',
-    danger: '#e3000f',
+    muted: '#99abb4',
+    danger: '#f9142a',
+    athenas: '#f36700',
+    warning: '#ffb22b',
     success: '#28a745',
-    warning: '#f1b701',
+    info: '#1976d2',
+    quinzel: '#820bcd',
+    emoji: '#8b4513',
+    themecolor: '#5292b1',
+    breadcrumb: '#455a64',
     neutral: '#646464',
     transparent: 'transparent',
 

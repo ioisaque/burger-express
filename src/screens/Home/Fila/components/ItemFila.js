@@ -8,8 +8,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from '../styles';
 import commonStyles from '~/assets/styles/commonStyles';
 
-import {LineSeparator} from '~/components/styledComponents';
-
 export default props => {
   const dateParsed = useMemo(() => {
     return formatRelative(parseISO(props.data_hora), new Date(), {
@@ -23,22 +21,14 @@ export default props => {
       <View style={styles.FilaContent}>
         <View style={styles.FilaHeader}>
           <Icon
-            size={40}
-            style={{marginBottom: -18}}
-            color={
-              props.status == 4
-                ? commonStyles.colors.info
-                : props.status == 5
-                ? commonStyles.colors.success
-                : commonStyles.colors.warning
-            }
-            name={props.status == 2 ? 'clock-outline' : 'check-all'}
+            size={30}
+            color={commonStyles.colors[props.status.color]}
+            name={props.status.icon.replace('mdi-', '')}
           />
-          <Text style={styles.FilaTitle}>Pedido Nº {leftPad(props.id, 3)}</Text>
+          <Text style={styles.FilaTitle}>Pedido Nº {leftPad(props.id, 5)}</Text>
         </View>
         <Text style={styles.FilaData}>{dateParsed}</Text>
       </View>
-      <LineSeparator />
     </TouchableOpacity>
   );
 };

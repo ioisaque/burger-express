@@ -10,13 +10,11 @@ export default props => {
   return (
     <View style={styles.itemWrapper}>
       <View style={styles.itemHeader}>
-        <Text style={styles.itemTitle}>{props.nome}</Text>
+        <Text style={styles.itemTitle}>{props.descricao}</Text>
         <Text style={styles.itemPrice}>{floatToReais(props.valor_venda)}</Text>
       </View>
-      {props.descricao ? (
-        <Text style={styles.itemDescrip}>
-          {capOnlyFirstLetter(props.descricao)}
-        </Text>
+      {props.observacoes ? (
+        <Text style={styles.itemDescrip}>{props.observacoes}</Text>
       ) : null}
 
       <LineSeparator />

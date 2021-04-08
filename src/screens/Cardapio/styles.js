@@ -5,17 +5,18 @@ export default {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   categoryWrapper: {
     width: '100%',
-    marginVertical: 8,
+    marginVertical: 5,
   },
   categoryInlineItems: {
-    width: '95%',
-    marginBottom: 10,
+    width: '100%',
+    marginBottom: 5,
+    paddingHorizontal: 5,
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'space-between',
   },
   categoryTitle: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: commonStyles.colors.black,
   },

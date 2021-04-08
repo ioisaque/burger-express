@@ -40,8 +40,9 @@ export const InputContainer = styled.KeyboardAvoidingView.attrs({
   padding: 0 15px;
   height: 45px;
   margin-bottom: 10px;
-  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid #E3E3E3;
   border-radius: 4px;
+  background: transparent;
 
   flex-direction: row;
   align-items: center;
@@ -54,7 +55,6 @@ export const InputText = styled.TextInput.attrs({
   color: #232323;
   font-size: 16px;
   font-weight: bold;
-  margin-left: 10px;
 `;
 
 export const ButtonContainer = styled(RectButton)`
@@ -77,7 +77,7 @@ export const ArrowButtonContainer = styled(RectButton)`
   height: 45px;
   padding: 0 15px;
   margin-bottom: 10px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.03);
   border-radius: 4px;
 
   flex-direction: row;
@@ -121,15 +121,15 @@ export const styles = {
     backgroundColor: commonStyles.colors.gold,
   },
   headerLOGO: {
-    marginHorizontal: 5,
     width: 45,
     height: 45,
+    marginBottom: 5,
   },
   headerFOTO: {
-    margin: 10,
     borderRadius: 999,
-    width: Dimensions.get('window').width * 0.3,
-    minHeight: Dimensions.get('window').width * 0.3,
+    marginBottom: 5,
+    width: Dimensions.get('window').width * 0.2,
+    height: Dimensions.get('window').width * 0.2,
   },
   headerTitle: {
     margin: 5,

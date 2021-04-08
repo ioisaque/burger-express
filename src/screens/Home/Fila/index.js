@@ -23,11 +23,9 @@ function Fila({navigation}) {
     setLoading(true);
 
     try {
-      const response = await api.get(`/pedidos/?id_cliente=${1}`);
-      const {data} = response.data;
+      const {data} = await api.get(`/pedidos/?id_cliente=${1}`);
 
-      console.debug('FILA ==> ', data);
-      // setPedidos(data);
+      setPedidos(data.data);
     } catch (error) {
       console.debug('Error on Fila/index.js ==> ', error);
     } finally {

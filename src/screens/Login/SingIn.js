@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
 import Input from '~/components/Input';
 import {
-  Platform,
   StatusBar,
   View,
   Text,
@@ -58,6 +57,7 @@ export default function SignIn({navigation}) {
 
       <Input
         icon="email"
+        iconColor={commonStyles.colors.red}
         value={email}
         onChangeText={setEmail}
         placeholder="E-mail"
@@ -70,6 +70,7 @@ export default function SignIn({navigation}) {
       />
       <Input
         icon="key"
+        iconColor={commonStyles.colors.red}
         value={senha}
         onChangeText={setSenha}
         placeholder="Senha"

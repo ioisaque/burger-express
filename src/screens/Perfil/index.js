@@ -24,16 +24,17 @@ export default function Perfil({navigation}) {
     setLoading(true);
 
     try {
-      const response = await api.post('/doAppLogin.php', {
-        facebookID: '2189311047787747',
-      });
-      const {cliente} = response.data;
+      const {data} = await api.get(`/clientes/?id=${1}`);
 
-      setEmail(cliente.email);
+      let cliente = data.data;
+      cliente.facebookID = '2189311047787747';
+      cliente.enderecos = [cliente];
+
       setCpf(cliente.cpf_cnpj);
       setCelular(cliente.celular);
 
       setCliente(cliente);
+      console.debug('CLIENTE ==> ', cliente);
     } catch (error) {
       console.debug('Error on Perfil/index.js ==> ', error);
     } finally {
@@ -46,7 +47,6 @@ export default function Perfil({navigation}) {
 
   const SenhaRef = useRef();
 
-  const [email, setEmail] = useState();
   const [cpf, setCpf] = useState();
   const [celular, setCelular] = useState();
 
@@ -55,19 +55,16 @@ export default function Perfil({navigation}) {
   async function handleSave() {
     setLoading(true);
     try {
-      const response = await api.post('/setClienteInfo.php', {
-        facebookID: '2189311047787747',
-        email: email,
-        senha: senha,
-
-        cpf_cnpj: cpf,
-        celular: celular,
+      const {data} = await api.post('/clientes/', {
+        cliente: {
+          senha: senha,
+          cpf_cnpj: cpf,
+          celular: celular,
+          facebookID: '2189311047787747',
+        },
       });
-      const data = response.data;
 
-      Alert.alert(data.mensagem);
-
-      console.debug('handleSave on Perfil/index.js ==> ', response.data);
+      console.debug('handleSave on Perfil/index.js ==> ', data.data);
     } catch (error) {
       console.debug('Error on Perfil/index.js ==> ', error);
     } finally {
@@ -78,36 +75,14 @@ export default function Perfil({navigation}) {
   return (
     <AppWrap>
       <AppHeader
-        nome={cliente.nome}
-        loading={!cliente && true}
-        foto={
-          cliente.facebookID
-            ? {
-                uri: `https://graph.facebook.com/${
-                  cliente.facebookID
-                }/picture?type=large`,
-              }
-            : commonStyles.imgs.user
-        }
+        loading={loading}
+        title={cliente.nome}
+        foto={commonStyles.imgs.user}
       />
       <AppBody>
         <ItemList
           ListHeaderComponent={
             <View>
-              <Input
-                icon="email"
-                value={email}
-                onChangeText={setEmail}
-                placeholder="Email"
-                // User Experience
-                autoCapitalize="none"
-                autoCompleteType="email"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-                returnKeyType="next"
-                onSubmitEditing={() => cpfRef.current.focus()}
-                // User Experience
-              />
               <Input
                 icon="account-card-details"
                 value={cpf}
@@ -154,7 +129,7 @@ export default function Perfil({navigation}) {
 
               <Button
                 onPress={handleSave}
-                backgroundColor={commonStyles.colors.black}>
+                backgroundColor={commonStyles.colors.red}>
                 SALVAR
               </Button>
 

@@ -12,8 +12,9 @@ function Input({style, icon, iconSize, iconColor, ...rest}, ref) {
       {icon && (
         <Icon
           name={icon}
-          size={iconSize ? iconSize : 23}
-          color={iconColor ? iconColor : commonStyles.colors.darkBlue}
+          style={{marginRight: 10}}
+          size={iconSize ? iconSize : 20}
+          color={iconColor ? iconColor : commonStyles.colors.black}
         />
       )}
       <InputText keyboardAppearance="dark" ref={ref} {...rest} />
