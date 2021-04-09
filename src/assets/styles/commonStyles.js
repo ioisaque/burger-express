@@ -46,10 +46,9 @@ export default {
     full: require('~/assets/imgs/logo_full.png'),
     burger: require('~/assets/imgs/logo_burger.png'),
 
-    background: require('~/assets/imgs/background.png'),
-
     user: require('~/assets/imgs/user_placeholder.png'),
-    categoria: require('~/assets/imgs/user_placeholder.png'),
+    background: require('~/assets/imgs/background.png'),
+    copyrightDark: require('~/assets/imgs/copyright_dark.png'),
   },
   ///////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////// CALENDAR ///////////////////////////////////

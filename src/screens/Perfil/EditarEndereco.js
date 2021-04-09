@@ -129,12 +129,12 @@ export default function EditarEndereco({navigation}) {
         />
         <Button
           onSubmitEditing={() => handleRemove}
-          backgroundColor={commonStyles.colors.black}>
+          color={commonStyles.colors.black}>
           REMOVER
         </Button>
         <Button
           onSubmitEditing={() => handleSave}
-          backgroundColor={commonStyles.colors.red}>
+          color={commonStyles.colors.red}>
           SALVAR
         </Button>
       </AppBody>

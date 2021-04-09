@@ -102,9 +102,7 @@ export default function EditarProduto({navigation}) {
                 adicionais={adicionais}
               />
 
-              <Button
-                onSubmitEditing={() => handleCart}
-                backgroundColor={commonStyles.colors.red}>
+              <Button onSubmitEditing={null} color={commonStyles.colors.red}>
                 ADICIONAR AO CARRINHO
               </Button>
             </View>

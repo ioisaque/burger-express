@@ -3,8 +3,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 
-import Login from '~/screens/Login/';
-import SingIn from '~/screens/Login/SingIn';
+import SignIn from '~/screens/Sign/';
 
 import Perfil from '~/screens/Perfil/';
 import EditarEndereco from '~/screens/Perfil/EditarEndereco';
@@ -59,13 +58,12 @@ CardapioStack.navigationOptions = {
   ),
 };
 
-export default createAppContainer(
+const AuthRoutes = createAppContainer(SignIn);
+
+const AppRoutes = createAppContainer(
   createSwitchNavigator(
     {
-      Sign: createSwitchNavigator({
-        Login,
-        SingIn,
-      }),
+      Sign: SignIn,
       App: createBottomTabNavigator(
         {
           Perfil: PerfilStack,
@@ -97,7 +95,13 @@ export default createAppContainer(
       ),
     },
     {
-      initialRouteName: 'App',
+      initialRouteName: 'Sign',
     },
   ),
 );
+
+export default AppRoutes;
+// () => {
+//   const {signed} = useContext(AuthContext);
+//   return true ? <AppRoutes /> : <AuthRoutes />;
+// };

@@ -1,4 +1,12 @@
 {
   "name": "BurgerExpress",
-  "displayName": "Burger Express"
+  "displayName": "Burger Express",
+  "expo": {
+    "name": "BurgerExpress",
+    "slug": "burger-express",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }

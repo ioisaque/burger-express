@@ -22,7 +22,7 @@ export default props => {
       </View>
     </TouchableOpacity>
   ) : (
-    <TouchableOpacity onPress={props.onPress} style={{marginBottom: 5}}>
+    <TouchableOpacity onPress={props.onPress}>
       <Image
         resizeMode="cover"
         style={styles.itemFoto}

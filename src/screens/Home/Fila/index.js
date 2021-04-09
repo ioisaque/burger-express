@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import commonStyles from '~/assets/styles/commonStyles';
 import api from '~/services/api';
 
 import {AppWrap, ImageBgWrap} from '~/components/styledComponents';
@@ -25,6 +25,7 @@ function Fila({navigation}) {
     try {
       const {data} = await api.get(`/pedidos/?id_cliente=${1}`);
 
+      console.debug('USUARIO ==> ', data);
       setPedidos(data.data);
     } catch (error) {
       console.debug('Error on Fila/index.js ==> ', error);

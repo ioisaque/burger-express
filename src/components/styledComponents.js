@@ -5,10 +5,10 @@ import styled from 'styled-components/native';
 
 import commonStyles from '~/assets/styles/commonStyles';
 
-export const AppContainer = styled.SafeAreaView.attrs({
-  backgroundColor: commonStyles.colors.gold,
-})`
+export const AppContainer = styled.SafeAreaView`
   flex: 1;
+  background-color: ${props =>
+    props.color ? props.color : commonStyles.colors.white};
 `;
 
 export const ImageBgWrap = styled.ImageBackground.attrs({
@@ -21,11 +21,9 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
   padding: 10px 15px;
 `;
 
-export const AppWrap = styled.View.attrs({
-  // marginTop: Platform.OS === 'ios' ? 20 : 0,
-  backgroundColor: commonStyles.colors.white,
-})`
+export const AppWrap = styled.View`
   flex: 1;
+  background-color: ${commonStyles.colors.white};
 `;
 
 export const AppBody = styled.View`
@@ -40,7 +38,7 @@ export const InputContainer = styled.KeyboardAvoidingView.attrs({
   padding: 0 15px;
   height: 45px;
   margin-bottom: 10px;
-  border: 1px solid #E3E3E3;
+  border: 1px solid #e3e3e3;
   border-radius: 4px;
   background: transparent;
 
@@ -61,11 +59,12 @@ export const ButtonContainer = styled(RectButton)`
   height: 45px;
   padding: 0 5px;
   margin-bottom: 10px;
-  background: #ff6600;
   border-radius: 4px;
 
   align-items: center;
   justify-content: center;
+  background-color: ${props =>
+    props.color ? props.color : commonStyles.colors.blue};
 `;
 export const ButtonText = styled.Text`
   color: #fff;

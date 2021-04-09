@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import commonStyles from '~/assets/styles/commonStyles';
 import {InputContainer, InputText} from './styledComponents';
 
-function Input({style, icon, iconSize, iconColor, ...rest}, ref) {
+function Input({style, icon, iconSize, iconColor, ...rest}) {
   return (
     <InputContainer style={style}>
       {icon && (
@@ -17,7 +17,7 @@ function Input({style, icon, iconSize, iconColor, ...rest}, ref) {
           color={iconColor ? iconColor : commonStyles.colors.black}
         />
       )}
-      <InputText keyboardAppearance="dark" ref={ref} {...rest} />
+      <InputText keyboardAppearance="light" {...rest} />
     </InputContainer>
   );
 }
@@ -32,4 +32,4 @@ Input.defaultProps = {
   iconSize: 23,
 };
 
-export default forwardRef(Input);
+export default Input;

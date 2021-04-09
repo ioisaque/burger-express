@@ -1,5 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {Alert, Platform, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Platform, View} from 'react-native';
 
 import api from '~/services/api';
 
@@ -27,7 +27,6 @@ export default function Perfil({navigation}) {
       const {data} = await api.get(`/clientes/?id=${1}`);
 
       let cliente = data.data;
-      cliente.facebookID = '2189311047787747';
       cliente.enderecos = [cliente];
 
       setCpf(cliente.cpf_cnpj);
@@ -42,14 +41,8 @@ export default function Perfil({navigation}) {
     }
   }
 
-  const cpfRef = useRef();
-  const celularRef = useRef();
-
-  const SenhaRef = useRef();
-
   const [cpf, setCpf] = useState();
   const [celular, setCelular] = useState();
-
   const [senha, setSenha] = useState();
 
   async function handleSave() {
@@ -60,7 +53,6 @@ export default function Perfil({navigation}) {
           senha: senha,
           cpf_cnpj: cpf,
           celular: celular,
-          facebookID: '2189311047787747',
         },
       });
 
@@ -84,7 +76,7 @@ export default function Perfil({navigation}) {
           ListHeaderComponent={
             <View>
               <Input
-                icon="account-card-details"
+                icon="account-box-outline"
                 value={cpf}
                 onChangeText={setCpf}
                 placeholder="CPF (Opcional)"
@@ -93,12 +85,10 @@ export default function Perfil({navigation}) {
                 keyboardType={
                   Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'numeric'
                 }
-                ref={cpfRef}
-                onSubmitEditing={() => celularRef.current.focus()}
                 // User Experience
               />
               <Input
-                icon="phone"
+                icon="cellphone-iphone"
                 value={celular}
                 onChangeText={setCelular}
                 placeholder="Celular"
@@ -110,26 +100,21 @@ export default function Perfil({navigation}) {
                     : 'phone-pad'
                 }
                 textContentType="telephoneNumber"
-                ref={celularRef}
-                onSubmitEditing={() => SenhaRef.current.focus()}
                 // User Experience
               />
               <Input
-                icon="key"
+                icon="shield-lock-outline"
                 value={senha}
                 onChangeText={setSenha}
                 placeholder="Digite sua senha"
                 // User Experience
                 returnKeyType="send"
                 secureTextEntry
-                ref={SenhaRef}
                 onSubmitEditing={handleSave}
                 // User Experience
               />
 
-              <Button
-                onPress={handleSave}
-                backgroundColor={commonStyles.colors.red}>
+              <Button onPress={handleSave} color={commonStyles.colors.red}>
                 SALVAR
               </Button>
 

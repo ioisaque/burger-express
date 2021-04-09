@@ -23,7 +23,6 @@ function Categorias({navigation}) {
       const response = await api.get('/produtos/?categorias=1');
       const {data} = response.data;
 
-      console.debug('categorias ==> ', data);
       setCategorias(data);
     } catch (error) {
       console.debug('Error on Cardapio/Categorias.js ==> ', error);
