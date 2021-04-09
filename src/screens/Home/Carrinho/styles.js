@@ -40,7 +40,7 @@ export default {
 
   itemContent: {
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 5,
   },
   itemFoto: {
     margin: 0,
@@ -54,12 +54,12 @@ export default {
     justifyContent: 'space-between',
   },
   itemName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: commonStyles.colors.black,
   },
   itemPrice: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: commonStyles.colors.success,
   },

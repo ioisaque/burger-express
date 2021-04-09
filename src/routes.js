@@ -63,8 +63,8 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Sign: createSwitchNavigator({
-        SingIn,
         Login,
+        SingIn,
       }),
       App: createBottomTabNavigator(
         {

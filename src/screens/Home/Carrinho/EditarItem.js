@@ -29,23 +29,22 @@ export default function EditarProduto({navigation}) {
     setLoading(true);
 
     try {
-      // const response = await api.get(
-      //   `/getAdicionaisByCategoria.php?id_categoria=${
-      //     navigation.state.params.categoria.id
-      //   }`,
-      // );
+      const response = await api.get(
+        `/produtos/?id_categoria=${navigation.state.params.categoria.id}`,
+      );
+      const {data} = response.data;
 
-      setAdicionais([]);
+      setAdicionais(data);
     } catch (error) {
-      console.debug('Error on Home/Carrinho/EditarItem.js ==> ', error);
+      console.debug('Error on Cardapio/Produtos.js ==> ', error);
       console.debug(
         'URL Request ==> ',
-        `${api.defaults.baseURL}/getAdicionaisByCategoria.php?id_categoria=${
+        `${api.defaults.baseURL}/produtos/?id_categoria=${
           navigation.state.params.categoria.id
         }`,
       );
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
 
