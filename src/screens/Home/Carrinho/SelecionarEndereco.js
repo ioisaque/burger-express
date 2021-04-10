@@ -10,7 +10,7 @@ import AppHeader from '~/components/AppHeader';
 import Button from '~/components/Button';
 import ItemEndereco from './components/ItemEndereco';
 
-export default function SelecionarEndereco({navigation}) {
+export default function SelecionarEndereco({route, navigation}) {
   const [enderecos, setEnderecos] = useState([]);
   const [refresh, setRefresh] = useState(false);
 

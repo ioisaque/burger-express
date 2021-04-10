@@ -8,32 +8,30 @@ import ItemList from '~/components/ItemList';
 
 import ItemProduto from './components/ItemProduto';
 
-function Produtos({navigation}) {
+function Produtos({route, navigation}) {
   const [produtos, setProdutos] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadItems();
+    console.log('ROUTE => ', route);
   }, []);
 
   async function loadItems() {
     setLoading(true);
 
     try {
-      const response = await api.get(
-        `/produtos/?id_categoria=${navigation.state.params.categoria.id}`,
+      const {data} = await api.get(
+        `/produtos/?id_categoria=${route.params.categoria.id}`,
       );
-      const {data} = response.data;
-      console.debug('produtos ==> ', data);
-      console.debug('categoria ==> ', navigation.state.params.categoria);
 
-      setProdutos(data);
+      setProdutos(data.data);
     } catch (error) {
-      console.debug('Error on Cardapio/Produtos.js ==> ', error);
-      console.debug(
+      console.log('Error on Cardapio/Produtos.js ==> ', error);
+      console.log(
         'URL Request ==> ',
         `${api.defaults.baseURL}/produtos/?id_categoria=${
-          navigation.state.params.categoria.id
+          route.params.categoria.id
         }`,
       );
     } finally {
@@ -45,7 +43,7 @@ function Produtos({navigation}) {
     <AppWrap>
       <AppHeader
         loading={loading && true}
-        banner={navigation.state.params.categoria.banner}
+        banner={route.params.categoria.banner}
       />
       <AppBody>
         <ItemList
@@ -56,7 +54,7 @@ function Produtos({navigation}) {
               listing
               onPress={() => {
                 navigation.navigate('Adicionais', {
-                  categoria: navigation.state.params.categoria,
+                  categoria: route.params.categoria,
                   produto: item,
                 });
               }}
@@ -71,8 +69,8 @@ function Produtos({navigation}) {
   );
 }
 
-Produtos.navigationOptions = ({navigation}) => ({
-  title: navigation.state.params.categoria.nome,
+Produtos.navigationOptions = ({route}) => ({
+  title: route.params.categoria.nome,
   headerShown: false,
 });
 

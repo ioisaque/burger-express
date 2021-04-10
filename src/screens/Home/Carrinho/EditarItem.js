@@ -16,7 +16,7 @@ import TotalItem from './components/TotalItem';
 import ItemAdicional from './components/ItemAdicional';
 import ItemProduto from '~/screens/Cardapio/components/ItemProduto';
 
-export default function EditarProduto({navigation}) {
+export default function EditarProduto({route, navigation}) {
   const [adicionais, setAdicionais] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,21 +26,19 @@ export default function EditarProduto({navigation}) {
   }, []);
 
   async function loadItems() {
-    setLoading(true);
-
     try {
       const response = await api.get(
-        `/produtos/?id_categoria=${navigation.state.params.categoria.id}`,
+        `/produtos/?id_categoria=${route.params.categoria.id}`,
       );
       const {data} = response.data;
 
       setAdicionais(data);
     } catch (error) {
-      console.debug('Error on Cardapio/Produtos.js ==> ', error);
-      console.debug(
+      console.log('Error on Cardapio/Produtos.js ==> ', error);
+      console.log(
         'URL Request ==> ',
         `${api.defaults.baseURL}/produtos/?id_categoria=${
-          navigation.state.params.categoria.id
+          route.params.categoria.id
         }`,
       );
     } finally {
@@ -67,13 +65,13 @@ export default function EditarProduto({navigation}) {
           resizeMode="cover"
           style={styles.itemFoto}
           source={{
-            uri: commonStyles.baseDIR + navigation.state.params.produto.foto,
+            uri: commonStyles.baseDIR + route.params.produto.foto,
           }}
         />
 
         <ItemList
           ListHeaderComponent={
-            <ItemProduto showPhoto {...navigation.state.params.produto} />
+            <ItemProduto showPhoto {...route.params.produto} />
           }
           data={adicionais}
           extraData={loading}
@@ -87,7 +85,7 @@ export default function EditarProduto({navigation}) {
           )}
           onRefresh={loadItems}
           refreshing={loading}
-          emptyIcon={!loading && navigation.state.params.categoria.icon}
+          emptyIcon={!loading && route.params.categoria.icon}
           emptyMessage={!loading && 'Nenhum adicional disponível...'}
           ListFooterComponent={
             <View>
@@ -98,7 +96,7 @@ export default function EditarProduto({navigation}) {
               />
 
               <TotalItem
-                produto={navigation.state.params.produto}
+                produto={route.params.produto}
                 adicionais={adicionais}
               />
 

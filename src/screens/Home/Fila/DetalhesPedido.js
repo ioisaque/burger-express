@@ -14,27 +14,27 @@ import ArrowButton from '~/components/ArrowButton';
 import ItemPedido from './components/ItemPedido';
 import TotalPedido from './components/TotalPedido';
 
-export default function DetalhesPedido({navigation}) {
+export default function DetalhesPedido({route, navigation}) {
   return (
     <AppWrap>
-      <AppHeader title={'Pedido Nº ' + navigation.state.params.pedido.id} />
+      <AppHeader title={'Pedido Nº ' + route.params.pedido.id} />
       <AppBody>
         <FlatList
-          data={navigation.state.params.pedido.items}
+          data={route.params.pedido.items}
           keyExtractor={item => item.id}
           renderItem={({item}) => <ItemPedido {...item} />}
         />
 
         <Text style={{marginVertical: 10}}>
-          {navigation.state.params.pedido.observacoes}
+          {route.params.pedido.observacoes}
         </Text>
 
         <LineSeparator style={{marginTop: 30}} />
 
         <ArrowButton
-          icon={navigation.state.params.pedido.metodo.icon}
-          iconColor={navigation.state.params.pedido.metodo.color}>
-          {navigation.state.params.pedido.metodo.nome}
+          icon={route.params.pedido.metodo.icon}
+          iconColor={route.params.pedido.metodo.color}>
+          {route.params.pedido.metodo.nome}
         </ArrowButton>
 
         <LineSeparator />
@@ -43,11 +43,11 @@ export default function DetalhesPedido({navigation}) {
           Entrega em Palmeiras, 39
         </ArrowButton>
 
-        <TotalPedido pedido={navigation.state.params.pedido} />
+        <TotalPedido pedido={route.params.pedido} />
 
-        {navigation.state.params.pedido.status === 1 && (
+        {route.params.pedido.status === 1 && (
           <Button
-            onSubmitEditing={() => console.debug('Attemp to cancel order...')}
+            onSubmitEditing={() => console.log('Attemp to cancel order...')}
             backgroundColor={commonStyles.colors.red}>
             CANCELAR PEDIDO
           </Button>
@@ -57,7 +57,7 @@ export default function DetalhesPedido({navigation}) {
   );
 }
 
-DetalhesPedido.navigationOptions = ({navigation}) => ({
-  title: 'Pedido Nº ' + navigation.state.params.pedido.id,
+DetalhesPedido.navigationOptions = ({route, navigation}) => ({
+  title: 'Pedido Nº ' + route.params.pedido.id,
   headerShown: false,
 });

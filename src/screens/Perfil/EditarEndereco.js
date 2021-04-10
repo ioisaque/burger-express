@@ -11,7 +11,7 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import {Platform} from 'react-native';
 
-export default function EditarEndereco({navigation}) {
+export default function EditarEndereco({route, navigation}) {
   const [loading, setLoading] = useState(true);
 
   const logradouroRef = useRef();
@@ -20,14 +20,14 @@ export default function EditarEndereco({navigation}) {
   const cidadeRef = useRef();
   const estadoRef = useRef();
 
-  const [cep, setCEP] = useState(navigation.state.params.endereco.cep);
+  const [cep, setCEP] = useState(route.params.endereco.cep);
   const [logradouro, setLogradouro] = useState(
-    navigation.state.params.endereco.logradouro,
+    route.params.endereco.logradouro,
   );
-  const [numero, setNumero] = useState(navigation.state.params.endereco.numero);
-  const [bairro, setBairro] = useState(navigation.state.params.endereco.bairro);
-  const [cidade, setCidade] = useState(navigation.state.params.endereco.cidade);
-  const [estado, setEstado] = useState(navigation.state.params.endereco.estado);
+  const [numero, setNumero] = useState(route.params.endereco.numero);
+  const [bairro, setBairro] = useState(route.params.endereco.bairro);
+  const [cidade, setCidade] = useState(route.params.endereco.cidade);
+  const [estado, setEstado] = useState(route.params.endereco.estado);
 
   async function handleSave() {
     setLoading(true);
@@ -45,9 +45,9 @@ export default function EditarEndereco({navigation}) {
         },
       });
 
-      console.debug('handleSave on Perfil/index.js ==> ', data);
+      console.log('handleSave on Perfil/index.js ==> ', data);
     } catch (error) {
-      console.debug('Error on Perfil/index.js ==> ', error);
+      console.log('Error on Perfil/index.js ==> ', error);
     } finally {
       setLoading(false);
     }

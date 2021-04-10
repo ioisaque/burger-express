@@ -14,10 +14,10 @@ import ArrowButton from '~/components/ArrowButton';
 import ItemPedido from './components/ItemPedido';
 import TotalPedido from './components/TotalPedido';
 
-export default function Carrinho({navigation}) {
+export default function Carrinho({route, navigation}) {
   const [refresh, setRefresh] = useState(false);
-  const [pedido, setPedido] = useState(navigation.state.params.pedido);
-  // const [endereco, setEndereco] = useState(navigation.state.params.cliente.enderecos)
+  const [pedido, setPedido] = useState(route.params.pedido);
+  // const [endereco, setEndereco] = useState(route.params.cliente.enderecos)
   const [pagamento, setPagamento] = useState('dinheiro');
 
   function updateItemQtd(item, value) {
@@ -104,7 +104,7 @@ export default function Carrinho({navigation}) {
   );
 }
 
-Carrinho.navigationOptions = ({navigation}) => ({
+Carrinho.navigationOptions = ({route, navigation}) => ({
   title: 'Carrinho',
   headerShown: false,
 });

@@ -2,6 +2,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Keyboard, Text, Image, Alert, TouchableOpacity} from 'react-native';
 import {AppContainer} from '~/components/styledComponents';
 import React, {useState} from 'react';
+import {useAuth} from '~/contexts/auth';
 
 import api from '~/services/api';
 
@@ -10,7 +11,8 @@ import Input from '~/components/Input';
 import commonStyles from '~/assets/styles/commonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function SignIn({navigation}) {
+export default function SignIn({route, navigation}) {
+  const {signIn} = useAuth();
   const [loading, setLoading] = useState(true);
 
   const [email, setEmail] = useState();
@@ -25,12 +27,12 @@ export default function SignIn({navigation}) {
       });
 
       data.code === 200
-        ? console.log(data.usuario)
+        ? signIn(data.usuario)
         : Alert.alert('Ops...', data.dialog.toString());
 
-      console.debug('Login/SignIn.js ==> ', data);
+      console.log('Login/SignIn.js ==> ', data);
     } catch (error) {
-      console.debug('Error on Login/SignIn.js ==> ', error);
+      console.log('Error on Login/SignIn.js ==> ', error);
     } finally {
       setLoading(false);
     }

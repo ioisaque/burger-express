@@ -93,7 +93,7 @@ export const ArrowButtonText = styled.Text`
 export const LineSeparator = styled.View`
   height: 3px;
   width: 100%;
-  margin-bottom: 5;
+  margin-bottom: 5px;
   background-color: #ff0000;
 `;
 

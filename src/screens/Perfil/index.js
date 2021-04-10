@@ -12,7 +12,7 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import ItemEndereco from './components/ItemEndereco';
 
-export default function Perfil({navigation}) {
+export default function Perfil({route, navigation}) {
   const [cliente, setCliente] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -33,9 +33,9 @@ export default function Perfil({navigation}) {
       setCelular(cliente.celular);
 
       setCliente(cliente);
-      console.debug('CLIENTE ==> ', cliente);
+      console.log('CLIENTE ==> ', cliente);
     } catch (error) {
-      console.debug('Error on Perfil/index.js ==> ', error);
+      console.log('Error on Perfil/index.js ==> ', error);
     } finally {
       setLoading(false);
     }
@@ -56,9 +56,9 @@ export default function Perfil({navigation}) {
         },
       });
 
-      console.debug('handleSave on Perfil/index.js ==> ', data.data);
+      console.log('handleSave on Perfil/index.js ==> ', data.data);
     } catch (error) {
-      console.debug('Error on Perfil/index.js ==> ', error);
+      console.log('Error on Perfil/index.js ==> ', error);
     } finally {
       setLoading(false);
     }
