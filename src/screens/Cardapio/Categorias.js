@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useAuth} from '~/contexts/auth';
 import api from '~/services/api';
 
 import {AppWrap, AppBody} from '~/components/styledComponents';
@@ -8,12 +9,10 @@ import ItemList from '~/components/ItemList';
 import ItemCategoria from './components/ItemCategoria';
 
 function Categorias({route, navigation}) {
+  const {loading, setLoading} = useAuth();
   const [categorias, setCategorias] = useState();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadItems();
-  }, []);
+  useEffect(() => loadItems, []);
 
   async function loadItems() {
     try {
@@ -31,7 +30,7 @@ function Categorias({route, navigation}) {
 
   return (
     <AppWrap>
-      <AppHeader loading={loading && true} title={'Cardápio'} />
+      <AppHeader title={'Cardápio'} />
       <AppBody>
         <ItemList
           data={categorias}
@@ -45,7 +44,6 @@ function Categorias({route, navigation}) {
             />
           )}
           onRefresh={loadItems}
-          refreshing={loading}
         />
       </AppBody>
     </AppWrap>

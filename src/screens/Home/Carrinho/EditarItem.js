@@ -13,7 +13,7 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 
 import TotalItem from './components/TotalItem';
-import ItemAdicional from './components/ItemAdicional';
+import ItemPedido from '../components/ItemPedido';
 import ItemProduto from '~/screens/Cardapio/components/ItemProduto';
 
 export default function EditarProduto({route, navigation}) {
@@ -28,7 +28,7 @@ export default function EditarProduto({route, navigation}) {
   async function loadItems() {
     try {
       const response = await api.get(
-        `/produtos/?id_categoria=${route.params.categoria.id}`,
+        `/produtos/?id_categoria=${route.params.produto.id_categoria}`,
       );
       const {data} = response.data;
 
@@ -38,7 +38,7 @@ export default function EditarProduto({route, navigation}) {
       console.log(
         'URL Request ==> ',
         `${api.defaults.baseURL}/produtos/?id_categoria=${
-          route.params.categoria.id
+          route.params.produto.id_categoria
         }`,
       );
     } finally {
@@ -71,14 +71,19 @@ export default function EditarProduto({route, navigation}) {
 
         <ItemList
           ListHeaderComponent={
-            <ItemProduto showPhoto {...route.params.produto} />
+            <ItemProduto
+              showPhoto
+              {...route.params.produto}
+              categoria={route.params.categoria}
+            />
           }
           data={adicionais}
           extraData={loading}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <ItemAdicional
+            <ItemPedido
               {...item}
+              categoria={route.params.categoria}
               plus={() => updateItemQtd(item, item.qtd + 1)}
               minus={() => updateItemQtd(item, item.qtd - 1)}
             />

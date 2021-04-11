@@ -14,7 +14,6 @@ function Produtos({route, navigation}) {
 
   useEffect(() => {
     loadItems();
-    console.log('ROUTE => ', route);
   }, []);
 
   async function loadItems() {
@@ -52,6 +51,7 @@ function Produtos({route, navigation}) {
           renderItem={({item}) => (
             <ItemProduto
               listing
+              categoria={route.params.categoria}
               onPress={() => {
                 navigation.navigate('Adicionais', {
                   categoria: route.params.categoria,

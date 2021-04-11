@@ -10,7 +10,9 @@ const AuthProvider = ({children}) => {
 
   useEffect(() => {
     loadStorageData();
-  });
+
+    return () => clearInterval(usuario); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
 
   async function signIn(usuario) {
     setUsuario(usuario);
@@ -28,20 +30,17 @@ const AuthProvider = ({children}) => {
 
     if (storagedUser) {
       try {
-        //JSON.parse(jsonValue)
-        const dados = {
-          usuario: storagedUser.usuario,
-          senha: storagedUser.senha,
-        };
+        const storage = JSON.parse(storagedUser);
+        const {data} = await api.post('/usuarios/', {
+          usuario: storage.usuario,
+          senha: 'kraken22', //storage.senha,
+        });
 
-        const {data} = await api.post('/usuarios/', dados);
-
-        console.log('Attempting to sign in... ', data, dados);
-        console.log('DADOS => ', dados);
-        console.log('RESPONSE => ', data);
-        console.log('USUARIO => ', usuario);
-
-        data.code === 200 ? signIn(data.usuario) : signOut;
+        data.code === 200 ? signIn(data.usuario) : signOut();
+        console.log(
+          'Attempting to sign in with default password... ==> ',
+          data.code,
+        );
       } catch (error) {
         console.log('Error on useAuth ==> ', error);
       } finally {
@@ -54,7 +53,14 @@ const AuthProvider = ({children}) => {
 
   return (
     <AuthContext.Provider
-      value={{signed: !!usuario, usuario, loading, signIn, signOut}}>
+      value={{
+        signed: !!usuario,
+        usuario,
+        loading,
+        setLoading,
+        signIn,
+        signOut,
+      }}>
       {children}
     </AuthContext.Provider>
   );

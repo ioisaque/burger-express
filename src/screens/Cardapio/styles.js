@@ -23,7 +23,6 @@ export default {
 
   itemWrapper: {
     width: '100%',
-    paddingRight: 5,
     marginBottom: 5,
     flexDirection: 'row',
     alignItems: 'center',
@@ -34,11 +33,12 @@ export default {
   itemFoto: {
     marginBottom: 15,
     alignSelf: 'center',
-    width: Dimensions.get('window').width * 0.6,
+    width: Dimensions.get('window').width,
     height: Dimensions.get('window').width * 0.6,
   },
 
   itemSideFoto: {
+    borderRadius: 5,
     width: Dimensions.get('window').width * 0.2,
     height: Dimensions.get('window').width * 0.2,
   },

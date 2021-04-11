@@ -11,7 +11,11 @@ export default props => {
       <Image
         resizeMode="cover"
         style={styles.itemSideFoto}
-        source={{uri: commonStyles.baseDIR + props.foto}}
+        source={{
+          uri:
+            commonStyles.baseDIR +
+            (props.foto ? props.foto : props.categoria.foto),
+        }}
       />
       <View style={styles.itemContent}>
         <Text style={styles.itemTitle}>{props.descricao}</Text>
@@ -22,11 +26,15 @@ export default props => {
       </View>
     </TouchableOpacity>
   ) : (
-    <TouchableOpacity onPress={props.onPress}>
+    <>
       <Image
         resizeMode="cover"
         style={styles.itemFoto}
-        source={{uri: commonStyles.baseDIR + props.foto}}
+        source={{
+          uri:
+            commonStyles.baseDIR +
+            (props.foto ? props.foto : props.categoria.foto),
+        }}
       />
       <View style={styles.itemWrapper}>
         <Text style={styles.itemTitle}>{props.descricao.substring(0, 27)}</Text>
@@ -38,7 +46,7 @@ export default props => {
         </Text>
       )}
       <LineSeparator />
-    </TouchableOpacity>
+    </>
   );
 };
 

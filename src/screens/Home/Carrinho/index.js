@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList} from 'react-native';
-
+import {View} from 'react-native';
 import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
@@ -11,14 +10,15 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import ArrowButton from '~/components/ArrowButton';
 
-import ItemPedido from './components/ItemPedido';
-import TotalPedido from './components/TotalPedido';
+import ItemList from '~/components/ItemList';
+import ItemPedido from '../components/ItemPedido';
+import TotalPedido from '../components/TotalPedido';
 
 export default function Carrinho({route, navigation}) {
   const [refresh, setRefresh] = useState(false);
   const [pedido, setPedido] = useState(route.params.pedido);
   // const [endereco, setEndereco] = useState(route.params.cliente.enderecos)
-  const [pagamento, setPagamento] = useState('dinheiro');
+  const [method, setMethod] = useState(0);
 
   function updateItemQtd(item, value) {
     let nPedido = pedido;
@@ -37,68 +37,64 @@ export default function Carrinho({route, navigation}) {
     <AppWrap>
       <AppHeader title={'Carrinho'} />
       <AppBody>
-        <FlatList
+        <ItemList
           data={pedido.items}
-          keyExtractor={item => item.id_item}
+          keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ItemPedido
               {...item}
-              plus={() => updateItemQtd(item, parseInt(item.qtd) + 1)}
-              minus={() => updateItemQtd(item, parseInt(item.qtd) - 1)}
+              plus={() => updateItemQtd(item, item.qtd + 1)}
+              minus={() => updateItemQtd(item, item.qtd - 1)}
             />
           )}
-          extraData={refresh}
+          ListFooterComponent={
+            <View>
+              <Input
+                icon="chat-alert"
+                style={{marginTop: 10}}
+                placeholder="Ex: Ligar ao chegar, entregar para, etc."
+              />
+
+              {/* <TotalItem
+                produto={route.params.produto}
+                adicionais={adicionais}
+              /> */}
+              <TotalPedido pedido={pedido} />
+
+              <ArrowButton
+                style={{marginTop: 5}}
+                icon="cash"
+                iconColor={commonStyles.colors.success}
+                enabled={true}
+                onPress={() => navigation.navigate('SelecionarPagamento')}>
+                Pagar em Dinheiro
+              </ArrowButton>
+
+              {!method && <LineSeparator />}
+              {!method && (
+                <Input
+                  icon="cash-refund"
+                  iconSize={30}
+                  iconColor={commonStyles.colors.success}
+                  value={pedido.troco}
+                  style={{marginVertical: 10}}
+                  placeholder="Precisará de troco?"
+                />
+              )}
+              <ArrowButton
+                style={{marginBottom: 5}}
+                icon="logoX"
+                enabled={true}
+                onPress={() => navigation.navigate('EditarEndereco')}>
+                Entrega em Palmeiras, 39
+              </ArrowButton>
+
+              <Button onSubmitEditing={null} color={commonStyles.colors.red}>
+                FINALIZAR PEDIDO
+              </Button>
+            </View>
+          }
         />
-
-        <Input
-          icon="chat-alert"
-          value={pedido.observacoes}
-          editable={false}
-          style={{marginVertical: 10}}
-          placeholder="Ex: Tirar salada, maionese a parte, etc."
-        />
-
-        <TotalPedido pedido={pedido} />
-
-        <LineSeparator />
-
-        <ArrowButton
-          style={{marginTop: 5}}
-          icon="cash"
-          iconColor={commonStyles.colors.success}
-          enabled={true}
-          onPress={() => navigation.navigate('SelecionarPagamento')}>
-          Pagar em Dinheiro
-        </ArrowButton>
-
-        {pagamento == 'dinheiro' && <LineSeparator />}
-        {pagamento == 'dinheiro' && (
-          <Input
-            icon="cash-refund"
-            iconSize={30}
-            iconColor={commonStyles.colors.success}
-            value={pedido.troco}
-            style={{marginVertical: 10}}
-            placeholder="Precisará de troco?"
-          />
-        )}
-
-        <LineSeparator />
-
-        <ArrowButton
-          style={{marginTop: 5}}
-          icon="logoX"
-          enabled={true}
-          onPress={() => navigation.navigate('SelecionarEndereco')}>
-          Entrega em Palmeiras, 39
-        </ArrowButton>
-
-        <Button
-          style={{marginTop: 10}}
-          onSubmitEditing={() => handleRemove}
-          backgroundColor={commonStyles.colors.success}>
-          FINALIZAR PEDIDO
-        </Button>
       </AppBody>
     </AppWrap>
   );

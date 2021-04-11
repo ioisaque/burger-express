@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-
+import {useAuth} from '~/contexts/auth';
 import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
@@ -12,6 +12,7 @@ import Button from '~/components/Button';
 import {Platform} from 'react-native';
 
 export default function EditarEndereco({route, navigation}) {
+  const {signOut} = useAuth();
   const [loading, setLoading] = useState(true);
 
   const logradouroRef = useRef();
@@ -53,7 +54,11 @@ export default function EditarEndereco({route, navigation}) {
     }
   }
 
-  function handleRemove() {}
+  function handleRemove() {
+
+    console.log('handleRemove => ');
+    signOut();
+  }
 
   return (
     <AppWrap>
@@ -127,14 +132,10 @@ export default function EditarEndereco({route, navigation}) {
           onSubmitEditing={() => handleSave}
           // User Experience
         />
-        <Button
-          onSubmitEditing={() => handleRemove}
-          color={commonStyles.colors.black}>
+        <Button onClick={() => handleRemove} color={commonStyles.colors.black}>
           REMOVER
         </Button>
-        <Button
-          onSubmitEditing={() => handleSave}
-          color={commonStyles.colors.red}>
+        <Button onClick={() => handleSave} color={commonStyles.colors.red}>
           SALVAR
         </Button>
       </AppBody>
