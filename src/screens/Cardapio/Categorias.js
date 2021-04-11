@@ -9,10 +9,12 @@ import ItemList from '~/components/ItemList';
 import ItemCategoria from './components/ItemCategoria';
 
 function Categorias({route, navigation}) {
-  const {loading, setLoading} = useAuth();
   const [categorias, setCategorias] = useState();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => loadItems, []);
+  useEffect(() => {
+    loading && loadItems();
+  }, [loading]);
 
   async function loadItems() {
     try {

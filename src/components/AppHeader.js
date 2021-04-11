@@ -1,18 +1,22 @@
 import React from 'react';
-import {View, Image, Text} from 'react-native';
+import {useAuth} from '~/contexts/auth';
+import {View, Image, TouchableOpacity, Text} from 'react-native';
 
 import {styles} from './styledComponents';
 import commonStyles from '~/assets/styles/commonStyles';
 
 export default props => {
+  const {signOut} = useAuth();
   if (props.title) {
     return (
       <View style={styles.headerContainer}>
-        <Image
-          resizeMode="cover"
-          style={props.foto ? styles.headerFOTO : styles.headerLOGO}
-          source={props.foto ? props.foto : commonStyles.imgs.x}
-        />
+        <TouchableOpacity onPress={signOut}>
+          <Image
+            resizeMode="cover"
+            style={props.foto ? styles.headerFOTO : styles.headerLOGO}
+            source={props.foto ? props.foto : commonStyles.imgs.x}
+          />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>{props.title}</Text>
       </View>
     );

@@ -5,16 +5,21 @@ import {useAuth} from '~/contexts/auth';
 
 import {StatusBar} from 'expo-status-bar';
 import commonStyles from '~/assets/styles/commonStyles';
-import {AppContainer} from '~/components/styledComponents';
+import {AppContainer, FakeStatusBar} from '~/components/styledComponents';
 
 const App = () => {
   const {signed} = useAuth();
   return (
-    <AppContainer
-      color={signed ? commonStyles.colors.gold : commonStyles.colors.white}>
-      <StatusBar translucent animated="fade" style="dark" />
-      <Routes />
-    </AppContainer>
+    <>
+      <FakeStatusBar
+        color={signed ? commonStyles.colors.gold : commonStyles.colors.white}
+      />
+      <AppContainer
+        color={signed ? commonStyles.colors.gold : commonStyles.colors.white}>
+        <StatusBar translucent animated="fade" style="dark" />
+        <Routes />
+      </AppContainer>
+    </>
   );
 };
 

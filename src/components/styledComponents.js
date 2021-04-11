@@ -5,8 +5,8 @@ import styled from 'styled-components/native';
 
 import commonStyles from '~/assets/styles/commonStyles';
 
-export const AppContainer = styled.SafeAreaView`
-  flex: 1;
+export const FakeStatusBar = styled.SafeAreaView`
+  flex: 0;
   background-color: ${props =>
     props.color ? props.color : commonStyles.colors.white};
 `;
@@ -19,6 +19,12 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
 })`
   flex: 1;
   padding: 10px 15px;
+`;
+
+export const AppContainer = styled.SafeAreaView`
+  flex: 1;
+  background-color: ${props =>
+    props.color ? props.color : commonStyles.colors.white};
 `;
 
 export const AppWrap = styled.View`

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Keyboard} from 'react-native';
 
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,7 +18,11 @@ function Input({style, icon, iconSize, iconColor, ...rest}) {
           color={iconColor ? iconColor : commonStyles.colors.black}
         />
       )}
-      <InputText keyboardAppearance="light" {...rest} />
+      <InputText
+        keyboardAppearance="light"
+        onPressOut={Keyboard.dismiss}
+        {...rest}
+      />
     </InputContainer>
   );
 }

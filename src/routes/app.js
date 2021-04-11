@@ -23,7 +23,7 @@ const PerfilStack = createStackNavigator();
 
 const PerfilStackSC = () => {
   return (
-    <PerfilStack.Navigator headerMode="none">
+    <PerfilStack.Navigator headerMode="none" initial="Perfil">
       <PerfilStack.Screen name="Perfil" component={Perfil} />
       <PerfilStack.Screen name="EditarEndereco" component={EditarEndereco} />
     </PerfilStack.Navigator>
@@ -34,7 +34,7 @@ const HomeStack = createStackNavigator();
 
 const HomeStackSC = () => {
   return (
-    <HomeStack.Navigator headerMode="none">
+    <HomeStack.Navigator headerMode="none" initial="Fila">
       <HomeStack.Screen name="Fila" component={Fila} />
       <HomeStack.Screen name="DetalhesPedido" component={DetalhesPedido} />
       <HomeStack.Screen name="Carrinho" component={Carrinho} />
@@ -54,7 +54,7 @@ const MenuStack = createStackNavigator();
 
 const MenuStackSC = () => {
   return (
-    <MenuStack.Navigator headerMode="none">
+    <MenuStack.Navigator headerMode="none" initial="Categorias">
       <MenuStack.Screen name="Categorias" component={Categorias} />
       <MenuStack.Screen name="Produtos" component={Produtos} />
       <MenuStack.Screen name="Adicionais" component={Adicionais} />
@@ -81,8 +81,8 @@ const AppRoutes = () => (
       },
       // Fix for bottom white space on iPhone X or superior
       safeAreaInset: {bottom: 'never', top: 'never'},
-      activeTintColor: commonStyles.colors.white,
-      inactiveTintColor: commonStyles.colors.black,
+      // activeTintColor: commonStyles.colors.white,
+      // inactiveTintColor: commonStyles.colors.black,
       activeBackgroundColor: commonStyles.colors.red,
       inactiveBackgroundColor: commonStyles.colors.gold,
     }}>

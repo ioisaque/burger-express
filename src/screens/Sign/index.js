@@ -58,10 +58,10 @@ export default function SignIn({route, navigation}) {
           onChangeText={setEmail}
           placeholder="E-mail"
           // User Experience
-          onPressOut={Keyboard.dismiss}
-          returnKeyType="next"
+          returnKeyType="send"
           keyboardType={'email-address'}
           textContentType="telephoneNumber"
+          onSubmitEditing={login}
           enablesReturnKeyAutomatically
           // User Experience
         />
