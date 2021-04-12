@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useAuth} from '~/contexts/auth';
 import api from '~/services/api';
 
-import {AppWrap, ImageBgWrap} from '~/components/styledComponents';
+import {AppContainer, ImageBgWrap} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 import ItemList from '~/components/ItemList';
 import CartButton from '~/components/CartButton';
@@ -33,7 +33,7 @@ function Fila({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       {carrinho.length ? (
         <AppHeader
           loading={loading && true}
@@ -67,7 +67,7 @@ function Fila({route, navigation}) {
           emptyMessage="none"
         />
       </ImageBgWrap>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

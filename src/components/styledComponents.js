@@ -12,9 +12,9 @@ export const FakeStatusBar = styled.SafeAreaView`
 `;
 
 export const ImageBgWrap = styled.ImageBackground.attrs({
-  source: commonStyles.imgs.background,
-  resizeMode: 'contain',
   opacity: 0.18,
+  resizeMode: 'contain',
+  source: commonStyles.imgs.background,
   backgroundColor: commonStyles.colors.lightGrey,
 })`
   flex: 1;
@@ -25,11 +25,6 @@ export const AppContainer = styled.SafeAreaView`
   flex: 1;
   background-color: ${props =>
     props.color ? props.color : commonStyles.colors.white};
-`;
-
-export const AppWrap = styled.View`
-  flex: 1;
-  background-color: ${commonStyles.colors.white};
 `;
 
 export const AppBody = styled.View`
@@ -43,7 +38,7 @@ export const InputContainer = styled.KeyboardAvoidingView.attrs({
 })`
   padding: 0 15px;
   height: 45px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
   background: transparent;

@@ -4,7 +4,7 @@ import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
 
-import {AppWrap, AppBody} from '~/components/styledComponents';
+import {AppContainer, AppBody} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 
 import Input from '~/components/Input';
@@ -61,7 +61,7 @@ export default function EditarEndereco({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader loading={loading} title={'Editar Endereço'} />
       <AppBody>
         <Input
@@ -139,7 +139,7 @@ export default function EditarEndereco({route, navigation}) {
           SALVAR
         </Button>
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

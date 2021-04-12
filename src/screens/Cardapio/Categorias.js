@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useAuth} from '~/contexts/auth';
 import api from '~/services/api';
 
-import {AppWrap, AppBody} from '~/components/styledComponents';
+import {AppContainer, AppBody} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 import ItemList from '~/components/ItemList';
 
@@ -18,10 +18,9 @@ function Categorias({route, navigation}) {
 
   async function loadItems() {
     try {
-      const response = await api.get('/produtos/?categorias=1');
-      const {data} = response.data;
+      const {data} = await api.get('/produtos/?categorias=1');
 
-      setCategorias(data);
+      setCategorias(data.data);
     } catch (error) {
       console.log('Error on Cardapio/Categorias.js ==> ', error);
       console.log('URL Request ==> ', `${api.defaults.baseURL}/categorias`);
@@ -31,7 +30,7 @@ function Categorias({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader title={'Cardápio'} />
       <AppBody>
         <ItemList
@@ -48,7 +47,7 @@ function Categorias({route, navigation}) {
           onRefresh={loadItems}
         />
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

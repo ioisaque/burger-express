@@ -1,3 +1,4 @@
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import React, {useEffect, useState} from 'react';
 import {View, Image} from 'react-native';
 import api from '~/services/api';
@@ -5,8 +6,7 @@ import api from '~/services/api';
 import styles from './styles';
 import commonStyles from '~/assets/styles/commonStyles';
 
-import {AppWrap, AppBody} from '~/components/styledComponents';
-import AppHeader from '~/components/AppHeader';
+import {AppContainer, AppBody} from '~/components/styledComponents';
 import ItemList from '~/components/ItemList';
 
 import Input from '~/components/Input';
@@ -27,12 +27,11 @@ export default function EditarProduto({route, navigation}) {
 
   async function loadItems() {
     try {
-      const response = await api.get(
+      const {data} = await api.get(
         `/produtos/?id_categoria=${route.params.produto.id_categoria}`,
       );
-      const {data} = response.data;
 
-      setAdicionais(data);
+      setAdicionais(data.data);
     } catch (error) {
       console.log('Error on Cardapio/Produtos.js ==> ', error);
       console.log(
@@ -58,61 +57,71 @@ export default function EditarProduto({route, navigation}) {
   }
 
   return (
-    <AppWrap>
-      <AppHeader />
-      <AppBody>
+    <AppContainer>
+      <KeyboardAwareScrollView
+        enableOnAndroid
+        enableAutomaticScroll
+        showsVerticalScrollIndicator={false}>
         <Image
           resizeMode="cover"
           style={styles.itemFoto}
           source={{
-            uri: commonStyles.baseDIR + route.params.produto.foto,
+            uri:
+              commonStyles.baseDIR +
+              (route.params.produto.foto
+                ? route.params.produto.foto
+                : route.params.categoria.foto),
           }}
         />
-
-        <ItemList
-          ListHeaderComponent={
-            <ItemProduto
-              showPhoto
-              {...route.params.produto}
-              categoria={route.params.categoria}
-            />
-          }
-          data={adicionais}
-          extraData={loading}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <ItemPedido
-              {...item}
-              categoria={route.params.categoria}
-              plus={() => updateItemQtd(item, item.qtd + 1)}
-              minus={() => updateItemQtd(item, item.qtd - 1)}
-            />
-          )}
-          onRefresh={loadItems}
-          refreshing={loading}
-          emptyIcon={!loading && route.params.categoria.icon}
-          emptyMessage={!loading && 'Nenhum adicional disponível...'}
-          ListFooterComponent={
-            <View>
-              <Input
-                icon="chat-alert"
-                style={{marginTop: 10}}
-                placeholder="Ex: Tirar salada, maionese a parte, etc."
+        <AppBody>
+          <ItemList
+            ListHeaderComponent={
+              <ItemProduto
+                {...route.params.produto}
+                categoria={route.params.categoria}
               />
+            }
+            data={adicionais}
+            extraData={loading}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => {
+              item.qtd = item.qtd ? item.qtd : 0;
 
-              <TotalItem
-                produto={route.params.produto}
-                adicionais={adicionais}
-              />
+              return (
+                <ItemPedido
+                  {...item}
+                  categoria={route.params.categoria}
+                  plus={() => updateItemQtd(item, item.qtd + 1)}
+                  minus={() => updateItemQtd(item, item.qtd - 1)}
+                />
+              );
+            }}
+            onRefresh={loadItems}
+            refreshing={loading}
+            emptyIcon={!loading && route.params.categoria.icon}
+            emptyMessage={!loading && 'Nenhum adicional disponível...'}
+            ListFooterComponent={
+              <View>
+                <Input
+                  icon="chat-alert"
+                  style={{marginTop: 10}}
+                  placeholder="Ex: Tirar salada, maionese a parte, etc."
+                />
 
-              <Button onSubmitEditing={null} color={commonStyles.colors.red}>
-                ADICIONAR AO CARRINHO
-              </Button>
-            </View>
-          }
-        />
-      </AppBody>
-    </AppWrap>
+                <TotalItem
+                  produto={route.params.produto}
+                  adicionais={adicionais}
+                />
+
+                <Button onSubmitEditing={null} color={commonStyles.colors.red}>
+                  ADICIONAR AO CARRINHO
+                </Button>
+              </View>
+            }
+          />
+        </AppBody>
+      </KeyboardAwareScrollView>
+    </AppContainer>
   );
 }
 

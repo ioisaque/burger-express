@@ -27,15 +27,6 @@ export default props => {
     </TouchableOpacity>
   ) : (
     <>
-      <Image
-        resizeMode="cover"
-        style={styles.itemFoto}
-        source={{
-          uri:
-            commonStyles.baseDIR +
-            (props.foto ? props.foto : props.categoria.foto),
-        }}
-      />
       <View style={styles.itemWrapper}>
         <Text style={styles.itemTitle}>{props.descricao.substring(0, 27)}</Text>
         <Text style={styles.itemPrice}>{floatToReais(props.valor_venda)}</Text>

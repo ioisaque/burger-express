@@ -5,7 +5,7 @@ import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
 import {
-    AppWrap,
+    AppContainer,
     AppBody,
 } from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
@@ -37,7 +37,7 @@ export default function SelecionarPagamento({ navigation }) {
     }, []);
 
     return (
-        <AppWrap>
+        <AppContainer>
             <AppHeader title={'Métodos de Pagamento'}
             />
             <AppBody>
@@ -55,7 +55,7 @@ export default function SelecionarPagamento({ navigation }) {
                     backgroundColor={commonStyles.colors.success}>ADICIONAR CARTÃO</Button>
 
             </AppBody>
-        </AppWrap>
+        </AppContainer>
     );
 }
 

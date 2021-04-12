@@ -4,7 +4,7 @@ import {FlatList} from 'react-native';
 import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
-import {AppWrap, AppBody} from '~/components/styledComponents';
+import {AppContainer, AppBody} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 
 import Button from '~/components/Button';
@@ -25,7 +25,7 @@ export default function SelecionarEndereco({route, navigation}) {
   }, []);
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader title={'Endereço de Entrega'} />
       <AppBody>
         <FlatList
@@ -49,7 +49,7 @@ export default function SelecionarEndereco({route, navigation}) {
           ADICIONAR ENDERECO
         </Button>
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

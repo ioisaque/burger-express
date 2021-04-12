@@ -4,7 +4,7 @@ import api from '~/services/api';
 
 import AppHeader from '~/components/AppHeader';
 import commonStyles from '~/assets/styles/commonStyles';
-import {AppWrap, AppBody, LineSeparator} from '~/components/styledComponents';
+import {AppContainer, AppBody, LineSeparator} from '~/components/styledComponents';
 
 import Button from '~/components/Button';
 import ItemList from '~/components/ItemList';
@@ -34,7 +34,7 @@ export default function DetalhesPedido({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader title={'Pedido Nº ' + pedido.id} />
       <AppBody>
         <ItemList
@@ -70,7 +70,7 @@ export default function DetalhesPedido({route, navigation}) {
           </Button>
         )}
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

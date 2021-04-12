@@ -4,7 +4,7 @@ import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
 import AppHeader from '~/components/AppHeader';
-import {AppWrap, AppBody, LineSeparator} from '~/components/styledComponents';
+import {AppContainer, AppBody, LineSeparator} from '~/components/styledComponents';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
@@ -34,7 +34,7 @@ export default function Carrinho({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader title={'Carrinho'} />
       <AppBody>
         <ItemList
@@ -96,7 +96,7 @@ export default function Carrinho({route, navigation}) {
           }
         />
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

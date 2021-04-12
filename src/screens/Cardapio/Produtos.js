@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import api from '~/services/api';
 
-import {AppWrap, AppBody} from '~/components/styledComponents';
+import {AppContainer, AppBody} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 import ItemList from '~/components/ItemList';
 
@@ -39,7 +39,7 @@ function Produtos({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader
         loading={loading && true}
         banner={route.params.categoria.banner}
@@ -65,7 +65,7 @@ function Produtos({route, navigation}) {
           refreshing={loading}
         />
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

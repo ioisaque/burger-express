@@ -4,7 +4,7 @@ import {Platform, View} from 'react-native';
 import api from '~/services/api';
 
 import commonStyles from '~/assets/styles/commonStyles';
-import {AppWrap, AppBody, LineSeparator} from '~/components/styledComponents';
+import {AppContainer, AppBody, LineSeparator} from '~/components/styledComponents';
 import AppHeader from '~/components/AppHeader';
 import ItemList from '~/components/ItemList';
 
@@ -65,7 +65,7 @@ export default function Perfil({route, navigation}) {
   }
 
   return (
-    <AppWrap>
+    <AppContainer>
       <AppHeader
         loading={loading}
         title={cliente.nome}
@@ -135,7 +135,7 @@ export default function Perfil({route, navigation}) {
           refreshing={loading}
         />
       </AppBody>
-    </AppWrap>
+    </AppContainer>
   );
 }
 

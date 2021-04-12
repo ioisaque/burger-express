@@ -1,46 +1,50 @@
 import {Dimensions} from 'react-native';
 import commonStyles from '~/assets/styles/commonStyles';
 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 export default {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////// LOGIN SCREEN ////////////////////////////////////////////////////////////////////////
   loginContainer: {
     flex: 1,
-    padding: 35,
-    justifyContent: 'center',
+    paddingVertical: 10,
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-around',
     backgroundColor: commonStyles.colors.white,
   },
   loginLogo: {
-    marginVertical: 45,
-    width: Dimensions.get('window').height * 0.11 * (1950 / 662),
-    height: Dimensions.get('window').height * 0.11 * (1950 / 662),
+    marginBottom: 45,
+    width: WIDTH * 0.7,
+    height: WIDTH * 0.7,
   },
   fbLoginButton: {
-    width: '100%',
+    width: WIDTH * 0.85,
     padding: 10,
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: commonStyles.colors.facebook,
   },
   googleLoginButton: {
-    width: '100%',
+    width: WIDTH * 0.85,
     padding: 10,
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: commonStyles.colors.blue,
   },
   loginButton: {
-    width: '100%',
+    width: WIDTH * 0.85,
     padding: 10,
     borderRadius: 5,
-    marginBottom: 10,
+    marginVertical: 5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -51,23 +55,9 @@ export default {
     marginLeft: 15,
     color: commonStyles.colors.white,
   },
-  loginResult: {
-    fontSize: 15,
-    padding: 30,
-    textAlign: 'center',
-    color: commonStyles.colors.danger,
-  },
   appCopyrights: {
     height: 50,
-    marginTop: 60,
-    maxWidth: Dimensions.get('window').height * 0.11 * (1950 / 662),
-  },
-  appVersion: {
-    fontSize: 12,
-    paddingVertical: 5,
-    paddingHorizontal: 30,
-    textAlign: 'center',
-    color: commonStyles.colors.danger,
+    maxWidth: HEIGHT * 0.8,
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,8 @@
+import {Dimensions} from 'react-native';
 import commonStyles from '~/assets/styles/commonStyles';
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 export default {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,8 +47,9 @@ export default {
     marginHorizontal: 5,
   },
   itemFoto: {
-    margin: 0,
-    width: 200,
+    width: WIDTH,
+    marginBottom: 5,
+    height: WIDTH,
   },
   itemHeader: {
     width: '100%',

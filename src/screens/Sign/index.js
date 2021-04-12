@@ -1,6 +1,6 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Keyboard, Text, Image, Alert, TouchableOpacity} from 'react-native';
-import {AppContainer} from '~/components/styledComponents';
+import {Text, Image, Alert, TouchableOpacity} from 'react-native';
+import {AppBody} from '~/components/styledComponents';
 import React, {useState} from 'react';
 import {useAuth} from '~/contexts/auth';
 
@@ -39,18 +39,18 @@ export default function SignIn({route, navigation}) {
   }
 
   return (
-    <AppContainer>
-      <KeyboardAwareScrollView
-        bounces={false}
-        enableOnAndroid
-        enableAutomaticScroll
-        contentContainerStyle={styles.loginContainer}>
-        <Image
-          resizeMode="contain"
-          style={styles.loginLogo}
-          source={commonStyles.imgs.full}
-        />
+    <KeyboardAwareScrollView
+      bounces={false}
+      enableOnAndroid
+      enableAutomaticScroll
+      contentContainerStyle={styles.loginContainer}>
+      <Image
+        resizeMode="contain"
+        style={styles.loginLogo}
+        source={commonStyles.imgs.full}
+      />
 
+      <AppBody>
         <Input
           icon="email"
           iconColor={commonStyles.colors.red}
@@ -96,14 +96,14 @@ export default function SignIn({route, navigation}) {
           <Icon name="facebook" size={25} color={commonStyles.colors.white} />
           <Text style={styles.loginButtonText}>Entrar com o Facebook</Text>
         </TouchableOpacity>
+      </AppBody>
 
-        <Image
-          resizeMode="contain"
-          style={styles.appCopyrights}
-          source={commonStyles.imgs.copyrightDark}
-        />
-      </KeyboardAwareScrollView>
-    </AppContainer>
+      <Image
+        resizeMode="contain"
+        style={styles.appCopyrights}
+        source={commonStyles.imgs.copyrightDark}
+      />
+    </KeyboardAwareScrollView>
   );
 }
 
