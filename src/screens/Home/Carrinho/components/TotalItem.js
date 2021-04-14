@@ -11,7 +11,7 @@ import {TotalOverLine} from '~/components/styledComponents';
 export default function TotalItem({produto, adicionais}) {
   let valor_total = parseFloat(produto.valor_venda);
 
-  if (adicionais.length > 0) {
+  if (adicionais?.length > 0) {
     adicionais.map(item => {
       valor_total += parseFloat(item.qtd * item.valor_venda);
     });

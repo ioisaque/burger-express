@@ -2,8 +2,10 @@ import {Dimensions, Platform} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 
 import styled from 'styled-components/native';
-
 import commonStyles from '~/assets/styles/commonStyles';
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 export const FakeStatusBar = styled.SafeAreaView`
   flex: 0;
@@ -24,12 +26,25 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
 export const AppContainer = styled.SafeAreaView`
   flex: 1;
   background-color: ${props =>
-    props.color ? props.color : commonStyles.colors.white};
+    props.color ? props.color : commonStyles.colors.transparent};
 `;
 
 export const AppBody = styled.View`
   flex: 1;
-  padding: 10px 15px;
+  padding-top: ${props => (props.hasGayHeader ? '30px' : '10px')};
+  background-color: ${props =>
+    props.color ? props.color : commonStyles.colors.white};
+`;
+
+export const AppBodyOver = styled.View`
+  flex: 1;
+  margin-top: -40px;
+  padding: 50px 15px 0;
+  box-shadow: 0px -10px 10px #00000060;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: ${props =>
+    props.color ? props.color : commonStyles.colors.white};
 `;
 
 export const InputContainer = styled.KeyboardAvoidingView.attrs({
@@ -68,7 +83,7 @@ export const ButtonContainer = styled(RectButton)`
     props.color ? props.color : commonStyles.colors.blue};
 `;
 export const ButtonText = styled.Text`
-  color: #fff;
+  color: ${commonStyles.colors.white};
   font-size: 14px;
   font-weight: bold;
 `;
@@ -86,50 +101,87 @@ export const ArrowButtonContainer = styled(RectButton)`
   justify-content: space-between;
 `;
 export const ArrowButtonText = styled.Text`
-  color: #000;
+  color: ${commonStyles.colors.black};
   font-size: 17px;
   font-weight: bold;
 `;
 
 export const LineSeparator = styled.View`
-  height: 3px;
+  height: 2px;
   width: 100%;
   margin-bottom: 5px;
-  background-color: #ff0000;
+  background-color: ${commonStyles.colors.red};
 `;
 
 export const TotalOverLine = styled.View`
   height: 3px;
   width: 40%;
   align-self: flex-end;
-  background-color: #ff0000;
+  background-color: ${commonStyles.colors.red};
 `;
 
 export const styles = {
-  headerContainer: {
-    padding: 10,
+  emptyView: {
+    paddingVertical: 5,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: commonStyles.colors.white,
+  },
+  loadingView: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomLeftRadius: 100,
-    borderBottomEndRadius: 100,
+    backgroundColor: commonStyles.colors.white,
+  },
+  inlineItems: {
+    width: WIDTH,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-between',
+  },
+  straightHeader: {
+    width: WIDTH,
+    alignItems: 'center',
+    justifyContent: 'space-around',
     backgroundColor: commonStyles.colors.gold,
   },
-  headerContainerStraight: {
-    width: Dimensions.get('screen').width,
+  gayHeader: {
+    width: WIDTH,
+    marginBottom: -20,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
     backgroundColor: commonStyles.colors.gold,
+  },
+  overlapingView: {
+    flex: 1,
+    marginTop: -40,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    elevation: 5,
+    shadowRadius: 3,
+    shadowOpacity: 0.1,
+    shadowOffset: {
+      width: 0,
+      height: -5,
+    },
+    shadowColor: commonStyles.colors.black,
   },
   headerLOGO: {
-    width: 45,
-    height: 45,
-    marginBottom: 5,
+    width: 30,
+    height: 30,
   },
   headerFOTO: {
     borderRadius: 999,
     marginBottom: 5,
-    width: Dimensions.get('window').width * 0.2,
-    height: Dimensions.get('window').width * 0.2,
+    width: WIDTH * 0.2,
+    height: WIDTH * 0.2,
   },
   headerTitle: {
     margin: 5,
@@ -140,8 +192,8 @@ export const styles = {
   },
   headerBanner: {
     margin: 0,
-    width: Dimensions.get('window').width,
-    minHeight: Dimensions.get('window').height * 0.15,
+    width: WIDTH,
+    minHeight: HEIGHT * 0.15,
   },
   headerButton: {
     margin: 10,
@@ -182,12 +234,6 @@ export const styles = {
     ...commonStyles.text,
     fontWeight: 'bold',
     color: commonStyles.colors.neutral,
-  },
-  inlineItems: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'space-around',
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

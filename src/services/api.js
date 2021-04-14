@@ -1,8 +1,8 @@
 import axios from 'axios';
+import CONFIG from '~/config/dashboard';
 
 const api = axios.create({
-  // baseURL: 'https://api.lmsalgados.com.br/',
-  baseURL: 'http://192.168.0.200/delivery.ideyou.com.br/webservices',
+  baseURL: CONFIG.PATHS.API,
 });
 
 export default api;

@@ -2,16 +2,17 @@ import React, {useState, useEffect} from 'react';
 import {Text} from 'react-native';
 import api from '~/services/api';
 
-import AppHeader from '~/components/AppHeader';
-import commonStyles from '~/assets/styles/commonStyles';
-import {AppContainer, AppBody, LineSeparator} from '~/components/styledComponents';
-
+import {
+  AppContainer,
+  AppBody,
+  LineSeparator,
+} from '~/components/styledComponents';
 import Button from '~/components/Button';
 import ItemList from '~/components/ItemList';
-import ArrowButton from '~/components/ArrowButton';
-
 import ItemPedido from '../components/ItemPedido';
 import TotalPedido from '../components/TotalPedido';
+import ArrowButton from '~/components/ArrowButton';
+import commonStyles from '~/assets/styles/commonStyles';
 
 export default function DetalhesPedido({route, navigation}) {
   const [pedido, setPedido] = useState(route.params.pedido);
@@ -35,7 +36,6 @@ export default function DetalhesPedido({route, navigation}) {
 
   return (
     <AppContainer>
-      <AppHeader title={'Pedido Nº ' + pedido.id} />
       <AppBody>
         <ItemList
           data={pedido.items}
@@ -73,8 +73,3 @@ export default function DetalhesPedido({route, navigation}) {
     </AppContainer>
   );
 }
-
-DetalhesPedido.navigationOptions = ({route, navigation}) => ({
-  title: 'Pedido Nº ' + route.params.pedido.id,
-  headerShown: false,
-});

@@ -2,17 +2,22 @@ import React, {useEffect} from 'react';
 import ItemList from '~/components/ItemList';
 import AppHeader from '~/components/AppHeader';
 import {useCardapio} from '~/contexts/cardapio';
-import ItemProduto from './components/ItemProduto';
+import ItemCategoria from './components/ItemCategoria';
 import {AppContainer, AppBody} from '~/components/styledComponents';
 
-export default function Produtos({route, navigation}) {
-  const {loading, cardapio, setCardapio, produtos, getProdutos} = useCardapio();
+export default function Cardapio({route, navigation}) {
+  const {
+    loading,
+    setCardapio,
+    getProdutos,
+    categorias,
+    getCategorias,
+  } = useCardapio();
 
   useEffect(() => {
     navigation.setOptions({
       header: () => (
         <AppHeader
-          type="banner"
           route={route}
           initialRoute="Cardápio"
           navigation={navigation}
@@ -23,26 +28,23 @@ export default function Produtos({route, navigation}) {
 
   return (
     <AppContainer>
-      <AppBody hasGayHeader={cardapio.categoria?.banner}>
+      <AppBody>
         <ItemList
-          data={produtos}
+          data={categorias}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <ItemProduto
-              listing
+            <ItemCategoria
               onPress={() => {
-                setCardapio({
-                  categoria: cardapio.categoria,
-                  produto: item,
-                  adicionais: false,
-                });
-                navigation.navigate('Carrinho', {screen: 'Editar Item'});
+                getProdutos(item);
+                navigation.navigate('Produtos');
               }}
               {...item}
             />
           )}
-          refreshing={loading}
-          onRefresh={getProdutos}
+          numColumns={2}
+          refresh={loading}
+          onRefresh={getCategorias}
+          ItemSeparatorComponent={null}
         />
       </AppBody>
     </AppContainer>

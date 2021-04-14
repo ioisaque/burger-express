@@ -8,15 +8,19 @@ import commonStyles from '~/assets/styles/commonStyles';
 import {AppContainer, FakeStatusBar} from '~/components/styledComponents';
 
 const App = () => {
-  const {signed} = useAuth();
+  const {signed, signOut} = useAuth();
   return (
     <>
       <FakeStatusBar
         color={signed ? commonStyles.colors.gold : commonStyles.colors.white}
       />
       <AppContainer
-        color={signed ? commonStyles.colors.gold : commonStyles.colors.white}>
-        <StatusBar translucent animated="fade" style="dark" />
+        color={signed ? commonStyles.colors.white : commonStyles.colors.white}>
+        <StatusBar
+          translucent
+          animated="fade"
+          style={signed ? 'dark' : 'dark'}
+        />
         <Routes />
       </AppContainer>
     </>

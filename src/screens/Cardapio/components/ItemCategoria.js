@@ -8,15 +8,14 @@ import commonStyles from '~/assets/styles/commonStyles';
 
 export default props => {
   return (
-    <TouchableOpacity onPress={props.onPress} style={styles.categoryWrapper}>
-      <View style={styles.categoryInlineItems}>
-        <Text style={styles.categoryTitle}>{props.nome}</Text>
-        <Icon
-          size={30}
-          color={props.color ? props.color : commonStyles.colors.black}
-          name={props.icon}
-        />
-      </View>
+    <TouchableOpacity style={styles.categoryBox} onPress={props.onPress}>
+      <Icon
+        size={55}
+        name={props.icon}
+        color={props.color ? props.color : commonStyles.colors.neutral}
+      />
+      <Text style={styles.categoryTitle}>{props.nome}</Text>
+      <Text style={styles.categorySubTitle}>{props.icon}</Text>
     </TouchableOpacity>
   );
 };

@@ -1,43 +1,46 @@
 import React from 'react';
+import {useCardapio} from '~/contexts/cardapio';
 import {View, TouchableOpacity, Text, Image} from 'react-native';
 
 import styles from '../styles';
-import commonStyles from '~/assets/styles/commonStyles';
-import {LineSeparator} from '~/components/styledComponents';
+import CONFIG from '~/config/dashboard';
 
 export default props => {
+  const {cardapio} = useCardapio();
+
   return props.listing ? (
-    <TouchableOpacity onPress={props.onPress} style={styles.itemWrapper}>
+    <TouchableOpacity onPress={props.onPress} style={styles.listItemWrapper}>
       <Image
         resizeMode="cover"
-        style={styles.itemSideFoto}
+        style={styles.listItemPhoto}
         source={{
           uri:
-            commonStyles.baseDIR +
-            (props.foto ? props.foto : props.categoria.foto),
+            CONFIG.PATHS.IMG +
+            (props.foto ? props.foto : cardapio.categoria.foto),
         }}
       />
-      <View style={styles.itemContent}>
-        <Text style={styles.itemTitle}>{props.descricao}</Text>
-        <Text style={styles.itemDescrip}>
+      <View style={styles.listItemContent}>
+        <Text style={styles.listItemTitle}>{props.descricao}</Text>
+        <Text style={styles.listItemDescrip}>
           {props.observacoes && capOnlyFirstLetter(props.observacoes)}
         </Text>
-        <Text style={styles.itemPrice}>{floatToReais(props.valor_venda)}</Text>
+        <Text style={styles.listItemPrice}>
+          {floatToReais(props.valor_venda)}
+        </Text>
       </View>
     </TouchableOpacity>
   ) : (
-    <>
-      <View style={styles.itemWrapper}>
-        <Text style={styles.itemTitle}>{props.descricao.substring(0, 27)}</Text>
-        <Text style={styles.itemPrice}>{floatToReais(props.valor_venda)}</Text>
-      </View>
+    <View style={styles.singleItemWrapper}>
+      <Text style={styles.singleItemPrice}>
+        {floatToReais(props.valor_venda)}
+      </Text>
+
       {props.observacoes && (
-        <Text style={styles.itemDescrip}>
+        <Text style={styles.singleItemDescrip}>
           {capOnlyFirstLetter(props.observacoes)}
         </Text>
       )}
-      <LineSeparator />
-    </>
+    </View>
   );
 };
 

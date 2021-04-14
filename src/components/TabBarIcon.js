@@ -8,9 +8,15 @@ export default props => {
   return (
     <Icon
       size={30}
-      name={props.icon}
+      name={props.focused ? props.iconOn : props.iconOff}
       color={
-        props.focused ? commonStyles.colors.white : commonStyles.colors.black
+        props.focused
+          ? props.colorOn
+            ? props.colorOn
+            : commonStyles.colors.red
+          : props.colorOff
+          ? props.colorOff
+          : commonStyles.colors.neutral
       }
     />
   );

@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {Platform, View} from 'react-native';
-
 import api from '~/services/api';
 
-import commonStyles from '~/assets/styles/commonStyles';
-import {AppContainer, AppBody, LineSeparator} from '~/components/styledComponents';
-import AppHeader from '~/components/AppHeader';
+import {
+  AppContainer,
+  AppBody,
+  LineSeparator,
+} from '~/components/styledComponents';
 import ItemList from '~/components/ItemList';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import ItemEndereco from './components/ItemEndereco';
+import commonStyles from '~/assets/styles/commonStyles';
 
 export default function Perfil({route, navigation}) {
   const [cliente, setCliente] = useState(false);
@@ -33,7 +35,6 @@ export default function Perfil({route, navigation}) {
       setCelular(cliente.celular);
 
       setCliente(cliente);
-      console.log('CLIENTE ==> ', cliente);
     } catch (error) {
       console.log('Error on Perfil/index.js ==> ', error);
     } finally {
@@ -66,11 +67,6 @@ export default function Perfil({route, navigation}) {
 
   return (
     <AppContainer>
-      <AppHeader
-        loading={loading}
-        title={cliente.nome}
-        foto={commonStyles.imgs.user}
-      />
       <AppBody>
         <ItemList
           ListHeaderComponent={
@@ -138,8 +134,3 @@ export default function Perfil({route, navigation}) {
     </AppContainer>
   );
 }
-
-Perfil.navigationOptions = {
-  title: 'Perfil',
-  headerShown: false,
-};

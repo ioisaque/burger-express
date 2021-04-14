@@ -1,131 +1,94 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import React, {useEffect, useState} from 'react';
-import {View, Image} from 'react-native';
-import api from '~/services/api';
+import React, {useState} from 'react';
+import {Image} from 'react-native';
 
 import styles from './styles';
+import CONFIG from '~/config/dashboard';
+import {useCardapio} from '~/contexts/cardapio';
 import commonStyles from '~/assets/styles/commonStyles';
 
-import {AppContainer, AppBody} from '~/components/styledComponents';
-import ItemList from '~/components/ItemList';
-
+import {AppContainer, styles as styled} from '~/components/styledComponents';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
-
+import ItemList from '~/components/ItemList';
+import EmptyList from '~/components/EmptyList';
 import TotalItem from './components/TotalItem';
 import ItemPedido from '../components/ItemPedido';
 import ItemProduto from '~/screens/Cardapio/components/ItemProduto';
 
 export default function EditarProduto({route, navigation}) {
-  const [adicionais, setAdicionais] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function loadItems() {
-    try {
-      const {data} = await api.get(
-        `/produtos/?id_categoria=${route.params.produto.id_categoria}`,
-      );
-
-      setAdicionais(data.data);
-    } catch (error) {
-      console.log('Error on Cardapio/Produtos.js ==> ', error);
-      console.log(
-        'URL Request ==> ',
-        `${api.defaults.baseURL}/produtos/?id_categoria=${
-          route.params.produto.id_categoria
-        }`,
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
+  const {loading, cardapio, getProdutos} = useCardapio();
+  const [adicionais, setAdicionais] = useState(cardapio.adicionais);
 
   function updateItemQtd(item, value) {
-    setLoading(!loading);
     let items = adicionais;
     let index = items.indexOf(item);
 
     items[index].qtd = value >= 0 ? value : 0;
 
-    setAdicionais(items);
-    setLoading(!loading);
+    setAdicionais(adicionais);
   }
 
   return (
     <AppContainer>
-      <KeyboardAwareScrollView
-        enableOnAndroid
-        enableAutomaticScroll
-        showsVerticalScrollIndicator={false}>
-        <Image
-          resizeMode="cover"
-          style={styles.itemFoto}
-          source={{
-            uri:
-              commonStyles.baseDIR +
-              (route.params.produto.foto
-                ? route.params.produto.foto
-                : route.params.categoria.foto),
-          }}
-        />
-        <AppBody>
-          <ItemList
-            ListHeaderComponent={
-              <ItemProduto
-                {...route.params.produto}
-                categoria={route.params.categoria}
-              />
-            }
-            data={adicionais}
-            extraData={loading}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => {
-              item.qtd = item.qtd ? item.qtd : 0;
+      <Image
+        resizeMode="cover"
+        style={styles.itemFoto}
+        source={{
+          uri:
+            CONFIG.PATHS.IMG +
+            (cardapio.produto.foto
+              ? cardapio.produto.foto
+              : cardapio.categoria.foto),
+        }}
+      />
+      <ItemList
+        ListHeaderComponent={
+          <ItemProduto {...cardapio.produto} categoria={cardapio.categoria} />
+        }
+        data={adicionais}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          item.qtd = item.qtd ? item.qtd : 0;
+          return (
+            <ItemPedido
+              {...item}
+              categoria={cardapio.categoria}
+              plus={() => updateItemQtd(item, item.qtd + 1)}
+              minus={() => updateItemQtd(item, item.qtd - 1)}
+            />
+          );
+        }}
+        refreshing={loading}
+        onRefresh={getProdutos}
+        style={{
+          ...styled.overlapingView,
+          backgroundColor: commonStyles.colors.white,
+        }}
+        ListEmptyComponent={<EmptyList type={'ADICIONAIS'} />}
+        ListFooterComponent={
+          <KeyboardAwareScrollView
+            enableOnAndroid
+            enableAutomaticScroll
+            showsVerticalScrollIndicator={false}>
+            <Input
+              icon="chat-alert"
+              style={{marginTop: 10}}
+              placeholder="Ex: Tirar salada, maionese a parte, etc."
+            />
 
-              return (
-                <ItemPedido
-                  {...item}
-                  categoria={route.params.categoria}
-                  plus={() => updateItemQtd(item, item.qtd + 1)}
-                  minus={() => updateItemQtd(item, item.qtd - 1)}
-                />
-              );
-            }}
-            onRefresh={loadItems}
-            refreshing={loading}
-            emptyIcon={!loading && route.params.categoria.icon}
-            emptyMessage={!loading && 'Nenhum adicional disponível...'}
-            ListFooterComponent={
-              <View>
-                <Input
-                  icon="chat-alert"
-                  style={{marginTop: 10}}
-                  placeholder="Ex: Tirar salada, maionese a parte, etc."
-                />
+            <TotalItem produto={cardapio.produto} adicionais={adicionais} />
 
-                <TotalItem
-                  produto={route.params.produto}
-                  adicionais={adicionais}
-                />
-
-                <Button onSubmitEditing={null} color={commonStyles.colors.red}>
-                  ADICIONAR AO CARRINHO
-                </Button>
-              </View>
-            }
-          />
-        </AppBody>
-      </KeyboardAwareScrollView>
+            <Button
+              onPress={() =>
+                navigation.navigate('Carrinho', {screen: 'Carrinho'})
+              }
+              color={commonStyles.colors.red}>
+              ADICIONAR AO CARRINHO
+            </Button>
+          </KeyboardAwareScrollView>
+        }
+      />
     </AppContainer>
   );
 }
-
-EditarProduto.navigationOptions = {
-  title: 'Editar Produto',
-  headerShown: false,
-};

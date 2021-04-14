@@ -1,15 +1,12 @@
 import React, {useRef, useState} from 'react';
+import {Platform} from 'react-native';
 import {useAuth} from '~/contexts/auth';
 import api from '~/services/api';
 
-import commonStyles from '~/assets/styles/commonStyles';
-
-import {AppContainer, AppBody} from '~/components/styledComponents';
-import AppHeader from '~/components/AppHeader';
-
 import Input from '~/components/Input';
 import Button from '~/components/Button';
-import {Platform} from 'react-native';
+import commonStyles from '~/assets/styles/commonStyles';
+import {AppContainer, AppBody} from '~/components/styledComponents';
 
 export default function EditarEndereco({route, navigation}) {
   const {signOut} = useAuth();
@@ -62,7 +59,6 @@ export default function EditarEndereco({route, navigation}) {
 
   return (
     <AppContainer>
-      <AppHeader loading={loading} title={'Editar Endereço'} />
       <AppBody>
         <Input
           value={cep}
@@ -142,8 +138,3 @@ export default function EditarEndereco({route, navigation}) {
     </AppContainer>
   );
 }
-
-EditarEndereco.navigationOptions = {
-  title: 'Editar Endereço',
-  headerShown: false,
-};

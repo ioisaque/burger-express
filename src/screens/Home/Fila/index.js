@@ -2,12 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useAuth} from '~/contexts/auth';
 import api from '~/services/api';
 
-import {AppContainer, ImageBgWrap} from '~/components/styledComponents';
-import AppHeader from '~/components/AppHeader';
 import ItemList from '~/components/ItemList';
-import CartButton from '~/components/CartButton';
-
 import ItemFila from './components/ItemFila';
+import {AppContainer, ImageBgWrap} from '~/components/styledComponents';
 
 function Fila({route, navigation}) {
   const {usuario} = useAuth();
@@ -34,22 +31,6 @@ function Fila({route, navigation}) {
 
   return (
     <AppContainer>
-      {carrinho.length ? (
-        <AppHeader
-          loading={loading && true}
-          component={
-            <CartButton
-              count={carrinho.items.length}
-              onPress={() => {
-                navigation.navigate('Carrinho', {pedido: carrinho});
-              }}
-            />
-          }
-          title="Pedidos na fila"
-        />
-      ) : (
-        <AppHeader loading={loading && true} title="Pedidos na fila" />
-      )}
       <ImageBgWrap>
         <ItemList
           data={pedidos}
@@ -70,10 +51,5 @@ function Fila({route, navigation}) {
     </AppContainer>
   );
 }
-
-Fila.navigationOptions = ({route, navigation}) => ({
-  title: 'Pedidos na Fila',
-  headerShown: false,
-});
 
 export default Fila;
