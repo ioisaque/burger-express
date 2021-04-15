@@ -177,11 +177,10 @@ export const styles = {
     width: 30,
     height: 30,
   },
-  headerFOTO: {
-    borderRadius: 999,
-    marginBottom: 5,
-    width: WIDTH * 0.2,
-    height: WIDTH * 0.2,
+  headerBanner: {
+    margin: 0,
+    width: WIDTH,
+    minHeight: HEIGHT * 0.15,
   },
   headerTitle: {
     margin: 5,
@@ -190,50 +189,32 @@ export const styles = {
     textAlign: 'center',
     color: commonStyles.colors.black,
   },
-  headerBanner: {
-    margin: 0,
-    width: WIDTH,
-    minHeight: HEIGHT * 0.15,
+
+  profilePhoto: {
+    width: 75,
+    height: 75,
+    marginRight: 15,
+    borderRadius: 999,
   },
-  headerButton: {
-    margin: 10,
+  profileName: {
+    fontSize: 22,
+    fontWeight: '600',
+    textAlign: 'left',
+    color: commonStyles.colors.breadcrumb,
+  },
+  profileInfoWrap: {
     padding: 5,
-    height: 30,
-    width: 'auto',
-    flexDirection: 'row',
-  },
-  backText: {
-    marginLeft: 5,
-    fontSize: 15,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-  },
-  bodyContainer: {
-    paddingVertical: 25,
     paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'flex-start',
   },
-
   //////////////
-
-  inputTextWrapper: {
-    marginBottom: 10,
-  },
 
   xIcon: {
     width: 25,
     height: 25,
-  },
-
-  boldText: {
-    ...commonStyles.text,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
-  silentText: {
-    ...commonStyles.text,
-    fontWeight: 'bold',
-    color: commonStyles.colors.neutral,
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

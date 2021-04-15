@@ -1,28 +1,18 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import ItemList from '~/components/ItemList';
-import AppHeader from '~/components/AppHeader';
-import {useCardapio} from '~/contexts/cardapio';
+import LoadingView from '~/components/LoadingView';
+import ItemBanner from './components/ItemBanner';
 import ItemProduto from './components/ItemProduto';
+import {useCardapio} from '~/contexts/cardapio';
 import {AppContainer, AppBody} from '~/components/styledComponents';
 
-export default function Produtos({route, navigation}) {
+export default function Produtos({navigation}) {
   const {loading, cardapio, setCardapio, produtos, getProdutos} = useCardapio();
-
-  useEffect(() => {
-    navigation.setOptions({
-      header: () => (
-        <AppHeader
-          type="banner"
-          route={route}
-          initialRoute="Cardápio"
-          navigation={navigation}
-        />
-      ),
-    });
-  }, [route, navigation]);
-
-  return (
+  return loading ? (
+    <LoadingView />
+  ) : (
     <AppContainer>
+      <ItemBanner item={cardapio.categoria} />
       <AppBody hasGayHeader={cardapio.categoria?.banner}>
         <ItemList
           data={produtos}
@@ -30,6 +20,7 @@ export default function Produtos({route, navigation}) {
           renderItem={({item}) => (
             <ItemProduto
               listing
+              {...item}
               onPress={() => {
                 setCardapio({
                   categoria: cardapio.categoria,
@@ -38,11 +29,12 @@ export default function Produtos({route, navigation}) {
                 });
                 navigation.navigate('Carrinho', {screen: 'Editar Item'});
               }}
-              {...item}
             />
           )}
           refreshing={loading}
           onRefresh={getProdutos}
+          emptyIcon="food"
+          emptyMessage="Nenhum produto nesta categoria ainda. :("
         />
       </AppBody>
     </AppContainer>

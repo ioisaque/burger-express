@@ -11,7 +11,6 @@ import {AppContainer, styles as styled} from '~/components/styledComponents';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import ItemList from '~/components/ItemList';
-import EmptyList from '~/components/EmptyList';
 import TotalItem from './components/TotalItem';
 import ItemPedido from '../components/ItemPedido';
 import ItemProduto from '~/screens/Cardapio/components/ItemProduto';
@@ -65,7 +64,8 @@ export default function EditarProduto({route, navigation}) {
           ...styled.overlapingView,
           backgroundColor: commonStyles.colors.white,
         }}
-        ListEmptyComponent={<EmptyList type={'ADICIONAIS'} />}
+        emptyIcon="database-settings"
+        emptyMessage="Nenhum adicional para este produto. :("
         ListFooterComponent={
           <KeyboardAwareScrollView
             enableOnAndroid

@@ -1,26 +1,29 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {styles} from '~/components/styledComponents';
 import commonStyles from '~/assets/styles/commonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function EmptyList({type}) {
-  if (type === 'ADICIONAIS')
-    return (
-      <View
-        style={{
-          paddingVertical: 5,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-          backgroundColor: commonStyles.colors.white,
-        }}>
+export default function EmptyList({icon, message}) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        paddingVertical: 25,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        backgroundColor: commonStyles.colors.white,
+      }}>
+      {icon && (
         <Icon
-          name="database-settings"
-          size={20}
+          size={45}
           color={commonStyles.colors.neutral}
+          name={icon ? icon : 'database-settings'}
         />
-        <Text style={commonStyles.text}>Nenhum adicional disponível...</Text>
-      </View>
-    );
+      )}
+      <Text style={{marginTop: 25, ...commonStyles.text}}>
+        {message ? message : 'Nenhum item encontrado...'}
+      </Text>
+    </View>
+  );
 }

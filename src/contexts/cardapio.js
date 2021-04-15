@@ -12,7 +12,7 @@ const CardapioProvider = ({children}) => {
   });
 
   const [produtos, setProdutos] = useState([]);
-  const [categorias, setCategorias] = useState([]);
+  const [categorias, setCategorias] = useState(false);
 
   useEffect(() => {
     getCategorias();
@@ -38,6 +38,11 @@ const CardapioProvider = ({children}) => {
   async function getProdutos(categoria = cardapio.categoria) {
     try {
       setLoading(true);
+      setCardapio({
+        categoria: categoria,
+        produto: cardapio.produto,
+        adicionais: [],
+      });
       const {data} = await api.get(`/produtos/?id_categoria=${categoria.id}`);
 
       console.log(`getProdutos ( ${data.code} ) ==> `, categoria.nome);
@@ -58,11 +63,11 @@ const CardapioProvider = ({children}) => {
           adicionais: adicionais,
         });
       } else {
-        setProdutos(false);
+        setProdutos([]);
         setCardapio({
-          categoria: cardapio.categoria,
+          categoria: categoria,
           produto: cardapio.produto,
-          adicionais: false,
+          adicionais: [],
         });
       }
     } catch (error) {
@@ -82,6 +87,7 @@ const CardapioProvider = ({children}) => {
         getCategorias,
         produtos,
         getProdutos,
+        setProdutos,
         loading,
       }}>
       {children}

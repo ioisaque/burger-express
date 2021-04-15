@@ -14,7 +14,7 @@ export default props => {
                 <View style={styles.itemWrapper}>
                     <Text style={styles.itemTitle}>{`${(props.logradouro).substr(0, 20)}, ${props.numero}`}</Text>
 
-                    <Image source={commonStyles.imgs.x} style={styles.tinyIcon} />
+                    <Image source={commonStyles.imgs.adaptiveIcon} style={styles.tinyIcon} />
                 </View>
                 <LineSeparator />
             </TouchableOpacity>

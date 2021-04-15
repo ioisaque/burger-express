@@ -47,7 +47,7 @@ export default function SignIn({route, navigation}) {
       <Image
         resizeMode="contain"
         style={styles.loginLogo}
-        source={commonStyles.imgs.full}
+        source={commonStyles.imgs.appLogo}
       />
 
       <AppBody>

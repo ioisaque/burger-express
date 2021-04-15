@@ -23,7 +23,7 @@ export default function ArrowButton({
       <ArrowButtonContainer {...rest}>
         <Image
           style={styles.xIcon}
-          source={commonStyles.imgs.x}
+          source={commonStyles.imgs.adaptiveIcon}
           resizeMode="contain"
         />
         <ArrowButtonText>{children}</ArrowButtonText>

@@ -37,14 +37,17 @@ export default {
     facebook: '#29487d',
   },
   imgs: {
+    appLogo: require('~/assets/imgs/app-logo.png'),
+    goldIcon: require('~/assets/imgs/gold-icon.png'),
+    adaptiveIcon: require('~/assets/imgs/adaptive-icon.png'),
+
+    user: require('~/assets/imgs/user_placeholder.png'),
+    isaac: {uri: 'https://isaquecosta.com.br/profile.jpg'},
+    ross: {uri: 'https://isaquecosta.com.br/ross.jpg'},
+
     paidStamp: require('~/assets/imgs/paidStamp.png'),
     changeStamp: require('~/assets/imgs/changeStamp.png'),
 
-    x: require('~/assets/imgs/logo_x.png'),
-    full: require('~/assets/imgs/logo_full.png'),
-    burger: require('~/assets/imgs/logo_burger.png'),
-
-    user: require('~/assets/imgs/user_placeholder.png'),
     background: require('~/assets/imgs/background.png'),
     copyrightDark: require('~/assets/imgs/copyright_dark.png'),
   },

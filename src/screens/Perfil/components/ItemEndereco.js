@@ -16,7 +16,7 @@ export default props => {
             props.numero
           }`}</Text>
 
-          <Image source={commonStyles.imgs.x} style={styles.xIcon} />
+          <Image source={commonStyles.imgs.adaptiveIcon} style={styles.xIcon} />
         </View>
         <LineSeparator />
       </TouchableOpacity>

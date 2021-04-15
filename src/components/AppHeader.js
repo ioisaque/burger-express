@@ -1,43 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useAuth} from '~/contexts/auth';
 import {useCardapio} from '~/contexts/cardapio';
 import {View, Image, TouchableOpacity, Text} from 'react-native';
 
-import CONFIG from '~/config/dashboard';
 import {styles} from './styledComponents';
+import {awesomeAlertStyles} from '~/assets/styles/layoutStyles';
 import commonStyles from '~/assets/styles/commonStyles';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default ({type = false, route, initialRoute, navigation}) => {
-  const {signOut} = useAuth();
+export default ({route, initialRoute, navigation}) => {
   const {cardapio} = useCardapio();
+  const {usuario, signOut} = useAuth();
+  const [alert, showAlert] = useState();
 
-  if (type === 'banner' && cardapio.categoria?.banner) {
+  if (route.name === 'Perfil') {
     return (
-      <View style={styles.gayHeader}>
-        <TouchableOpacity
-          style={styles.inlineItems}
-          onPress={navigation.goBack}>
-          <Icon
-            size={30}
-            name="arrow-left-bold-circle-outline"
-            color={commonStyles.colors.black}
-          />
-          <Text style={styles.headerTitle}>{cardapio.categoria.nome}</Text>
-          <Image
-            resizeMode="cover"
-            style={styles.headerLOGO}
-            source={commonStyles.imgs.x}
-          />
-        </TouchableOpacity>
-        <Image
-          resizeMode="cover"
-          style={styles.headerBanner}
-          source={{uri: CONFIG.PATHS.IMG + cardapio.categoria.banner}}
+      <>
+        <View style={styles.straightHeader}>
+          <View style={styles.inlineItems}>
+            <View style={styles.profileInfoWrap}>
+              <Image
+                resizeMode="cover"
+                style={styles.profilePhoto}
+                source={commonStyles.imgs.isaac}
+              />
+              <Text style={styles.profileName}>{usuario.nome}</Text>
+            </View>
+            <Icon
+              size={25}
+              name="logout"
+              onPress={() => showAlert(true)}
+              style={{padding: 10}}
+              color={commonStyles.colors.breadcrumb}
+            />
+          </View>
+        </View>
+        <AwesomeAlert
+          show={alert}
+          title="Sair do App"
+          message="Tem certeza que deseja sair?"
+          cancelText="Não"
+          confirmText="Sim"
+          showProgress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          onConfirmPressed={signOut}
+          onDismiss={() => showAlert(false)}
+          onCancelPressed={() => showAlert(false)}
+          confirmButtonColor={commonStyles.colors.red}
+          {...awesomeAlertStyles}
         />
-      </View>
+      </>
     );
-  } else if (type === 'banner' && cardapio.categoria?.icon) {
+  } else if (route.name === 'Produtos') {
     return (
       <View style={styles.straightHeader}>
         <TouchableOpacity
@@ -49,11 +67,19 @@ export default ({type = false, route, initialRoute, navigation}) => {
             color={commonStyles.colors.black}
           />
           <Text style={styles.headerTitle}>{cardapio.categoria.nome}</Text>
-          <Icon
-            size={30}
-            name={cardapio.categoria.icon}
-            color={commonStyles.colors.black}
-          />
+          {cardapio.categoria?.icon ? (
+            <Icon
+              size={30}
+              name={cardapio.categoria.icon}
+              color={commonStyles.colors.black}
+            />
+          ) : (
+            <Image
+              resizeMode="cover"
+              style={styles.headerLOGO}
+              source={commonStyles.imgs.adaptiveIcon}
+            />
+          )}
         </TouchableOpacity>
       </View>
     );
@@ -65,7 +91,7 @@ export default ({type = false, route, initialRoute, navigation}) => {
           <Image
             resizeMode="cover"
             style={styles.headerLOGO}
-            source={commonStyles.imgs.x}
+            source={commonStyles.imgs.adaptiveIcon}
           />
         </View>
       </View>
@@ -85,7 +111,7 @@ export default ({type = false, route, initialRoute, navigation}) => {
           <Image
             resizeMode="cover"
             style={styles.headerLOGO}
-            source={commonStyles.imgs.x}
+            source={commonStyles.imgs.adaptiveIcon}
           />
         </TouchableOpacity>
       </View>

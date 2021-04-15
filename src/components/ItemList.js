@@ -6,6 +6,7 @@ import {LineSeparator} from '~/components/styledComponents';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {styles} from './styledComponents';
+import EmptyList from '~/components/EmptyList';
 import commonStyles from '~/assets/styles/commonStyles';
 
 export default function ItemList({
@@ -25,23 +26,6 @@ export default function ItemList({
       style={{flex: 1}}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
-      ListEmptyComponent={
-        <View style={styles.inlineItems}>
-          {emptyIcon && (
-            <Icon
-              name={emptyIcon}
-              size={20}
-              color={commonStyles.colors.neutral}
-            />
-          )}
-          {emptyMessage !== 'none' && (
-            <Text style={styles.silentText}>
-              {emptyMessage && !isRefreshing ? emptyMessage : 'Carregando...'}
-            </Text>
-          )}
-        </View>
-      }
-      ItemSeparatorComponent={LineSeparator}
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}
@@ -56,7 +40,9 @@ export default function ItemList({
           progressBackgroundColor={commonStyles.colors.white}
         />
       }
+      ItemSeparatorComponent={LineSeparator}
       showsVerticalScrollIndicator={false}
+      ListEmptyComponent={<EmptyList icon={emptyIcon} message={emptyMessage} />}
       {...rest}
     />
   );
