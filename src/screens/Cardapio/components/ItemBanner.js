@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View} from 'react-native';
+import Image from '~/components/Image';
 import CONFIG from '~/config/dashboard';
 import {styles} from '~/components/styledComponents';
 

@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {useAuth} from '~/contexts/auth';
 import {useCliente} from '~/contexts/cliente';
 import {useCardapio} from '~/contexts/cardapio';
-import {View, Image, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
 
+import Image from '~/components/Image';
 import {styles} from './styledComponents';
 import {capEveryFirstLetter} from '~/services/auxf';
 import AwesomeAlert from 'react-native-awesome-alerts';

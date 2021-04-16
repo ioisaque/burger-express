@@ -1,8 +1,9 @@
 import React from 'react';
 import {useCardapio} from '~/contexts/cardapio';
-import {View, TouchableOpacity, Text, Image} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
 
 import styles from '../styles';
+import Image from '~/components/Image';
 import CONFIG from '~/config/dashboard';
 
 export default props => {

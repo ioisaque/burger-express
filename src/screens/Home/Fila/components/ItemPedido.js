@@ -1,6 +1,7 @@
 import React from 'react';
+import Image from '~/components/Image';
 import {useCardapio} from '~/contexts/cardapio';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 
 import styles from '../styles';
 import CONFIG from '~/config/dashboard';

@@ -1,6 +1,6 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import React, {useState} from 'react';
-import {Image} from 'react-native';
+import Image from '~/components/Image';
 
 import styles from './styles';
 import CONFIG from '~/config/dashboard';
