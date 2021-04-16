@@ -39,8 +39,8 @@ export const AppBody = styled.View`
 export const AppBodyOver = styled.View`
   flex: 1;
   margin-top: -40px;
-  padding: 50px 15px 0;
-  box-shadow: 0px -10px 10px #00000060;
+  padding: 15px 15px 0;
+  box-shadow: 0px -10px 10px #00000030;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: ${props =>

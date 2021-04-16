@@ -7,7 +7,11 @@ import CONFIG from '~/config/dashboard';
 import {useCardapio} from '~/contexts/cardapio';
 import commonStyles from '~/assets/styles/commonStyles';
 
-import {AppContainer, styles as styled} from '~/components/styledComponents';
+import {
+  AppContainer,
+  AppBodyOver,
+  styles as styled,
+} from '~/components/styledComponents';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import ItemList from '~/components/ItemList';
@@ -41,54 +45,56 @@ export default function EditarProduto({route, navigation}) {
               : cardapio.categoria.foto),
         }}
       />
-      <ItemList
-        Header={
-          <ItemProduto {...cardapio.produto} categoria={cardapio.categoria} />
-        }
-        data={adicionais}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => {
-          item.qtd = item.qtd ? item.qtd : 0;
-          return (
-            <ItemPedido
-              {...item}
-              categoria={cardapio.categoria}
-              plus={() => updateItemQtd(item, item.qtd + 1)}
-              minus={() => updateItemQtd(item, item.qtd - 1)}
-            />
-          );
-        }}
-        refreshing={loading}
-        onRefresh={getProdutos}
-        style={{
-          ...styled.overlapingView,
-          backgroundColor: commonStyles.colors.white,
-        }}
-        emptyIcon={false}
-        emptyMessage=" "
-        Footer={
-          <KeyboardAwareScrollView
-            enableOnAndroid
-            enableAutomaticScroll
-            showsVerticalScrollIndicator={false}>
-            <Input
-              icon="chat-alert"
-              style={{marginTop: 10}}
-              placeholder="Ex: Tirar salada, maionese a parte, etc."
-            />
+      <AppBodyOver>
+        <ItemList
+          Header={
+            <ItemProduto {...cardapio.produto} categoria={cardapio.categoria} />
+          }
+          data={adicionais}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => {
+            item.qtd = item.qtd ? item.qtd : 0;
+            return (
+              <ItemPedido
+                {...item}
+                categoria={cardapio.categoria}
+                plus={() => updateItemQtd(item, item.qtd + 1)}
+                minus={() => updateItemQtd(item, item.qtd - 1)}
+              />
+            );
+          }}
+          refreshing={loading}
+          onRefresh={getProdutos}
+          style={{
+            ...styled.overlapingView,
+            backgroundColor: commonStyles.colors.white,
+          }}
+          emptyIcon={false}
+          emptyMessage=" "
+          Footer={
+            <KeyboardAwareScrollView
+              enableOnAndroid
+              enableAutomaticScroll
+              showsVerticalScrollIndicator={false}>
+              <Input
+                icon="chat-alert"
+                style={{marginTop: 10}}
+                placeholder="Ex: Tirar salada, maionese a parte, etc."
+              />
 
-            <TotalItem produto={cardapio.produto} adicionais={adicionais} />
+              <TotalItem produto={cardapio.produto} adicionais={adicionais} />
 
-            <Button
-              onPress={() =>
-                navigation.navigate('Carrinho', {screen: 'Carrinho'})
-              }
-              color={commonStyles.colors.red}>
-              ADICIONAR AO CARRINHO
-            </Button>
-          </KeyboardAwareScrollView>
-        }
-      />
+              <Button
+                onPress={() =>
+                  navigation.navigate('Carrinho', {screen: 'Carrinho'})
+                }
+                color={commonStyles.colors.red}>
+                ADICIONAR AO CARRINHO
+              </Button>
+            </KeyboardAwareScrollView>
+          }
+        />
+      </AppBodyOver>
     </AppContainer>
   );
 }
