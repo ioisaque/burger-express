@@ -7,6 +7,7 @@ export default function NiceImage({...props}) {
   return (
     <Image
       {...props}
+      imageStyle={props.style}
       indicator={ActivityIndicator}
       indicatorProps={{size: 'small', color: commonStyles.colors.neutral}}
     />

@@ -39,6 +39,21 @@ export default function SignIn({route, navigation}) {
     }
   }
 
+  async function fakeLogin() {
+    setLoading(true);
+    try {
+      const {data} = await api.get('/clientes/?id=1');
+
+      data.code === 200 ? signIn(data.data) : Alert.alert('Ops...', data.data);
+
+      console.log('FakeLogin/SignIn.js ==> ', data);
+    } catch (error) {
+      console.log('Error on Login/SignIn.js ==> ', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <KeyboardAwareScrollView
       bounces={false}
@@ -84,16 +99,12 @@ export default function SignIn({route, navigation}) {
           <Icon name="login" size={25} color={commonStyles.colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.googleLoginButton}
-          onPress={() => navigation.navigate('App')}>
+        <TouchableOpacity style={styles.googleLoginButton} onPress={fakeLogin}>
           <Icon name="google" size={25} color={commonStyles.colors.white} />
           <Text style={styles.loginButtonText}>Entrar com o Google</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.fbLoginButton}
-          onPress={() => navigation.navigate('App')}>
+        <TouchableOpacity style={styles.fbLoginButton} onPress={fakeLogin}>
           <Icon name="facebook" size={25} color={commonStyles.colors.white} />
           <Text style={styles.loginButtonText}>Entrar com o Facebook</Text>
         </TouchableOpacity>
