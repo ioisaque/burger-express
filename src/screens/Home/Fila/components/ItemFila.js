@@ -6,6 +6,7 @@ import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from '../styles';
+import {leftPad} from '~/services/auxf';
 import commonStyles from '~/assets/styles/commonStyles';
 
 export default props => {
@@ -17,23 +18,19 @@ export default props => {
   }, [props.data_hora]);
 
   return (
-    <TouchableOpacity onPress={props.onPress} style={styles.FilaWrapper}>
-      <View style={styles.FilaContent}>
-        <View style={styles.FilaHeader}>
-          <Icon
-            size={30}
-            color={commonStyles.colors[props.status.color]}
-            name={props.status.icon.replace('mdi-', '')}
-          />
-          <Text style={styles.FilaTitle}>Pedido Nº {leftPad(props.id, 5)}</Text>
-        </View>
-        <Text style={styles.FilaData}>{dateParsed}</Text>
+    <TouchableOpacity onPress={props.onPress} style={styles.itemFilaWrapper}>
+      <Icon
+        size={30}
+        style={styles.itemFilaIcon}
+        name={props.status.icon.replace('mdi-', '')}
+        color={commonStyles.colors[props.status.color]}
+      />
+      <View style={styles.itemFilaContent}>
+        <Text style={styles.itemFilaTitle}>
+          Pedido Nº {leftPad(props.id, 5)}
+        </Text>
+        <Text style={styles.itemFilaSubTitle}>{dateParsed}</Text>
       </View>
     </TouchableOpacity>
   );
 };
-
-function leftPad(value, totalWidth, paddingChar) {
-  var length = totalWidth - value.toString().length + 1;
-  return Array(length).join(paddingChar || '0') + value;
-}

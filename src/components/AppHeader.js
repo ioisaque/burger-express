@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import {useAuth} from '~/contexts/auth';
+import {useCliente} from '~/contexts/cliente';
 import {useCardapio} from '~/contexts/cardapio';
 import {View, Image, TouchableOpacity, Text} from 'react-native';
 
 import {styles} from './styledComponents';
-import {awesomeAlertStyles} from '~/assets/styles/layoutStyles';
-import commonStyles from '~/assets/styles/commonStyles';
+import {capEveryFirstLetter} from '~/services/auxf';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import commonStyles from '~/assets/styles/commonStyles';
+import {awesomeAlertStyles} from '~/assets/styles/layoutStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default ({route, initialRoute, navigation}) => {
+export default ({route, initialRoute, navigation, extraComponent}) => {
+  const {signOut} = useAuth();
+  const {cliente} = useCliente();
   const {cardapio} = useCardapio();
-  const {usuario, signOut} = useAuth();
   const [alert, showAlert] = useState();
 
   if (route.name === 'Perfil') {
@@ -23,16 +26,20 @@ export default ({route, initialRoute, navigation}) => {
               <Image
                 resizeMode="cover"
                 style={styles.profilePhoto}
-                source={commonStyles.imgs.isaac}
+                source={
+                  cliente.foto ? {uri: cliente.foto} : commonStyles.imgs.isaac
+                }
               />
-              <Text style={styles.profileName}>{usuario.nome}</Text>
+              <Text style={styles.profileName}>
+                {capEveryFirstLetter(cliente.nome)}
+              </Text>
             </View>
             <Icon
               size={25}
               name="logout"
               onPress={() => showAlert(true)}
               style={{padding: 10}}
-              color={commonStyles.colors.breadcrumb}
+              color={commonStyles.colors.black}
             />
           </View>
         </View>
@@ -57,31 +64,34 @@ export default ({route, initialRoute, navigation}) => {
     );
   } else if (route.name === 'Produtos') {
     return (
-      <View style={styles.straightHeader}>
-        <TouchableOpacity
-          style={styles.inlineItems}
-          onPress={navigation.goBack}>
-          <Icon
-            size={30}
-            name="arrow-left-bold-circle-outline"
-            color={commonStyles.colors.black}
-          />
-          <Text style={styles.headerTitle}>{cardapio.categoria.nome}</Text>
-          {cardapio.categoria?.icon ? (
+      <>
+        <View style={styles.straightHeader}>
+          <TouchableOpacity
+            style={styles.inlineItems}
+            onPress={navigation.goBack}>
             <Icon
               size={30}
-              name={cardapio.categoria.icon}
+              name="arrow-left-drop-circle-outline"
               color={commonStyles.colors.black}
             />
-          ) : (
-            <Image
-              resizeMode="cover"
-              style={styles.headerLOGO}
-              source={commonStyles.imgs.adaptiveIcon}
-            />
-          )}
-        </TouchableOpacity>
-      </View>
+            <Text style={styles.headerTitle}>{cardapio.categoria.nome}</Text>
+            {cardapio.categoria?.icon ? (
+              <Icon
+                size={30}
+                name={cardapio.categoria.icon}
+                color={commonStyles.colors.black}
+              />
+            ) : (
+              <Image
+                resizeMode="cover"
+                style={styles.headerLOGO}
+                source={commonStyles.imgs.adaptiveIcon}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
+        {extraComponent}
+      </>
     );
   } else if (route.name === initialRoute) {
     return (
@@ -104,7 +114,7 @@ export default ({route, initialRoute, navigation}) => {
           onPress={navigation.goBack}>
           <Icon
             size={30}
-            name="arrow-down-drop-circle-outline"
+            name="arrow-left-drop-circle-outline"
             color={commonStyles.colors.black}
           />
           <Text style={styles.headerTitle}>{route.name}</Text>

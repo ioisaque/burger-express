@@ -1,18 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ItemList from '~/components/ItemList';
 import LoadingView from '~/components/LoadingView';
 import ItemBanner from './components/ItemBanner';
 import ItemProduto from './components/ItemProduto';
 import {useCardapio} from '~/contexts/cardapio';
+import AppHeader from '~/components/AppHeader';
 import {AppContainer, AppBody} from '~/components/styledComponents';
 
-export default function Produtos({navigation}) {
+export default function Produtos({route, navigation}) {
   const {loading, cardapio, setCardapio, produtos, getProdutos} = useCardapio();
+
+  useEffect(() => {
+    cardapio.categoria?.banner &&
+      navigation.setOptions({
+        header: () => (
+          <AppHeader
+            route={route}
+            initialRoute="Cardápio"
+            navigation={navigation}
+            extraComponent={<ItemBanner item={cardapio.categoria} />}
+          />
+        ),
+      });
+  }, [route, navigation, cardapio]);
+
   return loading ? (
     <LoadingView />
   ) : (
     <AppContainer>
-      <ItemBanner item={cardapio.categoria} />
       <AppBody hasGayHeader={cardapio.categoria?.banner}>
         <ItemList
           data={produtos}

@@ -42,7 +42,7 @@ export default function EditarProduto({route, navigation}) {
         }}
       />
       <ItemList
-        ListHeaderComponent={
+        Header={
           <ItemProduto {...cardapio.produto} categoria={cardapio.categoria} />
         }
         data={adicionais}
@@ -64,9 +64,9 @@ export default function EditarProduto({route, navigation}) {
           ...styled.overlapingView,
           backgroundColor: commonStyles.colors.white,
         }}
-        emptyIcon="database-settings"
-        emptyMessage="Nenhum adicional para este produto. :("
-        ListFooterComponent={
+        emptyIcon={false}
+        emptyMessage=" "
+        Footer={
           <KeyboardAwareScrollView
             enableOnAndroid
             enableAutomaticScroll

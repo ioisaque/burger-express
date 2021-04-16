@@ -1,4 +1,4 @@
-import {Dimensions, Platform} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 
 import styled from 'styled-components/native';
@@ -14,10 +14,10 @@ export const FakeStatusBar = styled.SafeAreaView`
 `;
 
 export const ImageBgWrap = styled.ImageBackground.attrs({
-  opacity: 0.18,
+  opacity: 0.1,
   resizeMode: 'contain',
   source: commonStyles.imgs.background,
-  backgroundColor: commonStyles.colors.lightGrey,
+  backgroundColor: commonStyles.colors.transparent,
 })`
   flex: 1;
   padding: 10px 15px;
@@ -26,7 +26,7 @@ export const ImageBgWrap = styled.ImageBackground.attrs({
 export const AppContainer = styled.SafeAreaView`
   flex: 1;
   background-color: ${props =>
-    props.color ? props.color : commonStyles.colors.transparent};
+    props.color ? props.color : commonStyles.colors.white};
 `;
 
 export const AppBody = styled.View`
@@ -107,10 +107,12 @@ export const ArrowButtonText = styled.Text`
 `;
 
 export const LineSeparator = styled.View`
-  height: 2px;
-  width: 100%;
-  margin-bottom: 5px;
-  background-color: ${commonStyles.colors.red};
+  height: 1px;
+  width: ${props => (props.half ? '30%' : '100%')};
+  margin: ${props => (props.half ? '2px 0' : '10px 0')};
+  align-self: center;
+  background-color: ${props =>
+    props.color ? props.color : commonStyles.colors.lightGrey};
 `;
 
 export const TotalOverLine = styled.View`
@@ -120,7 +122,7 @@ export const TotalOverLine = styled.View`
   background-color: ${commonStyles.colors.red};
 `;
 
-export const styles = {
+export const styles = StyleSheet.create({
   emptyView: {
     paddingVertical: 5,
     flexDirection: 'column',
@@ -178,9 +180,10 @@ export const styles = {
     height: 30,
   },
   headerBanner: {
-    margin: 0,
     width: WIDTH,
     minHeight: HEIGHT * 0.15,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
   headerTitle: {
     margin: 5,
@@ -200,7 +203,7 @@ export const styles = {
     fontSize: 22,
     fontWeight: '600',
     textAlign: 'left',
-    color: commonStyles.colors.breadcrumb,
+    color: commonStyles.colors.black,
   },
   profileInfoWrap: {
     padding: 5,
@@ -212,10 +215,22 @@ export const styles = {
   },
   //////////////
 
-  xIcon: {
-    width: 25,
-    height: 25,
+  linkItemWrapper: {
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'flex-start',
+  },
+  linkItemIcon: {
+    marginRight: 30,
+  },
+  linkItemTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: commonStyles.colors.neutral,
   },
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-};
+});

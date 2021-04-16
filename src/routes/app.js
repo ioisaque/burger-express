@@ -3,6 +3,7 @@ import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Perfil from '~/screens/Perfil/';
+import DadosPessoais from '~/screens/Perfil/DadosPessoais';
 import EditarEndereco from '~/screens/Perfil/EditarEndereco';
 
 import Fila from '~/screens/Home/Fila';
@@ -36,11 +37,8 @@ const PerfilStackSC = () => {
           />
         ),
       })}>
-      <PerfilStack.Screen
-        name="Perfil"
-        headerType="logout"
-        component={Perfil}
-      />
+      <PerfilStack.Screen name="Perfil" component={Perfil} />
+      <PerfilStack.Screen name="DadosPessoais" component={DadosPessoais} />
       <PerfilStack.Screen name="EditarEndereco" component={EditarEndereco} />
     </PerfilStack.Navigator>
   );

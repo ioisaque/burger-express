@@ -1,3 +1,8 @@
+export function leftPad(value, totalWidth, paddingChar) {
+  var length = totalWidth - value.toString().length + 1;
+  return Array(length).join(paddingChar || '0') + value;
+}
+
 export function capOnlyFirstLetter(string) {
   let newString = string.toLowerCase();
   newString = newString.charAt(0).toUpperCase() + newString.slice(1);

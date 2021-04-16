@@ -1,30 +1,40 @@
-import React, {useState, useEffect} from 'react';
-import {Text} from 'react-native';
+import React, {useState, useMemo} from 'react';
+import {View, Image, Text} from 'react-native';
 import api from '~/services/api';
 
 import {
   AppContainer,
   AppBody,
   LineSeparator,
+  styles as styled,
 } from '~/components/styledComponents';
+import {parseISO, formatRelative} from 'date-fns';
+import pt from 'date-fns/locale/pt';
+
+import styles from './styles';
 import Button from '~/components/Button';
 import ItemList from '~/components/ItemList';
-import ItemPedido from '../components/ItemPedido';
+import ItemPedido from './components/ItemPedido';
 import TotalPedido from '../components/TotalPedido';
-import ArrowButton from '~/components/ArrowButton';
+import LoadingView from '~/components/LoadingView';
+import ItemLink from '~/components/ItemLink';
 import commonStyles from '~/assets/styles/commonStyles';
 
 export default function DetalhesPedido({route, navigation}) {
+  const [loading, setLoading] = useState(false);
   const [pedido, setPedido] = useState(route.params.pedido);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loading && loadItems();
-  }, [loading]);
+  const dateParsed = useMemo(() => {
+    return formatRelative(parseISO(pedido.data_hora), new Date(), {
+      locale: pt,
+      addSuffix: true,
+    });
+  }, [pedido.data_hora]);
 
   async function loadItems() {
     try {
-      const {data} = await api.get(`/pedidos/?id=${route.params.pedido.id}`);
+      setLoading(true);
+      const {data} = await api.get(`/pedidos/?id=${pedido.id}`);
 
       setPedido(data.data);
     } catch (error) {
@@ -34,42 +44,65 @@ export default function DetalhesPedido({route, navigation}) {
     }
   }
 
-  return (
+  return loading ? (
+    <LoadingView />
+  ) : (
     <AppContainer>
-      <AppBody>
-        <ItemList
-          data={pedido.items}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => <ItemPedido {...item} />}
-          onRefresh={loadItems}
-          refreshing={loading}
-          emptyMessage="none"
-        />
-
-        <Text style={{marginVertical: 10}}>{pedido.observacoes}</Text>
-
-        <LineSeparator style={{marginTop: 30}} />
-
-        <ArrowButton icon={pedido.metodo.icon} iconColor={pedido.metodo.color}>
-          {pedido.metodo.nome}
-        </ArrowButton>
-
-        <LineSeparator />
-
-        <ArrowButton style={commonStyles.text} icon="logoX">
-          Entrega em Palmeiras, 39
-        </ArrowButton>
-
-        <TotalPedido pedido={pedido} />
-
-        {pedido.status === 1 && (
-          <Button
-            onSubmitEditing={() => console.log('Attemp to cancel order...')}
-            backgroundColor={commonStyles.colors.red}>
-            CANCELAR PEDIDO
-          </Button>
-        )}
-      </AppBody>
+      <ItemList
+        data={pedido.items}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <ItemPedido {...item} />}
+        emptyIcon={false}
+        emptyMessage={false}
+        refreshing={loading}
+        onRefresh={loadItems}
+        Header={
+          <>
+            <View style={{...styled.straightHeader, backgroundColor: '#FFF'}}>
+              <View style={styled.inlineItems}>
+                <View style={styled.profileInfoWrap}>
+                  <Image
+                    resizeMode="cover"
+                    style={styled.profilePhoto}
+                    source={{
+                      uri:
+                        'https://sistema.lmsalgados.com.br/assets/images/client-logo.png',
+                    }}
+                  />
+                  <Text style={styled.profileName}>LM Salgados </Text>
+                </View>
+              </View>
+            </View>
+            <View style={styled.inlineItems}>
+              <Text style={styles.orderDateTime}>
+                {'Realizado ' + dateParsed}
+              </Text>
+              <Text style={styles.orderMenuLink}>Ver Cardápio</Text>
+            </View>
+          </>
+        }
+        Footer={
+          <>
+            <Text style={styles.orderItemTitle}>Observações</Text>
+            <LineSeparator half />
+            <Text style={styles.orderObservations}>{pedido.observacoes}</Text>
+            <ItemLink
+              icon={pedido.metodo.icon}
+              iconColor={pedido.metodo.color}
+              title={pedido.metodo.nome}
+            />
+            <ItemLink icon="home" title="Entregar em Palmeiras, 39" />
+            <TotalPedido pedido={pedido} />
+            {pedido.status === 1 && (
+              <Button
+                onSubmitEditing={() => console.log('Attemp to cancel order...')}
+                backgroundColor={commonStyles.colors.red}>
+                CANCELAR PEDIDO
+              </Button>
+            )}
+          </>
+        }
+      />
     </AppContainer>
   );
 }

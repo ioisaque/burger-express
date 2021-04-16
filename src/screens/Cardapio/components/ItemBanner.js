@@ -4,7 +4,7 @@ import CONFIG from '~/config/dashboard';
 import {styles} from '~/components/styledComponents';
 
 export default function ItemBanner({item}) {
-  return item?.banner ? (
+  return (
     <View style={styles.gayHeader}>
       <Image
         resizeMode="cover"
@@ -12,7 +12,5 @@ export default function ItemBanner({item}) {
         source={{uri: CONFIG.PATHS.IMG + item.banner}}
       />
     </View>
-  ) : (
-    <></>
   );
 }

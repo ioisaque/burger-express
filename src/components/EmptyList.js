@@ -8,7 +8,7 @@ export default function EmptyList({icon, message}) {
     <View
       style={{
         flex: 1,
-        paddingVertical: 25,
+        paddingVertical: 5,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -21,7 +21,7 @@ export default function EmptyList({icon, message}) {
           name={icon ? icon : 'database-settings'}
         />
       )}
-      <Text style={{marginTop: 25, ...commonStyles.text}}>
+      <Text style={{marginTop: icon ? 25 : 0, ...commonStyles.text}}>
         {message ? message : 'Nenhum item encontrado...'}
       </Text>
     </View>

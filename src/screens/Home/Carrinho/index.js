@@ -47,7 +47,7 @@ export default function Carrinho({route, navigation}) {
               minus={() => updateItemQtd(item, item.qtd - 1)}
             />
           )}
-          ListFooterComponent={
+          Footer={
             <View>
               <Input
                 icon="chat-alert"

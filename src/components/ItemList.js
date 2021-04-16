@@ -1,31 +1,26 @@
 import React from 'react';
-import {View, FlatList, Dimensions, RefreshControl, Text} from 'react-native';
+import {FlatList, Dimensions, RefreshControl} from 'react-native';
 
-import PropTypes from 'prop-types';
-import {LineSeparator} from '~/components/styledComponents';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import {styles} from './styledComponents';
 import EmptyList from '~/components/EmptyList';
 import commonStyles from '~/assets/styles/commonStyles';
+import {LineSeparator} from '~/components/styledComponents';
 
 export default function ItemList({
-  data,
-  keyExtractor,
-  renderItem,
+  Header,
+  Separator,
+  Footer,
+
   onRefresh,
   isRefreshing,
 
   emptyIcon,
   emptyMessage,
-  ...rest
+  ...props
 }) {
   return (
     <FlatList
-      data={data}
-      style={{flex: 1}}
-      keyExtractor={keyExtractor}
-      renderItem={renderItem}
+      {...props}
+      style={{flex: 1, marginBottom: 5}}
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}
@@ -40,27 +35,11 @@ export default function ItemList({
           progressBackgroundColor={commonStyles.colors.white}
         />
       }
-      ItemSeparatorComponent={LineSeparator}
+      ListHeaderComponent={Header ? Header : null}
+      ListFooterComponent={Footer ? Footer : null}
+      ItemSeparatorComponent={Separator ? Separator : LineSeparator}
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={<EmptyList icon={emptyIcon} message={emptyMessage} />}
-      {...rest}
     />
   );
 }
-
-ItemList.propTypes = {
-  data: PropTypes.any,
-  keyExtractor: PropTypes.any,
-  renderItem: PropTypes.any,
-  onRefresh: PropTypes.func,
-  isRefreshing: PropTypes.bool,
-
-  emptyIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  emptyMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-};
-
-ItemList.defaultProps = {
-  emptyIcon: false,
-  emptyMessage: false,
-  isRefreshing: false,
-};
