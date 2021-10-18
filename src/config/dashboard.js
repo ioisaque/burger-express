@@ -1,4 +1,4 @@
-const DIR = 'https://delivery.ideyou.com.br';
+const DIR = 'http://192.168.0.200/rochasdelivery.com.br/sistema/';
 // const DIR = 'https://sistema.rochasdelivery.com.br';
 
 export default {

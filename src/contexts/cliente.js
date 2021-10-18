@@ -17,7 +17,9 @@ const ClienteProvider = ({children}) => {
   async function getCliente() {
     try {
       setLoading(true);
-      const {data} = await api.get('/clientes/?id=1');
+      const {data} = await api.post('/clientes/', {
+        id: 1,
+      });
 
       console.log(`getCliente ( ${data.code} ) ==> `, data.data.nome);
 
@@ -33,7 +35,9 @@ const ClienteProvider = ({children}) => {
   async function getHistorico() {
     try {
       setLoading(true);
-      const {data} = await api.get(`/pedidos/?id_cliente=${cliente.id}`);
+      const {data} = await api.post('/pedidos/', {
+        id_cliente: cliente.id,
+      });
 
       console.log(`getHistorico ( ${data.code} ) ==> `, data.data.length);
 

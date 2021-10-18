@@ -31,7 +31,7 @@ const CartProvider = ({children}) => {
     if (storagedUser) {
       try {
         const storage = JSON.parse(storagedUser);
-        const {data} = await api.post('/produtoss/', {
+        const {data} = await api.post('/produtos/', {
           produtos: storage.produtos,
           senha: 'kraken22', //storage.senha,
         });

@@ -5,7 +5,6 @@ import api from '~/services/api';
 
 import {
   AppContainer,
-  AppBody,
   LineSeparator,
   styles as styled,
 } from '~/components/styledComponents';
@@ -84,9 +83,15 @@ export default function DetalhesPedido({route, navigation}) {
         }
         Footer={
           <>
-            <Text style={styles.orderItemTitle}>Observações</Text>
-            <LineSeparator half />
-            <Text style={styles.orderObservations}>{pedido.observacoes}</Text>
+            {pedido.observacoes !== '' && (
+              <>
+                <Text style={styles.orderItemTitle}>Observações</Text>
+                <LineSeparator half />
+                <Text style={styles.orderObservations}>
+                  {pedido.observacoes}
+                </Text>
+              </>
+            )}
             <ItemLink
               icon={pedido.metodo.icon}
               iconColor={pedido.metodo.color}

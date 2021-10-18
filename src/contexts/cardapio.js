@@ -23,7 +23,9 @@ const CardapioProvider = ({children}) => {
   async function getCategorias() {
     try {
       setLoading(true);
-      const {data} = await api.get('/produtos/?categorias=1');
+      const {data} = await api.post('/produtos/', {
+        listar: 'categorias',
+      });
 
       console.log(`getCategorias ( ${data.code} ) ==> `, data.data.length);
 
@@ -43,7 +45,10 @@ const CardapioProvider = ({children}) => {
         produto: cardapio.produto,
         adicionais: [],
       });
-      const {data} = await api.get(`/produtos/?id_categoria=${categoria.id}`);
+      const {data} = await api.post('/produtos/', {
+        listar: 'categoria',
+        id_categoria: categoria.id,
+      });
 
       console.log(`getProdutos ( ${data.code} ) ==> `, categoria.nome);
 
@@ -52,7 +57,6 @@ const CardapioProvider = ({children}) => {
         let adicionais = [];
 
         data.data.map(item => {
-          item.observacoes = item.ingredientes;
           item.is_adicional > 0 ? adicionais.push(item) : produtos.push(item);
         });
 

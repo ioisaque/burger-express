@@ -25,16 +25,12 @@ export default props => {
         <Text style={styles.listItemDescrip}>
           {props.observacoes && capOnlyFirstLetter(props.observacoes)}
         </Text>
-        <Text style={styles.listItemPrice}>
-          {floatToReais(props.valor_venda)}
-        </Text>
+        <Text style={styles.listItemPrice}>{floatToReais(props.a_partir)}</Text>
       </View>
     </TouchableOpacity>
   ) : (
     <View style={styles.singleItemWrapper}>
-      <Text style={styles.singleItemPrice}>
-        {floatToReais(props.valor_venda)}
-      </Text>
+      <Text style={styles.singleItemPrice}>{floatToReais(props.a_partir)}</Text>
 
       {props.observacoes && (
         <Text style={styles.singleItemDescrip}>

@@ -40,9 +40,9 @@ export default function Cardapio({route, navigation}) {
             />
           )}
           numColumns={2}
+          Separator={() => null}
           refresh={loading}
           onRefresh={getCategorias}
-          Separator={null}
         />
       </AppBody>
     </AppContainer>

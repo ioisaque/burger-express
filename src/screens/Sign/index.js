@@ -1,8 +1,7 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Text, Alert, TouchableOpacity} from 'react-native';
+import {Text, Alert, Image, TouchableOpacity} from 'react-native';
 import {AppBody} from '~/components/styledComponents';
 import React, {useState} from 'react';
-import Image from '~/components/Image';
 import {useAuth} from '~/contexts/auth';
 
 import api from '~/services/api';
