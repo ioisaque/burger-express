@@ -8,7 +8,9 @@ import AppHeader from '~/components/AppHeader';
 import {AppContainer, AppBody} from '~/components/styledComponents';
 
 export default function Produtos({route, navigation}) {
-  const {loading, cardapio, setCardapio, produtos, getProdutos} = useCardapio();
+  const {loading, cardapio, getProdutos} = useCardapio();
+
+  console.log(`${cardapio.categoria.nome} => `, cardapio.categoria.id);
 
   useEffect(() => {
     cardapio.categoria?.banner &&
@@ -30,7 +32,9 @@ export default function Produtos({route, navigation}) {
     <AppContainer>
       <AppBody hasGayHeader={cardapio.categoria?.banner}>
         <ItemList
-          data={produtos}
+          data={cardapio.data.find(
+            i => i.id == cardapio.categoria.id,
+          ).produtos}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ItemProduto
@@ -38,9 +42,9 @@ export default function Produtos({route, navigation}) {
               {...item}
               onPress={() => {
                 setCardapio({
-                  categoria: cardapio.categoria,
+                  ...cardapio,
                   produto: item,
-                  adicionais: false,
+                  categoria: cardapio.categoria,
                 });
                 navigation.navigate('Carrinho', {screen: 'Editar Item'});
               }}

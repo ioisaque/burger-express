@@ -30,7 +30,7 @@ export default function SignIn({route, navigation}) {
         ? signIn(data.usuario)
         : Alert.alert('Ops...', data.dialog.toString());
 
-      console.log('Login/SignIn.js ==> ', data);
+      console.log('Login/SignIn.js ==> ', data.nome);
     } catch (error) {
       console.log('Error on Login/SignIn.js ==> ', error);
     } finally {
@@ -41,13 +41,15 @@ export default function SignIn({route, navigation}) {
   async function fakeLogin() {
     setLoading(true);
     try {
-      const {data} = await api.get('/clientes/?id=1');
+      const {data} = await api.post('/clientes/', {
+        id: 1,
+      });
 
       data.code === 200 ? signIn(data.data) : Alert.alert('Ops...', data.data);
 
-      console.log('FakeLogin/SignIn.js ==> ', data);
+      console.log('FakeLogin/SignIn.js ==> ', data.nome);
     } catch (error) {
-      console.log('Error on Login/SignIn.js ==> ', error);
+      console.log('Error on FakeLogin/SignIn.js ==> ', error);
     } finally {
       setLoading(false);
     }

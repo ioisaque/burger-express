@@ -7,7 +7,7 @@ import ItemCategoria from './components/ItemCategoria';
 import {AppContainer, AppBody} from '~/components/styledComponents';
 
 export default function Cardapio({route, navigation}) {
-  const {loading, getProdutos, categorias, getCategorias} = useCardapio();
+  const {loading, cardapio, getCardapio, setCardapio} = useCardapio();
 
   useEffect(() => {
     navigation.setOptions({
@@ -27,22 +27,22 @@ export default function Cardapio({route, navigation}) {
     <AppContainer>
       <AppBody>
         <ItemList
-          data={categorias}
+          data={cardapio.data}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ItemCategoria
               // showPhoto
+              {...item}
               onPress={() => {
-                getProdutos(item);
+                setCardapio({...cardapio, categoria: item});
                 navigation.navigate('Produtos');
               }}
-              {...item}
             />
           )}
           numColumns={2}
           Separator={() => null}
           refresh={loading}
-          onRefresh={getCategorias}
+          onRefresh={getCardapio}
         />
       </AppBody>
     </AppContainer>
